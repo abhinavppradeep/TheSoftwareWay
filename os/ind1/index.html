@@ -1,0 +1,3034 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="CS Fundamentals & Systems — curated notes and mini-blogs">
+      
+      
+        <meta name="author" content="Abhinav P Pradeep">
+      
+      
+        <link rel="canonical" href="https://abhinavppradeep.github.io/thesoftwareway/os/ind1/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../ind2/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+    
+    
+      
+        <title>CPU Scheduling and Process Synchronization - The Software Way</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/styles/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cpu-scheduling-and-process-synchronization" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="The Software Way" class="md-header__button md-logo" aria-label="The Software Way" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            The Software Way
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              CPU Scheduling and Process Synchronization
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/abhinavppradeep/TheSoftwareWay" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../oops/oops/" class="md-tabs__link">
+          
+  
+  
+  OOPS
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../dbms/" class="md-tabs__link">
+          
+  
+  
+  DBMS
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+  OS
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="The Software Way" class="md-nav__button md-logo" aria-label="The Software Way" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    The Software Way
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/abhinavppradeep/TheSoftwareWay" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    OOPS
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            OOPS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../oops/oops/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    DBMS
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            DBMS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dbms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Database Fundamentals
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dbms/norm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Normalization in DBMS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dbms/join/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Joins in DBMS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dbms/trans/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Transactions and Schedules in DBMS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    OS
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            OS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Operating System Concepts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    CPU Scheduling and Process Synchronization
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    CPU Scheduling and Process Synchronization
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction-to-cpu-scheduling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction to CPU Scheduling
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classification-of-scheduling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Classification of Scheduling
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Classification of Scheduling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#based-on-preemption" class="md-nav__link">
+    <span class="md-ellipsis">
+      Based on Preemption
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-terms-in-scheduling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Terms in Scheduling
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#non-preemptive-scheduling-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Non-Preemptive Scheduling Algorithms
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Non-Preemptive Scheduling Algorithms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#first-come-first-serve-fcfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      First Come First Serve (FCFS)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shortest-job-first-sjf" class="md-nav__link">
+    <span class="md-ellipsis">
+      Shortest Job First (SJF)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#priority-scheduling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Priority Scheduling
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#longest-job-first-ljf" class="md-nav__link">
+    <span class="md-ellipsis">
+      Longest Job First (LJF)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#highest-response-ratio-next-hrrn" class="md-nav__link">
+    <span class="md-ellipsis">
+      Highest Response Ratio Next (HRRN)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preemptive-scheduling-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preemptive Scheduling Algorithms
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Preemptive Scheduling Algorithms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#round-robin-rr" class="md-nav__link">
+    <span class="md-ellipsis">
+      Round Robin (RR)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shortest-remaining-time-first-srtf" class="md-nav__link">
+    <span class="md-ellipsis">
+      Shortest Remaining Time First (SRTF)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preemptive-priority-scheduling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preemptive Priority Scheduling
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#longest-remaining-time-first-lrtf" class="md-nav__link">
+    <span class="md-ellipsis">
+      Longest Remaining Time First (LRTF)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-facts-about-scheduling-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Useful Facts About Scheduling Algorithms
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-solving-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem-Solving Checklist
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#process-synchronization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Process Synchronization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Process Synchronization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#serial-vs-parallel-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Serial vs Parallel Execution
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#types-of-processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types of Processes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Types of Processes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#independent-processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Independent Processes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cooperative-processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cooperative Processes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-is-synchronization-needed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why is Synchronization Needed?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#critical-section-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Critical Section Problem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#race-condition-illustrated" class="md-nav__link">
+    <span class="md-ellipsis">
+      Race Condition – Illustrated
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution-synchronization-techniques" class="md-nav__link">
+    <span class="md-ellipsis">
+      Solution: Synchronization Techniques
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#critical-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      Critical Section
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Critical Section">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-critical-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Critical Section?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-division" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code Division
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-critical-sections-need-care" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Critical Sections Need Care?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution-synchronization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Solution: Synchronization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conditions-for-a-good-synchronization-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conditions for a Good Synchronization Solution
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conditions for a Good Synchronization Solution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mutual-exclusion-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mutual Exclusion (Example)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#progress-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Progress (Example)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bounded-waiting-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bounded Waiting (Example)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#no-assumptions-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      No Assumptions (Example)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-life-analogy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Real-Life Analogy
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#semaphore" class="md-nav__link">
+    <span class="md-ellipsis">
+      Semaphore
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Semaphore">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-semaphore" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Semaphore?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#types-of-semaphores" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types of Semaphores
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structure-process-synchronization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Structure: Process Synchronization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#semaphore-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Semaphore Operations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Semaphore Operations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-p-down-wait-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      How P() (Down / Wait) Works
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-v-up-signal-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      How V() (Up / Signal) Works
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-example-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete Example Flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gate-style-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      GATE-style Questions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#binary-semaphore" class="md-nav__link">
+    <span class="md-ellipsis">
+      Binary Semaphore
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Binary Semaphore">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-binary-semaphore" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Binary Semaphore?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#binary-vs-counting-semaphore" class="md-nav__link">
+    <span class="md-ellipsis">
+      Binary vs Counting Semaphore
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operations-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operations Used
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Operations Used">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-down-works-binary" class="md-nav__link">
+    <span class="md-ellipsis">
+      How Down() Works (Binary)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-up-works-binary" class="md-nav__link">
+    <span class="md-ellipsis">
+      How Up() Works (Binary)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Execution
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important-observations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Important Observations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary Cheat Sheet
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mutex" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mutex
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mutex">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-mutex" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Mutex?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Properties
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mutex-working-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mutex Working Example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mutex-vs-binary-semaphore" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mutex vs Binary Semaphore
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use-mutex" class="md-nav__link">
+    <span class="md-ellipsis">
+      When to Use Mutex?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ind2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deadlock and Banker's Algorithm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction-to-cpu-scheduling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction to CPU Scheduling
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classification-of-scheduling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Classification of Scheduling
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Classification of Scheduling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#based-on-preemption" class="md-nav__link">
+    <span class="md-ellipsis">
+      Based on Preemption
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-terms-in-scheduling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Terms in Scheduling
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#non-preemptive-scheduling-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Non-Preemptive Scheduling Algorithms
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Non-Preemptive Scheduling Algorithms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#first-come-first-serve-fcfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      First Come First Serve (FCFS)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shortest-job-first-sjf" class="md-nav__link">
+    <span class="md-ellipsis">
+      Shortest Job First (SJF)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#priority-scheduling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Priority Scheduling
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#longest-job-first-ljf" class="md-nav__link">
+    <span class="md-ellipsis">
+      Longest Job First (LJF)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#highest-response-ratio-next-hrrn" class="md-nav__link">
+    <span class="md-ellipsis">
+      Highest Response Ratio Next (HRRN)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preemptive-scheduling-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preemptive Scheduling Algorithms
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Preemptive Scheduling Algorithms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#round-robin-rr" class="md-nav__link">
+    <span class="md-ellipsis">
+      Round Robin (RR)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shortest-remaining-time-first-srtf" class="md-nav__link">
+    <span class="md-ellipsis">
+      Shortest Remaining Time First (SRTF)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preemptive-priority-scheduling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preemptive Priority Scheduling
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#longest-remaining-time-first-lrtf" class="md-nav__link">
+    <span class="md-ellipsis">
+      Longest Remaining Time First (LRTF)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-facts-about-scheduling-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Useful Facts About Scheduling Algorithms
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-solving-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem-Solving Checklist
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#process-synchronization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Process Synchronization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Process Synchronization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#serial-vs-parallel-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Serial vs Parallel Execution
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#types-of-processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types of Processes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Types of Processes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#independent-processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Independent Processes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cooperative-processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cooperative Processes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-is-synchronization-needed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why is Synchronization Needed?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#critical-section-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Critical Section Problem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#race-condition-illustrated" class="md-nav__link">
+    <span class="md-ellipsis">
+      Race Condition – Illustrated
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution-synchronization-techniques" class="md-nav__link">
+    <span class="md-ellipsis">
+      Solution: Synchronization Techniques
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#critical-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      Critical Section
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Critical Section">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-critical-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Critical Section?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-division" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code Division
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-critical-sections-need-care" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Critical Sections Need Care?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution-synchronization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Solution: Synchronization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conditions-for-a-good-synchronization-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conditions for a Good Synchronization Solution
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conditions for a Good Synchronization Solution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mutual-exclusion-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mutual Exclusion (Example)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#progress-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Progress (Example)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bounded-waiting-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bounded Waiting (Example)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#no-assumptions-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      No Assumptions (Example)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-life-analogy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Real-Life Analogy
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#semaphore" class="md-nav__link">
+    <span class="md-ellipsis">
+      Semaphore
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Semaphore">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-semaphore" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Semaphore?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#types-of-semaphores" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types of Semaphores
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structure-process-synchronization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Structure: Process Synchronization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#semaphore-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Semaphore Operations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Semaphore Operations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-p-down-wait-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      How P() (Down / Wait) Works
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-v-up-signal-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      How V() (Up / Signal) Works
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-example-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete Example Flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gate-style-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      GATE-style Questions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaways
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#binary-semaphore" class="md-nav__link">
+    <span class="md-ellipsis">
+      Binary Semaphore
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Binary Semaphore">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-binary-semaphore" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Binary Semaphore?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#binary-vs-counting-semaphore" class="md-nav__link">
+    <span class="md-ellipsis">
+      Binary vs Counting Semaphore
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operations-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operations Used
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Operations Used">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-down-works-binary" class="md-nav__link">
+    <span class="md-ellipsis">
+      How Down() Works (Binary)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-up-works-binary" class="md-nav__link">
+    <span class="md-ellipsis">
+      How Up() Works (Binary)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Execution
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important-observations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Important Observations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-cheat-sheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary Cheat Sheet
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mutex" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mutex
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mutex">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-mutex" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Mutex?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Properties
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mutex-working-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mutex Working Example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mutex-vs-binary-semaphore" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mutex vs Binary Semaphore
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use-mutex" class="md-nav__link">
+    <span class="md-ellipsis">
+      When to Use Mutex?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/abhinavppradeep/TheSoftwareWay/edit/main/docs/os/ind1.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="cpu-scheduling-and-process-synchronization">CPU Scheduling and Process Synchronization<a class="headerlink" href="#cpu-scheduling-and-process-synchronization" title="Permanent link">&para;</a></h1>
+<p><strong>Author:</strong> Abhinav P Pradeep </p>
+<h2 id="introduction-to-cpu-scheduling">Introduction to CPU Scheduling<a class="headerlink" href="#introduction-to-cpu-scheduling" title="Permanent link">&para;</a></h2>
+<p>CPU Scheduling is the process by which the Operating System (OS) selects a process from the ready queue and allocates the CPU to it.</p>
+<ul>
+<li>In uniprocessor systems, only one process can execute at a time.</li>
+<li>Other processes remain in the ready queue (in RAM).</li>
+<li>Scheduling improves:</li>
+<li>CPU utilization</li>
+<li>Throughput</li>
+<li>Turnaround time</li>
+<li>Waiting time</li>
+<li>Response time</li>
+</ul>
+<h2 id="classification-of-scheduling">Classification of Scheduling<a class="headerlink" href="#classification-of-scheduling" title="Permanent link">&para;</a></h2>
+<h3 id="based-on-preemption">Based on Preemption<a class="headerlink" href="#based-on-preemption" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Non-Preemptive</td>
+<td>Once a process starts execution, it runs to completion. No interruption.</td>
+</tr>
+<tr>
+<td>Preemptive</td>
+<td>A running process can be interrupted and put back in the ready queue.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="key-terms-in-scheduling">Key Terms in Scheduling<a class="headerlink" href="#key-terms-in-scheduling" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Description</th>
+<th>Formula</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Arrival Time (AT)</td>
+<td>Time when process enters ready queue</td>
+<td>–</td>
+</tr>
+<tr>
+<td>Burst Time (BT)</td>
+<td>CPU time required by process</td>
+<td>–</td>
+</tr>
+<tr>
+<td>Completion Time (CT)</td>
+<td>Time when process finishes execution</td>
+<td>–</td>
+</tr>
+<tr>
+<td>Turnaround Time (TAT)</td>
+<td>CT - AT</td>
+<td>TAT = CT - AT</td>
+</tr>
+<tr>
+<td>Waiting Time (WT)</td>
+<td>TAT - BT</td>
+<td>WT = TAT - BT</td>
+</tr>
+<tr>
+<td>Response Time (RT)</td>
+<td>First CPU allocation - AT</td>
+<td>RT = First Start - AT</td>
+</tr>
+</tbody>
+</table>
+<h2 id="non-preemptive-scheduling-algorithms">Non-Preemptive Scheduling Algorithms<a class="headerlink" href="#non-preemptive-scheduling-algorithms" title="Permanent link">&para;</a></h2>
+<h3 id="first-come-first-serve-fcfs">First Come First Serve (FCFS)<a class="headerlink" href="#first-come-first-serve-fcfs" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Strategy</strong>: Process with earliest arrival gets CPU first.</li>
+<li><strong>Type</strong>: Non-preemptive</li>
+<li><strong>Example</strong>: Queue at a ticket counter</li>
+</ul>
+<p><strong>Pros</strong>:
+- Simple to implement
+- Fair (in order of arrival)</p>
+<p><strong>Cons</strong>:
+- Convoy Effect: Short processes stuck behind long ones
+- Not optimal for average Waiting Time (WT)/Turnaround Time (TAT)</p>
+<h3 id="shortest-job-first-sjf">Shortest Job First (SJF)<a class="headerlink" href="#shortest-job-first-sjf" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Strategy</strong>: Process with shortest burst time executed first</li>
+<li><strong>Type</strong>: Non-preemptive</li>
+<li><strong>Optimal</strong>: Gives lowest average waiting time</li>
+<li><strong>Problem</strong>: Requires knowledge of burst time in advance</li>
+</ul>
+<p><strong>Example</strong>:
+| P1: 8ms | P2: 4ms | P3: 2ms |
+Execute P3 → P2 → P1</p>
+<p><strong>Pros</strong>:
+- Optimal WT and TAT</p>
+<p><strong>Cons</strong>:
+- Hard to predict burst time
+- Starvation of long processes</p>
+<h3 id="priority-scheduling">Priority Scheduling<a class="headerlink" href="#priority-scheduling" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Each process assigned a priority</li>
+<li>Lower number = higher priority</li>
+<li>Non-preemptive version: Once a process starts, it runs fully</li>
+<li><strong>Problem</strong>: Starvation of lower priority processes</li>
+<li><strong>Solution</strong>: Aging – Gradually increase priority of waiting processes</li>
+</ul>
+<h3 id="longest-job-first-ljf">Longest Job First (LJF)<a class="headerlink" href="#longest-job-first-ljf" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Reverse of SJF: Process with longest burst time gets CPU</li>
+<li>Non-preemptive</li>
+<li>Rarely used due to unfairness to short processes</li>
+</ul>
+<h3 id="highest-response-ratio-next-hrrn">Highest Response Ratio Next (HRRN)<a class="headerlink" href="#highest-response-ratio-next-hrrn" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Formula</strong>:
+  <div class="highlight"><pre><span></span><code>Response Ratio = (Waiting Time + Burst Time) / Burst Time
+               = 1 + (WT / BT)
+</code></pre></div></li>
+<li>The process with the highest ratio gets CPU</li>
+<li>Solves starvation in SJF</li>
+</ul>
+<h2 id="preemptive-scheduling-algorithms">Preemptive Scheduling Algorithms<a class="headerlink" href="#preemptive-scheduling-algorithms" title="Permanent link">&para;</a></h2>
+<h3 id="round-robin-rr">Round Robin (RR)<a class="headerlink" href="#round-robin-rr" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Time-sharing system</li>
+<li>Each process gets CPU for fixed time quantum (q)</li>
+<li>After time expires → moved to back of queue</li>
+</ul>
+<p><strong>Example</strong>:
+10 processes, each gets 2s → fairness improves</p>
+<p><strong>Pros</strong>:
+- Good responsiveness
+- Fair to all</p>
+<p><strong>Cons</strong>:
+- Context switching overhead
+- Poor for long processes</p>
+<h3 id="shortest-remaining-time-first-srtf">Shortest Remaining Time First (SRTF)<a class="headerlink" href="#shortest-remaining-time-first-srtf" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Preemptive version of SJF</li>
+<li>At any time, schedule the process with least remaining burst time</li>
+</ul>
+<p><strong>Example</strong>:
+If P1 (BT=8ms) is running, and P2 (BT=2ms) arrives → preempt P1 and run P2.</p>
+<p><strong>Pros</strong>:
+- Lowest average waiting time</p>
+<p><strong>Cons</strong>:
+- Starvation
+- Requires future burst time knowledge</p>
+<h3 id="preemptive-priority-scheduling">Preemptive Priority Scheduling<a class="headerlink" href="#preemptive-priority-scheduling" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Interrupts current process if a higher-priority process arrives</li>
+<li><strong>Cons</strong>:</li>
+<li>Starvation</li>
+<li>Use Aging to resolve</li>
+</ul>
+<h3 id="longest-remaining-time-first-lrtf">Longest Remaining Time First (LRTF)<a class="headerlink" href="#longest-remaining-time-first-lrtf" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Reverse of SRTF</li>
+<li>Schedule the process with the maximum remaining time</li>
+<li>Rare in real systems</li>
+</ul>
+<h3 id="useful-facts-about-scheduling-algorithms">Useful Facts About Scheduling Algorithms<a class="headerlink" href="#useful-facts-about-scheduling-algorithms" title="Permanent link">&para;</a></h3>
+<ol>
+<li>FCFS can cause long waiting times, especially when the first job takes too much CPU time.</li>
+<li>Both SJF and Shortest Remaining Time First algorithms may cause starvation, especially when shorter processes keep arriving.</li>
+<li>If the time quantum for Round Robin scheduling is very large, it behaves the same as FCFS scheduling.</li>
+<li>SJF is optimal in terms of average waiting time for a given set of processes, but the challenge is predicting the burst time of the next job.</li>
+</ol>
+<h2 id="problem-solving-checklist">Problem-Solving Checklist<a class="headerlink" href="#problem-solving-checklist" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Draw Gantt Chart</li>
+<li>Track Arrival and Completion Time</li>
+<li>Apply formulas:</li>
+<li>TAT = CT - AT</li>
+<li>WT = TAT - BT</li>
+<li>RT = First Start - AT</li>
+<li>Average the values if needed</li>
+</ol>
+<h2 id="process-synchronization">Process Synchronization<a class="headerlink" href="#process-synchronization" title="Permanent link">&para;</a></h2>
+<p>Process Synchronization is the technique to ensure that multiple processes can execute concurrently without interfering with each other or leading to inconsistent data.</p>
+<ul>
+<li>Needed in multiprogramming/parallel systems.</li>
+<li>Ensures data consistency, deadlock avoidance, and process coordination.</li>
+</ul>
+<h3 id="serial-vs-parallel-execution">Serial vs Parallel Execution<a class="headerlink" href="#serial-vs-parallel-execution" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Execution Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Serial</td>
+<td>One process runs at a time. No overlap.</td>
+<td>ATM: One user at a time</td>
+</tr>
+<tr>
+<td>Parallel</td>
+<td>Multiple processes may execute simultaneously.</td>
+<td>Online banking, IRCTC</td>
+</tr>
+</tbody>
+</table>
+<h3 id="types-of-processes">Types of Processes<a class="headerlink" href="#types-of-processes" title="Permanent link">&para;</a></h3>
+<h4 id="independent-processes">Independent Processes<a class="headerlink" href="#independent-processes" title="Permanent link">&para;</a></h4>
+<ul>
+<li>No shared data/code/resource</li>
+<li>No effect on each other</li>
+<li>Example: SBI and HDFC online transactions</li>
+</ul>
+<h4 id="cooperative-processes">Cooperative Processes<a class="headerlink" href="#cooperative-processes" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Share variables, memory, resources, or code</li>
+<li>Execution of one affects the other</li>
+<li>Example: IRCTC bookings, shared printer, shared counter in multithreaded apps</li>
+</ul>
+<h3 id="why-is-synchronization-needed">Why is Synchronization Needed?<a class="headerlink" href="#why-is-synchronization-needed" title="Permanent link">&para;</a></h3>
+<p>Cooperative processes can lead to problems like:
+- Race Conditions
+- Inconsistent Data
+- Deadlocks</p>
+<p><strong>Analogy</strong>: Guitar strings must be tuned (synchronized) to make music. Otherwise, they create noise.</p>
+<h3 id="critical-section-problem">Critical Section Problem<a class="headerlink" href="#critical-section-problem" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Critical Section</strong>: The portion of the code in the program where shared variables are accessed and/or updated.</li>
+<li><strong>Remainder Section</strong>: The remaining portion of the program excluding the Critical Section.</li>
+<li><strong>Race around Condition</strong>: The final output of the code depends on the order in which the variables are accessed.</li>
+</ol>
+<h3 id="race-condition-illustrated">Race Condition – Illustrated<a class="headerlink" href="#race-condition-illustrated" title="Permanent link">&para;</a></h3>
+<p><strong>Scenario</strong>:
+- Two processes: P1 and P2
+- Shared Variable: <code>shared = 5</code></p>
+<p><strong>P1 Code</strong>:
+<div class="highlight"><pre><span></span><code><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">shared</span><span class="p">;</span>
+<span class="n">x</span><span class="o">++</span><span class="p">;</span>
+<span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">shared</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+</code></pre></div></p>
+<p><strong>P2 Code</strong>:
+<div class="highlight"><pre><span></span><code><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">shared</span><span class="p">;</span>
+<span class="n">y</span><span class="o">--</span><span class="p">;</span>
+<span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">shared</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
+</code></pre></div></p>
+<p><strong>Execution Flow with Uni-Processor</strong>:
+- Initially, <code>shared = 5</code>
+1. P1 gets CPU:
+   - <code>x = 5</code>
+   - <code>x++</code> → <code>x = 6</code>
+   - <code>sleep(1)</code> → context switch to P2
+2. P2 executes:
+   - <code>y = 5</code>
+   - <code>y--</code> → <code>y = 4</code>
+   - <code>sleep(1)</code> → back to P1
+3. P1 resumes:
+   - <code>shared = x</code> (6)
+4. P2 resumes:
+   - <code>shared = y</code> (4)</p>
+<p><strong>Result</strong>: Final <code>shared = 4</code> (which is WRONG)</p>
+<p><strong>Expected Output</strong>: <code>shared = 5</code> (increment and decrement cancel each other)</p>
+<p><strong>Root Cause</strong>: Shared variable access without synchronization</p>
+<p><strong>Possible Outcomes</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>First Process</th>
+<th>Final Value of shared</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P1</td>
+<td>4 (wrong)</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>6 (wrong)</td>
+</tr>
+</tbody>
+</table>
+<p>The final value depends on execution order, which is unpredictable. This unpredictability is called a Race Condition.</p>
+<h3 id="solution-synchronization-techniques">Solution: Synchronization Techniques<a class="headerlink" href="#solution-synchronization-techniques" title="Permanent link">&para;</a></h3>
+<p>To avoid race conditions:
+- Use Mutual Exclusion
+- Synchronize access to shared resources</p>
+<p><strong>Techniques</strong>:
+- Locks / Mutexes
+- Semaphores
+- Peterson's Solution (software solution)
+- Monitors (used in Java)</p>
+<h2 id="critical-section">Critical Section<a class="headerlink" href="#critical-section" title="Permanent link">&para;</a></h2>
+<h3 id="what-is-a-critical-section">What is a Critical Section?<a class="headerlink" href="#what-is-a-critical-section" title="Permanent link">&para;</a></h3>
+<p>A critical section is a part of a program where shared resources (e.g., memory, variables, files) are accessed.</p>
+<ul>
+<li>Important in concurrent cooperative processes—multiple processes sharing something like memory or a variable.</li>
+</ul>
+<p><strong>Example</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1">// Shared variable</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">increment</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Critical Section</span>
+<span class="w">    </span><span class="n">count</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<h3 id="code-division">Code Division<a class="headerlink" href="#code-division" title="Permanent link">&para;</a></h3>
+<p>In any concurrent program, the code is divided into:</p>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Critical Section</td>
+<td>Code accessing shared/common resources.</td>
+</tr>
+<tr>
+<td>Non-Critical Section</td>
+<td>Code accessing private/independent resources.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="why-critical-sections-need-care">Why Critical Sections Need Care?<a class="headerlink" href="#why-critical-sections-need-care" title="Permanent link">&para;</a></h3>
+<p>If two processes access shared data at the same time, it can cause a Race Condition.</p>
+<p><strong>Race Condition Example</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1">// P1: count++</span>
+<span class="n">temp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">count</span><span class="p">;</span><span class="w">       </span><span class="c1">// read</span>
+<span class="n">temp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temp</span><span class="p">;</span><span class="w">       </span><span class="c1">// write</span>
+<span class="c1">// P2: count--</span>
+<span class="n">temp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">count</span><span class="p">;</span><span class="w">       </span><span class="c1">// read</span>
+<span class="n">temp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temp</span><span class="p">;</span><span class="w">       </span><span class="c1">// write</span>
+</code></pre></div></p>
+<p>If both execute simultaneously, the final value of <code>count</code> is unpredictable!</p>
+<h3 id="solution-synchronization">Solution: Synchronization<a class="headerlink" href="#solution-synchronization" title="Permanent link">&para;</a></h3>
+<p>To avoid race conditions:
+1. <strong>Entry Section</strong>: Code that checks if a process can enter the critical section.
+2. <strong>Exit Section</strong>: Code that runs after leaving the critical section.
+3. <strong>Remainder Section</strong>: Non-critical section code.</p>
+<p>Only one process should enter the critical section at a time, enforced by synchronization mechanisms like Semaphores, Mutexes, etc.</p>
+<h3 id="conditions-for-a-good-synchronization-solution">Conditions for a Good Synchronization Solution<a class="headerlink" href="#conditions-for-a-good-synchronization-solution" title="Permanent link">&para;</a></h3>
+<p>A good solution must follow 4 conditions (2 primary, 2 secondary):</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Condition</th>
+<th>Type</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Mutual Exclusion</td>
+<td>Primary</td>
+<td>Only one process is allowed inside critical section at a time.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Progress</td>
+<td>Primary</td>
+<td>If no one is in CS, a process interested should get a chance without being blocked by an idle one.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Bounded Waiting</td>
+<td>Secondary</td>
+<td>A process should not wait forever to enter CS. There should be a limit on waiting time.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>No Hardware Assumptions</td>
+<td>Secondary</td>
+<td>Solution must be portable, not dependent on system speed, CPU architecture, or OS.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="mutual-exclusion-example">Mutual Exclusion (Example)<a class="headerlink" href="#mutual-exclusion-example" title="Permanent link">&para;</a></h4>
+<p>If P1 is inside the bathroom (CS), P2 must wait outside. Think of a washroom lock: If it's locked, the other person can’t enter.</p>
+<h4 id="progress-example">Progress (Example)<a class="headerlink" href="#progress-example" title="Permanent link">&para;</a></h4>
+<p>If no one is in the CS, and P1 wants to enter, but P2's code stops it, then progress is violated. No process should stop others unnecessarily if it itself doesn’t want to enter CS.</p>
+<h4 id="bounded-waiting-example">Bounded Waiting (Example)<a class="headerlink" href="#bounded-waiting-example" title="Permanent link">&para;</a></h4>
+<ul>
+<li>P1 entered CS 3 times, P2 is still waiting → Okay.</li>
+<li>P1 enters infinite times, P2 never enters → Starvation, violates bounded waiting.</li>
+<li>We must ensure that every process gets a chance eventually.</li>
+</ul>
+<h4 id="no-assumptions-example">No Assumptions (Example)<a class="headerlink" href="#no-assumptions-example" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Wrong approach</strong>: “This solution works only on 32-bit Linux with 1GHz CPU.”</li>
+<li><strong>Correct approach</strong>: Solution should run on any OS/hardware, i.e., should be universal and portable.</li>
+</ul>
+<h3 id="real-life-analogy">Real-Life Analogy<a class="headerlink" href="#real-life-analogy" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Analogy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Critical Section</td>
+<td>Bathroom</td>
+</tr>
+<tr>
+<td>Entry Section</td>
+<td>Door Lock</td>
+</tr>
+<tr>
+<td>Mutual Exclusion</td>
+<td>Only one person at a time</td>
+</tr>
+<tr>
+<td>Bounded Wait</td>
+<td>Everyone gets a turn</td>
+</tr>
+<tr>
+<td>Progress</td>
+<td>Don’t block if you’re not interested</td>
+</tr>
+<tr>
+<td>No Assumptions</td>
+<td>Any house guest can use the bathroom</td>
+</tr>
+</tbody>
+</table>
+<h2 id="semaphore">Semaphore<a class="headerlink" href="#semaphore" title="Permanent link">&para;</a></h2>
+<h3 id="what-is-a-semaphore">What is a Semaphore?<a class="headerlink" href="#what-is-a-semaphore" title="Permanent link">&para;</a></h3>
+<p>A semaphore is a tool to prevent race conditions in concurrent/cooperative process environments. It ensures synchronization between processes.</p>
+<p><strong>Defined as</strong>:
+“An integer variable used in a mutual exclusive manner by various concurrent cooperative processes to achieve synchronization.”</p>
+<h3 id="types-of-semaphores">Types of Semaphores<a class="headerlink" href="#types-of-semaphores" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Range / Values</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Counting</td>
+<td>-∞ to +∞</td>
+<td>Track multiple resources</td>
+</tr>
+<tr>
+<td>Binary</td>
+<td>0 or 1 (like a flag)</td>
+<td>Acts like a lock mechanism</td>
+</tr>
+</tbody>
+</table>
+<h3 id="structure-process-synchronization">Structure: Process Synchronization<a class="headerlink" href="#structure-process-synchronization" title="Permanent link">&para;</a></h3>
+<p>Each process follows this structure:
+1. <strong>Entry Section</strong> – Code before entering critical section
+2. <strong>Critical Section</strong> – Shared code or resource
+3. <strong>Exit Section</strong> – Code after finishing in critical section</p>
+<h3 id="semaphore-operations">Semaphore Operations<a class="headerlink" href="#semaphore-operations" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Entry Code</th>
+<th>Exit Code</th>
+<th>Other Names</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P()</td>
+<td>V()</td>
+<td></td>
+</tr>
+<tr>
+<td>Down()</td>
+<td>Up()</td>
+<td></td>
+</tr>
+<tr>
+<td>Wait()</td>
+<td>Signal()</td>
+<td>Post() / Release()</td>
+</tr>
+</tbody>
+</table>
+<p>All are synonyms:
+- P = Down = Wait
+- V = Up = Signal = Post</p>
+<h4 id="how-p-down-wait-works">How P() (Down / Wait) Works<a class="headerlink" href="#how-p-down-wait-works" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">P</span><span class="p">(</span><span class="n">S</span><span class="p">)</span><span class="o">:</span><span class="w">            </span><span class="c1">// Entry code</span>
+<span class="n">S</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">S</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">S</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">    </span><span class="n">block</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">process</span><span class="w"> </span><span class="p">(</span><span class="n">add</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">suspended</span><span class="w"> </span><span class="n">list</span><span class="p">);</span>
+</code></pre></div>
+<ul>
+<li>If S ≥ 0 → process enters</li>
+<li>If S &lt; 0 → process is blocked (goes to suspended list or sleep)</li>
+</ul>
+<p><strong>Example</strong>:
+- If S = 3 → 3 processes can enter successfully.
+- After 3 P() ops → S = 0
+- Next P() → S becomes -1 → process is blocked</p>
+<h4 id="how-v-up-signal-works">How V() (Up / Signal) Works<a class="headerlink" href="#how-v-up-signal-works" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">V</span><span class="p">(</span><span class="n">S</span><span class="p">)</span><span class="o">:</span><span class="w">            </span><span class="c1">// Exit code</span>
+<span class="n">S</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">S</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">S</span><span class="w"> </span><span class="err">≤</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">    </span><span class="n">wake</span><span class="w"> </span><span class="n">up</span><span class="w"> </span><span class="n">one</span><span class="w"> </span><span class="n">process</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">suspended</span><span class="w"> </span><span class="n">list</span><span class="p">;</span>
+</code></pre></div>
+<ul>
+<li>Process is removed from blocked list</li>
+<li>Typically follows FIFO order for unblocking</li>
+</ul>
+<h3 id="complete-example-flow">Complete Example Flow<a class="headerlink" href="#complete-example-flow" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>S Value</th>
+<th>Action</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Init</td>
+<td>3</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>P1 enters</td>
+<td>2</td>
+<td>P()</td>
+<td>Enters</td>
+</tr>
+<tr>
+<td>P2 enters</td>
+<td>1</td>
+<td>P()</td>
+<td>Enters</td>
+</tr>
+<tr>
+<td>P3 enters</td>
+<td>0</td>
+<td>P()</td>
+<td>Enters</td>
+</tr>
+<tr>
+<td>P4 tries</td>
+<td>-1</td>
+<td>P()</td>
+<td>Blocked (in suspended list)</td>
+</tr>
+<tr>
+<td>P5 tries</td>
+<td>-2</td>
+<td>P()</td>
+<td>Blocked</td>
+</tr>
+<tr>
+<td>P1 exits</td>
+<td>-1</td>
+<td>V()</td>
+<td>S=-1, wake up P4 (now ready)</td>
+</tr>
+<tr>
+<td>P2 exits</td>
+<td>0</td>
+<td>V()</td>
+<td>S=0, wake up P5 (now ready)</td>
+</tr>
+<tr>
+<td>P3 exits</td>
+<td>1</td>
+<td>V()</td>
+<td>No wakeup (S &gt; 0)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="gate-style-questions">GATE-style Questions<a class="headerlink" href="#gate-style-questions" title="Permanent link">&para;</a></h3>
+<p><strong>Q1</strong>: If S = 10, how many processes can enter?
+- <strong>Ans</strong>: 10 (each P() reduces S by 1)</p>
+<p><strong>Q2</strong>: If S = 10, and we do: 6 P(), 4 V()
+- 6 P() → S = 4
+- 4 V() → S = 8
+- <strong>Final S = 8</strong></p>
+<p><strong>Q3</strong>: S = 17, ops = 5P, 3V, 1P
+- 17 - 5 + 3 - 1 = 14
+- <strong>Final S = 14</strong></p>
+<h3 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Semaphore avoids race condition and ensures process synchronization</li>
+<li>Use P() to enter, V() to exit</li>
+<li>If S &lt; 0, process is blocked</li>
+<li>FIFO order used to wake blocked processes</li>
+<li>Binary semaphore → for mutual exclusion</li>
+<li>Counting semaphore → for resource counting</li>
+</ul>
+<h2 id="binary-semaphore">Binary Semaphore<a class="headerlink" href="#binary-semaphore" title="Permanent link">&para;</a></h2>
+<h3 id="what-is-a-binary-semaphore">What is a Binary Semaphore?<a class="headerlink" href="#what-is-a-binary-semaphore" title="Permanent link">&para;</a></h3>
+<p>A synchronization tool used between cooperative processes, same as Counting Semaphore but values are only 0 or 1.</p>
+<p><strong>Defined as</strong>:
+“A semaphore that can hold only two values: 0 and 1.”</p>
+<h3 id="binary-vs-counting-semaphore">Binary vs Counting Semaphore<a class="headerlink" href="#binary-vs-counting-semaphore" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Binary Semaphore</th>
+<th>Counting Semaphore</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Values</td>
+<td>0 or 1</td>
+<td>-∞ to +∞</td>
+</tr>
+<tr>
+<td>Complexity</td>
+<td>Simple</td>
+<td>More general</td>
+</tr>
+<tr>
+<td>Used for</td>
+<td>Mutual exclusion</td>
+<td>Resource counting</td>
+</tr>
+<tr>
+<td>Preferred in practice</td>
+<td>Yes</td>
+<td>Rare</td>
+</tr>
+</tbody>
+</table>
+<h3 id="operations-used">Operations Used<a class="headerlink" href="#operations-used" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Synonyms</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Down()</td>
+<td>P(), Wait()</td>
+<td>Entry code → check &amp; block</td>
+</tr>
+<tr>
+<td>Up()</td>
+<td>V(), Signal(), Post()</td>
+<td>Exit code → release &amp; wake up</td>
+</tr>
+</tbody>
+</table>
+<h4 id="how-down-works-binary">How Down() Works (Binary)<a class="headerlink" href="#how-down-works-binary" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">Down</span><span class="p">(</span><span class="n">S</span><span class="p">)</span><span class="o">:</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">S</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="w">    </span><span class="n">S</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">              </span><span class="c1">// Successful</span>
+<span class="k">else</span>
+<span class="w">    </span><span class="n">block</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">process</span><span class="p">;</span><span class="w">  </span><span class="c1">// S == 0 → Block it (unsuccessful)</span>
+</code></pre></div>
+<ul>
+<li>S = 1: Enter critical section (mutual exclusion maintained)</li>
+<li>S = 0: Cannot enter → process is blocked/suspended</li>
+</ul>
+<h4 id="how-up-works-binary">How Up() Works (Binary)<a class="headerlink" href="#how-up-works-binary" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="n">Up</span><span class="p">(</span><span class="n">S</span><span class="p">)</span><span class="o">:</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">suspended</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">empty</span><span class="p">)</span>
+<span class="w">    </span><span class="n">S</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">              </span><span class="c1">// Make critical section available</span>
+<span class="k">else</span>
+<span class="w">    </span><span class="n">wake</span><span class="w"> </span><span class="n">up</span><span class="w"> </span><span class="n">one</span><span class="w"> </span><span class="n">process</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">suspended</span><span class="w"> </span><span class="n">list</span><span class="p">;</span>
+</code></pre></div>
+<ul>
+<li>If no process is blocked → simply set S = 1</li>
+<li>If any process is blocked → wake one up and move to ready queue</li>
+</ul>
+<h3 id="example-execution">Example Execution<a class="headerlink" href="#example-execution" title="Permanent link">&para;</a></h3>
+<p><strong>Scenario</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Process</th>
+<th>Operations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P1</td>
+<td>Down(S) → Critical → Up(S)</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>Down(S) → Critical → Up(S)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Case 1</strong>: S = 1 initially
+- P2 calls Down(S) → S becomes 0, enters critical section
+- P1 calls Down(S) → blocked (since S is 0)
+- P2 finishes, calls Up(S) → wakes P1 (from suspended list)
+- <strong>Result</strong>: Mutual exclusion maintained</p>
+<p><strong>Case 2</strong>: S = 0 initially
+- Both P1 and P2 try Down(S)
+- Both fail, both get blocked
+- <strong>Result</strong>: Deadlock if no one ever gets unblocked</p>
+<h3 id="important-observations">Important Observations<a class="headerlink" href="#important-observations" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Binary semaphore ensures one process at a time in critical section.</li>
+<li>You don’t need to memorize code for exams – just remember the behavior of:</li>
+<li>Down() → blocks if S == 0</li>
+<li>Up() → wakes if blocked processes exist</li>
+<li>In competitive exams (e.g., GATE), initial S value is always given in the question</li>
+</ul>
+<h3 id="summary-cheat-sheet">Summary Cheat Sheet<a class="headerlink" href="#summary-cheat-sheet" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>Operation</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S = 1</td>
+<td>Down()</td>
+<td>S → 0, process enters</td>
+</tr>
+<tr>
+<td>S = 0</td>
+<td>Down()</td>
+<td>Block the process</td>
+</tr>
+<tr>
+<td>S = 0 + blocked procs</td>
+<td>Up()</td>
+<td>Wake up one process</td>
+</tr>
+<tr>
+<td>S = 0 + no blocked procs</td>
+<td>Up()</td>
+<td>S → 1</td>
+</tr>
+<tr>
+<td>S = 1 + no blocked procs</td>
+<td>Up()</td>
+<td>S stays 1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="mutex">Mutex<a class="headerlink" href="#mutex" title="Permanent link">&para;</a></h2>
+<h3 id="what-is-a-mutex">What is a Mutex?<a class="headerlink" href="#what-is-a-mutex" title="Permanent link">&para;</a></h3>
+<p>Mutex stands for Mutual Exclusion. It is a lock-based synchronization tool used to ensure that only one process/thread can access a critical section at a time.</p>
+<ul>
+<li><strong>Think of it as</strong>: A key to a room: only the one holding the key (lock) can enter the room (critical section).</li>
+</ul>
+<h3 id="basic-properties">Basic Properties<a class="headerlink" href="#basic-properties" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Type</td>
+<td>Lock (not a counting variable)</td>
+</tr>
+<tr>
+<td>Values</td>
+<td>Locked (1) or Unlocked (0)</td>
+</tr>
+<tr>
+<td>Access</td>
+<td>Only the owner (locking process) can unlock it</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Works in mutual exclusion, for 1 resource/user</td>
+</tr>
+<tr>
+<td>Implementation Style</td>
+<td>OS-level primitive (kernel-based or user-level)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="operations">Operations<a class="headerlink" href="#operations" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lock()</td>
+<td>If unlocked, it locks and enters the critical section. If already locked, the process waits (blocks).</td>
+</tr>
+<tr>
+<td>unlock()</td>
+<td>Releases the lock so another process can enter. Only the process that acquired the lock can release it.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mutex-working-example">Mutex Working Example<a class="headerlink" href="#mutex-working-example" title="Permanent link">&para;</a></h3>
+<p><strong>Scenario</strong>:
+<div class="highlight"><pre><span></span><code><span class="n">mutex</span><span class="p">.</span><span class="n">lock</span><span class="p">();</span>
+<span class="n">critical</span><span class="w"> </span><span class="n">section</span>
+<span class="n">mutex</span><span class="p">.</span><span class="n">unlock</span><span class="p">();</span>
+</code></pre></div></p>
+<p><strong>Execution Flow</strong>:
+1. P1 calls lock() → succeeds (mutex = locked), enters critical section.
+2. P2 calls lock() → waits (mutex is already locked).
+3. P1 finishes → calls unlock() → mutex becomes available.
+4. P2 now proceeds → acquires lock → enters critical section.</p>
+<ul>
+<li><strong>Result</strong>: Mutual exclusion is maintained!</li>
+</ul>
+<h3 id="mutex-vs-binary-semaphore">Mutex vs Binary Semaphore<a class="headerlink" href="#mutex-vs-binary-semaphore" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Mutex</th>
+<th>Binary Semaphore</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ownership</td>
+<td>Has owner</td>
+<td>No owner (any process can Up)</td>
+</tr>
+<tr>
+<td>Unlocking</td>
+<td>Only owner can unlock</td>
+<td>Any process can perform V()</td>
+</tr>
+<tr>
+<td>Use-case</td>
+<td>Thread synchronization</td>
+<td>Inter-process synchronization</td>
+</tr>
+<tr>
+<td>Blocking behavior</td>
+<td>Auto-blocks if locked</td>
+<td>Needs condition checking</td>
+</tr>
+<tr>
+<td>Usage simplicity</td>
+<td>Simple (only lock/unlock)</td>
+<td>Slightly more generic</td>
+</tr>
+</tbody>
+</table>
+<h3 id="when-to-use-mutex">When to Use Mutex?<a class="headerlink" href="#when-to-use-mutex" title="Permanent link">&para;</a></h3>
+<p>Use Mutex when:
+- You need strict ownership of the lock.
+- Only one thread/process should access a resource at a time.
+- Synchronization is required within the same process (multi-threaded).</p>
+<h3 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Mutex ensures mutual exclusion using lock() and unlock().</li>
+<li>Only the thread that locked the mutex can unlock it.</li>
+<li>It is simpler and safer than binary semaphore for thread-level locking.</li>
+<li>Ideal for use in multi-threaded programs (like C++ std::mutex or POSIX threads).</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+  <div class="md-footer__inner">
+    <div class="md-footer__highlight">
+      Built with <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">Material for MkDocs</a> — © Abhinav P Pradeep
+    </div>
+  </div>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top", "navigation.tabs", "navigation.instant", "navigation.tracking", "navigation.expand", "content.code.copy", "content.action.edit", "toc.follow", "search.suggest", "search.highlight", "header.autohide", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>

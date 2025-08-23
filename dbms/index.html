@@ -1,0 +1,3426 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="CS Fundamentals & Systems — curated notes and mini-blogs">
+      
+      
+        <meta name="author" content="Abhinav P Pradeep">
+      
+      
+        <link rel="canonical" href="https://abhinavppradeep.github.io/thesoftwareway/dbms/">
+      
+      
+        <link rel="prev" href="../oops/oops/">
+      
+      
+        <link rel="next" href="norm/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+    
+    
+      
+        <title>Database Fundamentals - The Software Way</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/styles/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#database-fundamentals" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="The Software Way" class="md-header__button md-logo" aria-label="The Software Way" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            The Software Way
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Database Fundamentals
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/abhinavppradeep/TheSoftwareWay" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../oops/oops/" class="md-tabs__link">
+          
+  
+  
+  OOPS
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+  DBMS
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../os/" class="md-tabs__link">
+          
+  
+  
+  OS
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="The Software Way" class="md-nav__button md-logo" aria-label="The Software Way" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    The Software Way
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/abhinavppradeep/TheSoftwareWay" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    OOPS
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            OOPS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../oops/oops/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    DBMS
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            DBMS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Database Fundamentals
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Database Fundamentals
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sql-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      SQL Commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SQL Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-definition-language-ddl" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Definition Language (DDL)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-manipulation-language-dml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Manipulation Language (DML)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transaction-control-language-tcl" class="md-nav__link">
+    <span class="md-ellipsis">
+      Transaction Control Language (TCL)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-of-sql-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary of SQL Commands
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database-architectures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database Architectures
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database Architectures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2-tier-vs-3-tier-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-Tier vs. 3-Tier Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2-Tier vs. 3-Tier Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-tier" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Tier?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#two-tier-architecture-client-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      Two-Tier Architecture (Client-Server)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#three-tier-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Three-Tier Architecture
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database Schema
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database Schema">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Schema?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#three-schema-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Three-Schema Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Three-Schema Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#external-schema-view-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      External Schema (View Level)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conceptual-schema-logical-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conceptual Schema (Logical Level)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-schema-physical-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal Schema (Physical Level)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-independence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Independence
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Independence">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#logical-data-independence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logical Data Independence
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#physical-data-independence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Physical Data Independence
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integrity-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integrity Constraints
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Integrity Constraints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-are-integrity-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      What Are Integrity Constraints?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#types-of-integrity-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types of Integrity Constraints
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Types of Integrity Constraints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#domain-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Domain Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entity-integrity-constraint" class="md-nav__link">
+    <span class="md-ellipsis">
+      Entity Integrity Constraint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#referential-integrity-constraint" class="md-nav__link">
+    <span class="md-ellipsis">
+      Referential Integrity Constraint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unique-constraint" class="md-nav__link">
+    <span class="md-ellipsis">
+      Unique Constraint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#not-null-constraint" class="md-nav__link">
+    <span class="md-ellipsis">
+      Not Null Constraint
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keys-in-dbms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Keys in DBMS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Keys in DBMS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Key?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#candidate-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      Candidate Key
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#primary-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      Primary Key
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alternative-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alternative Keys
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#foreign-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      Foreign Key
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#referential-integrity-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Referential Integrity Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#super-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      Super Key
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#numerical-gate-style-mcq-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Numerical &amp; GATE-Style MCQ Concepts
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entity-relationship-er-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Entity-Relationship (ER) Model
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Entity-Relationship (ER) Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      Purpose
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Concepts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Entity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attribute" class="md-nav__link">
+    <span class="md-ellipsis">
+      Attribute
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relationship" class="md-nav__link">
+    <span class="md-ellipsis">
+      Relationship
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#er-diagram-symbols" class="md-nav__link">
+    <span class="md-ellipsis">
+      ER Diagram Symbols
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#types-of-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types of Attributes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Types of Attributes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#single-valued-vs-multi-valued-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Single-valued vs. Multi-valued Attributes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#simple-vs-composite-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Simple vs. Composite Attributes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stored-vs-derived-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stored vs. Derived Attributes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-vs-non-key-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key vs. Non-Key Attributes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-vs-optional-attributes-sql-side-concept-not-part-of-er-notation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required vs. Optional Attributes (SQL-side concept, not part of ER notation)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complex-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complex Attributes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#types-of-relationships-er-to-relational-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types of Relationships (ER to Relational Model)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Types of Relationships (ER to Relational Model)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#one-to-one-11" class="md-nav__link">
+    <span class="md-ellipsis">
+      One-to-One (1:1)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-to-many-1n" class="md-nav__link">
+    <span class="md-ellipsis">
+      One-to-Many (1:N)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#many-to-many-mn" class="md-nav__link">
+    <span class="md-ellipsis">
+      Many-to-Many (M:N)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="norm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Normalization in DBMS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="join/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Joins in DBMS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="trans/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Transactions and Schedules in DBMS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    OS
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            OS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../os/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Operating System Concepts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../os/ind1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CPU Scheduling and Process Synchronization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../os/ind2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deadlock and Banker's Algorithm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sql-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      SQL Commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SQL Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-definition-language-ddl" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Definition Language (DDL)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-manipulation-language-dml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Manipulation Language (DML)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transaction-control-language-tcl" class="md-nav__link">
+    <span class="md-ellipsis">
+      Transaction Control Language (TCL)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-of-sql-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary of SQL Commands
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database-architectures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database Architectures
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database Architectures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2-tier-vs-3-tier-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      2-Tier vs. 3-Tier Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2-Tier vs. 3-Tier Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-tier" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Tier?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#two-tier-architecture-client-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      Two-Tier Architecture (Client-Server)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#three-tier-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Three-Tier Architecture
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database Schema
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database Schema">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Schema?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#three-schema-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Three-Schema Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Three-Schema Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#external-schema-view-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      External Schema (View Level)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conceptual-schema-logical-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conceptual Schema (Logical Level)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-schema-physical-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Internal Schema (Physical Level)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-independence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Independence
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Independence">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#logical-data-independence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logical Data Independence
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#physical-data-independence" class="md-nav__link">
+    <span class="md-ellipsis">
+      Physical Data Independence
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integrity-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integrity Constraints
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Integrity Constraints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-are-integrity-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      What Are Integrity Constraints?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#types-of-integrity-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types of Integrity Constraints
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Types of Integrity Constraints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#domain-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Domain Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entity-integrity-constraint" class="md-nav__link">
+    <span class="md-ellipsis">
+      Entity Integrity Constraint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#referential-integrity-constraint" class="md-nav__link">
+    <span class="md-ellipsis">
+      Referential Integrity Constraint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unique-constraint" class="md-nav__link">
+    <span class="md-ellipsis">
+      Unique Constraint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#not-null-constraint" class="md-nav__link">
+    <span class="md-ellipsis">
+      Not Null Constraint
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keys-in-dbms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Keys in DBMS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Keys in DBMS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Key?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#candidate-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      Candidate Key
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#primary-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      Primary Key
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alternative-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alternative Keys
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#foreign-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      Foreign Key
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#referential-integrity-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Referential Integrity Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#super-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      Super Key
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#numerical-gate-style-mcq-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Numerical &amp; GATE-Style MCQ Concepts
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entity-relationship-er-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Entity-Relationship (ER) Model
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Entity-Relationship (ER) Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      Purpose
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Concepts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Entity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attribute" class="md-nav__link">
+    <span class="md-ellipsis">
+      Attribute
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relationship" class="md-nav__link">
+    <span class="md-ellipsis">
+      Relationship
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#er-diagram-symbols" class="md-nav__link">
+    <span class="md-ellipsis">
+      ER Diagram Symbols
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#types-of-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types of Attributes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Types of Attributes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#single-valued-vs-multi-valued-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Single-valued vs. Multi-valued Attributes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#simple-vs-composite-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Simple vs. Composite Attributes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stored-vs-derived-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stored vs. Derived Attributes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-vs-non-key-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key vs. Non-Key Attributes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-vs-optional-attributes-sql-side-concept-not-part-of-er-notation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required vs. Optional Attributes (SQL-side concept, not part of ER notation)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complex-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complex Attributes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#types-of-relationships-er-to-relational-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types of Relationships (ER to Relational Model)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Types of Relationships (ER to Relational Model)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#one-to-one-11" class="md-nav__link">
+    <span class="md-ellipsis">
+      One-to-One (1:1)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-to-many-1n" class="md-nav__link">
+    <span class="md-ellipsis">
+      One-to-Many (1:N)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#many-to-many-mn" class="md-nav__link">
+    <span class="md-ellipsis">
+      Many-to-Many (M:N)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/abhinavppradeep/TheSoftwareWay/edit/main/docs/dbms/index.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="database-fundamentals">Database Fundamentals<a class="headerlink" href="#database-fundamentals" title="Permanent link">&para;</a></h1>
+<p><strong>Author:</strong> Abhinav P Pradeep </p>
+<h2 id="sql-commands">SQL Commands<a class="headerlink" href="#sql-commands" title="Permanent link">&para;</a></h2>
+<h3 id="data-definition-language-ddl">Data Definition Language (DDL)<a class="headerlink" href="#data-definition-language-ddl" title="Permanent link">&para;</a></h3>
+<p>DDL is used to define or change the structure/schema of database objects like tables, views, and indexes. DDL commands are auto-committed, meaning changes cannot be rolled back.</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CREATE</td>
+<td>Creates new table, view, index, etc.</td>
+</tr>
+<tr>
+<td>DROP</td>
+<td>Deletes table or database permanently</td>
+</tr>
+<tr>
+<td>ALTER</td>
+<td>Modifies structure (e.g., add/remove column)</td>
+</tr>
+<tr>
+<td>TRUNCATE</td>
+<td>Deletes all rows without logging individual deletions</td>
+</tr>
+<tr>
+<td>RENAME</td>
+<td>Renames a table or column</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note</strong>: DDL commands are auto-committed. Changes cannot be rolled back.</p>
+<h3 id="data-manipulation-language-dml">Data Manipulation Language (DML)<a class="headerlink" href="#data-manipulation-language-dml" title="Permanent link">&para;</a></h3>
+<p>DML is used to manipulate or query data inside existing tables. DML operations can be rolled back until explicitly committed.</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SELECT</td>
+<td>Retrieves data</td>
+</tr>
+<tr>
+<td>INSERT</td>
+<td>Adds new row(s)</td>
+</tr>
+<tr>
+<td>UPDATE</td>
+<td>Modifies existing row(s)</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>Removes specific row(s)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="transaction-control-language-tcl">Transaction Control Language (TCL)<a class="headerlink" href="#transaction-control-language-tcl" title="Permanent link">&para;</a></h3>
+<p>TCL is used to manage transactions in a database and control their execution.</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>COMMIT</td>
+<td>Saves all changes made during the transaction</td>
+</tr>
+<tr>
+<td>ROLLBACK</td>
+<td>Undoes all changes made during the transaction</td>
+</tr>
+<tr>
+<td>SAVEPOINT</td>
+<td>Creates a point to which you can roll back</td>
+</tr>
+<tr>
+<td>SET TRANSACTION</td>
+<td>Sets properties like isolation level</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note</strong>: TCL is used with DML, not DDL.</p>
+<h3 id="summary-of-sql-commands">Summary of SQL Commands<a class="headerlink" href="#summary-of-sql-commands" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>DDL</th>
+<th>DML</th>
+<th>TCL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Changes Schema?</td>
+<td>✅ Yes</td>
+<td>❌ No</td>
+<td>❌ No</td>
+</tr>
+<tr>
+<td>Changes Data?</td>
+<td>❌ No</td>
+<td>✅ Yes</td>
+<td>⚙ Controls DML</td>
+</tr>
+<tr>
+<td>Auto-Commit?</td>
+<td>✅ Yes</td>
+<td>❌ No</td>
+<td>❌ No</td>
+</tr>
+<tr>
+<td>Rollback?</td>
+<td>❌ No</td>
+<td>✅ Yes</td>
+<td>✅ Yes</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example Workflow</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">BEGIN</span><span class="p">;</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">employee</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="mi">101</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Abhinav&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;HR&#39;</span><span class="p">);</span>
+<span class="n">SAVEPOINT</span><span class="w"> </span><span class="n">sp1</span><span class="p">;</span>
+<span class="k">UPDATE</span><span class="w"> </span><span class="n">employee</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">dept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Tech&#39;</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">101</span><span class="p">;</span>
+<span class="k">ROLLBACK</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">sp1</span><span class="p">;</span>
+<span class="k">COMMIT</span><span class="p">;</span>
+</code></pre></div>
+<h2 id="database-architectures">Database Architectures<a class="headerlink" href="#database-architectures" title="Permanent link">&para;</a></h2>
+<h3 id="2-tier-vs-3-tier-architecture">2-Tier vs. 3-Tier Architecture<a class="headerlink" href="#2-tier-vs-3-tier-architecture" title="Permanent link">&para;</a></h3>
+<h4 id="what-is-a-tier">What is a Tier?<a class="headerlink" href="#what-is-a-tier" title="Permanent link">&para;</a></h4>
+<p>A "tier" refers to a layer in the architecture of a database system:
+- 2-tier = 2 layers
+- 3-tier = 3 layers</p>
+<p>These architectures define how clients interact with databases.</p>
+<h4 id="two-tier-architecture-client-server">Two-Tier Architecture (Client-Server)<a class="headerlink" href="#two-tier-architecture-client-server" title="Permanent link">&para;</a></h4>
+<p><strong>Structure</strong>:</p>
+<div class="highlight"><pre><span></span><code>Client (UI + Application) &lt;---- JDBC/ODBC ----&gt; Database Server
+</code></pre></div>
+<p><strong>Layers</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Client (Tier 1)</td>
+<td>Runs UI and Application Logic (API)</td>
+</tr>
+<tr>
+<td>DB Server (Tier 2)</td>
+<td>Stores and processes data</td>
+</tr>
+</tbody>
+</table>
+<p><strong>How It Works</strong>:
+1. Client has an interface (e.g., Java App).
+2. Interface uses JDBC/ODBC to connect to the server.
+3. Sends SQL queries.
+4. Server processes queries and returns results.</p>
+<p><strong>Real-life Examples</strong>:
+- IRCTC reservation at railway station (ticket clerk system).
+- Visiting a bank physically and doing credit/debit from a teller system.</p>
+<p><strong>Advantages</strong>:
+- Simple architecture.
+- Easy to maintain (few clients, secured environment).</p>
+<p><strong>Disadvantages</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Why?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scalability</td>
+<td>Can't handle many users at once</td>
+</tr>
+<tr>
+<td>Security</td>
+<td>Client directly interacts with DB – risky</td>
+</tr>
+</tbody>
+</table>
+<h4 id="three-tier-architecture">Three-Tier Architecture<a class="headerlink" href="#three-tier-architecture" title="Permanent link">&para;</a></h4>
+<p><strong>Structure</strong>:</p>
+<div class="highlight"><pre><span></span><code>Client (UI) &lt;--&gt; Business Layer (Application Server) &lt;--&gt; Database
+</code></pre></div>
+<p><strong>Layers</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tier 1 – Client</td>
+<td>UI: Users interact via app/browser</td>
+</tr>
+<tr>
+<td>Tier 2 – Business Layer</td>
+<td>Processes logic, prepares queries</td>
+</tr>
+<tr>
+<td>Tier 3 – Database Server</td>
+<td>Stores, retrieves data</td>
+</tr>
+</tbody>
+</table>
+<p><strong>How It Works</strong>:
+1. Client uses UI (interface) – fills form, selects data.
+2. Request is sent to the Business Layer.
+3. Business Layer:
+   - Validates data.
+   - Converts requests into DB queries.
+   - Sends to DB server.
+4. DB sends result → Business Layer → User.</p>
+<p><strong>Real-life Examples</strong>:
+- IRCTC website/app ticket booking.
+- Net banking / UPI apps.
+- Gmail, YouTube – All use 3-tier model.</p>
+<p><strong>Advantages</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Benefit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scalability</td>
+<td>Millions of users can access easily</td>
+</tr>
+<tr>
+<td>Security</td>
+<td>Users never touch DB directly</td>
+</tr>
+<tr>
+<td>Modular</td>
+<td>UI, logic, and data are separate</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Disadvantages</strong>:
+- Maintenance is harder (more layers = more complexity).</p>
+<p><strong>Comparison Table: 2-Tier vs. 3-Tier</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>2-Tier</th>
+<th>3-Tier</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Layers</td>
+<td>Client + DB</td>
+<td>Client + Business + DB</td>
+</tr>
+<tr>
+<td>Security</td>
+<td>❌ Direct DB access</td>
+<td>✅ No direct DB access</td>
+</tr>
+<tr>
+<td>Scalability</td>
+<td>❌ Limited users</td>
+<td>✅ Massive users</td>
+</tr>
+<tr>
+<td>Maintenance</td>
+<td>✅ Simple</td>
+<td>❌ Complex</td>
+</tr>
+<tr>
+<td>Used In</td>
+<td>Bank counters, railway office</td>
+<td>IRCTC website, Net banking</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Real-world Analogies</strong>:</p>
+<p><strong>Bank</strong>:
+- 2-Tier: You visit branch → Clerk uses machine → Direct DB.
+- 3-Tier: You use net banking app → App processes → Queries DB.</p>
+<p><strong>Railways</strong>:
+- 2-Tier: Station ticket counter.
+- 3-Tier: Booking via IRCTC app.</p>
+<p><strong>Quick Recap</strong>:
+- 2-Tier = Client + DB (Simple but insecure).
+- 3-Tier = Client + App Server + DB (Secure, Scalable).
+- Real-use of 3-Tier: All modern web apps.
+- Why move to 3-Tier? Security &amp; Scalability.</p>
+<h2 id="database-schema">Database Schema<a class="headerlink" href="#database-schema" title="Permanent link">&para;</a></h2>
+<h3 id="what-is-a-schema">What is a Schema?<a class="headerlink" href="#what-is-a-schema" title="Permanent link">&para;</a></h3>
+<p>A schema is a logical structure or blueprint of the database. It defines how data is organized and how relationships between data are handled.</p>
+<p><strong>Simple Definition</strong>:
+- A schema is a logical representation of the database (not physical).
+- It’s how DBMS shows the data to users, usually in the form of tables or entities.</p>
+<p><strong>Schema vs. Physical Storage</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Schema (Logical)</th>
+<th>Physical Data</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Format</td>
+<td>Tables / ER Model</td>
+<td>Files / Binary</td>
+</tr>
+<tr>
+<td>Stored in</td>
+<td>Memory (representation)</td>
+<td>Hard disk / backend</td>
+</tr>
+<tr>
+<td>Used for</td>
+<td>Data design, query</td>
+<td>Data storage, efficiency</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Schema Example (Student Entity)</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Data Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Roll Number</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>Name</td>
+<td>Varchar</td>
+</tr>
+<tr>
+<td>Address</td>
+<td>Varchar</td>
+</tr>
+</tbody>
+</table>
+<p>This is the logical structure (schema) of the Student table.</p>
+<p><strong>Schema in SQL (Implementation)</strong>:
+We use SQL DDL commands to implement a schema.</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">Student</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">RollNo</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
+<span class="w">  </span><span class="n">Name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span>
+<span class="w">  </span><span class="n">Address</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>SQL Component</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CREATE TABLE</td>
+<td>Creates schema (table)</td>
+</tr>
+<tr>
+<td>ALTER TABLE</td>
+<td>Modifies schema</td>
+</tr>
+<tr>
+<td>DROP TABLE</td>
+<td>Deletes schema</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Real-World Analogy</strong>:
+- Think of a schema like a blueprint of a house (design of rooms, layout).
+- Actual data is like furniture and people inside it.</p>
+<p><strong>Schema and ER Models</strong>:
+- In ER Model:
+  - Entities like Student, Course are represented.
+  - Each has attributes (e.g., name, roll no).
+  - This becomes your schema.
+- Schema can be for:
+  - A single table.
+  - Or a set of related tables (e.g., University database).</p>
+<h3 id="three-schema-architecture">Three-Schema Architecture<a class="headerlink" href="#three-schema-architecture" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose</strong>:
+- The main goal is data abstraction and data independence.
+- Users should not worry about:
+  - How or where the data is stored physically.
+  - Format or structure of data files.
+  - Changes in database internals.
+- Users interact with a logical view, not the actual data files.</p>
+<p><strong>The Three Levels of Abstraction</strong>:</p>
+<h4 id="external-schema-view-level">External Schema (View Level)<a class="headerlink" href="#external-schema-view-level" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Defines how users see the data.</li>
+<li><strong>Key Points</strong>:</li>
+<li>Different users → different views.</li>
+<li>Each view shows only relevant data.</li>
+<li>Provides security &amp; customization.</li>
+<li><strong>Example</strong>:</li>
+<li>Student sees: Marks, Attendance, Fee status.</li>
+<li>Faculty sees: Enter marks, Student list, Apply leave.</li>
+<li>Dean/Admin sees: All students, faculty records, salary info.</li>
+<li>This is what you see on websites like Flipkart, Gmail, Paytm — the UI view after logging in.</li>
+</ul>
+<h4 id="conceptual-schema-logical-level">Conceptual Schema (Logical Level)<a class="headerlink" href="#conceptual-schema-logical-level" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Describes what data is stored and relationships among data.</li>
+<li><strong>Key Elements</strong>:</li>
+<li>Tables (e.g., Student, Course, Faculty, Book).</li>
+<li>Columns (e.g., Roll No, Name, Age).</li>
+<li>Relationships (e.g., Student ⟷ Course).</li>
+<li>Constraints (e.g., Roll No is Primary Key).</li>
+<li>Think of this as the blueprint or ER diagram of your database.</li>
+<li>Used by: Database Designers.</li>
+<li>They define the structure but do not store actual data.</li>
+</ul>
+<h4 id="internal-schema-physical-level">Internal Schema (Physical Level)<a class="headerlink" href="#internal-schema-physical-level" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Describes how data is stored physically on storage devices.</li>
+<li><strong>Includes</strong>:</li>
+<li>File structures.</li>
+<li>Indexing.</li>
+<li>Compression.</li>
+<li>Partitioning (Centralized or Distributed storage).</li>
+<li>Data fragmentation.</li>
+<li><strong>Examples</strong>:</li>
+<li>Data is stored in files (not tables).</li>
+<li>Format: Binary, Flat files, CSV, etc.</li>
+<li>This level is managed by the Database Administrator (DBA).</li>
+</ul>
+<p><strong>Analogy: Building a House</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Schema Level</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>End User</td>
+<td>External</td>
+<td>Sees the house’s rooms and layout</td>
+</tr>
+<tr>
+<td>Architect</td>
+<td>Conceptual</td>
+<td>Creates the blueprint (room size, type, layout)</td>
+</tr>
+<tr>
+<td>Contractor/Builder</td>
+<td>Internal</td>
+<td>Builds the house using bricks, cement, wiring</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Visual Diagram</strong>:</p>
+<div class="highlight"><pre><span></span><code>          +----------------------+
+          |     External View    |
+          |  (Multiple user views)|
+          +----------▲-----------+
+                     |
+          +----------▼-----------+
+          |   Conceptual Schema  |
+          |  (Tables &amp; Relations)|
+          +----------▲-----------+
+                     |
+          +----------▼-----------+
+          |     Internal Schema  |
+          | (Files, Indexes, HDD)|
+          +----------------------+
+</code></pre></div>
+<h3 id="data-independence">Data Independence<a class="headerlink" href="#data-independence" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>:
+- The ability to change the schema at one level of the database system without changing the schema at the next higher level.
+- <strong>Goal</strong>:
+  - Users can access data anytime, anywhere, without worrying about:
+    - How data is stored (backend).
+    - What tables or structure are involved.
+    - What indexes or file structures are used.</p>
+<p><strong>Why Data Independence Exists?</strong>
+- Based on the 3-Schema Architecture:
+  - View Level: What the user sees (limited or full access — like app interface).
+  - Conceptual Level: Logical design (tables, columns, relationships, constraints like PK, FK).
+  - Physical Level: Actual storage (file structures, indexes, data structures like heap, B+ tree).</p>
+<p><strong>Types of Data Independence</strong>:</p>
+<h4 id="logical-data-independence">Logical Data Independence<a class="headerlink" href="#logical-data-independence" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Changes at</strong>: Conceptual Level.</li>
+<li><strong>No effect on</strong>: View Level.</li>
+<li><strong>Meaning</strong>:</li>
+<li>User applications don’t break even if:<ul>
+<li>New columns are added.</li>
+<li>Existing columns are removed.</li>
+<li>Tables are modified.</li>
+</ul>
+</li>
+<li><strong>Example</strong>:</li>
+<li>User 1 adds a “Mobile Number” column to Student table.</li>
+<li>User 2 still sees only "Name" and "Age".</li>
+<li>App continues to work smoothly.</li>
+<li><strong>Achieved Using</strong>:</li>
+<li>Views (Virtual Tables).</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">student_view</span><span class="w"> </span><span class="k">AS</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Student</span><span class="p">;</span>
+</code></pre></div>
+<h4 id="physical-data-independence">Physical Data Independence<a class="headerlink" href="#physical-data-independence" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Changes at</strong>: Physical Level.</li>
+<li><strong>No effect on</strong>: Conceptual Level.</li>
+<li><strong>Meaning</strong>:</li>
+<li>Back-end storage operations don't affect the logical schema.</li>
+<li><strong>Example</strong>:</li>
+<li>Moving database from Hard Disk 1 → Hard Disk 2.</li>
+<li>Changing data structure from Sequential Access → Linked Access.</li>
+<li>Adding indexes or optimizing files.</li>
+<li><strong>Used For</strong>:</li>
+<li>Faster data access.</li>
+<li>Efficient storage changes without user noticing.</li>
+</ul>
+<p><strong>Key Concept: Transparency</strong>:
+- Users feel like data is right with them, always available and fast.
+- In reality, DBMS handles all changes behind the scenes.
+- <strong>Real-World Example</strong>:
+  - Gmail, UMS portals, shopping apps.
+  - They update and optimize daily (add columns, move storage).
+  - You never notice it!</p>
+<h2 id="integrity-constraints">Integrity Constraints<a class="headerlink" href="#integrity-constraints" title="Permanent link">&para;</a></h2>
+<h3 id="what-are-integrity-constraints">What Are Integrity Constraints?<a class="headerlink" href="#what-are-integrity-constraints" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>:
+- Integrity constraints are rules applied on database columns (attributes) to ensure valid, accurate, and consistent data is stored.
+- They restrict invalid data from being entered into the database.
+- Think of them as data quality rules applied while inserting, updating, or deleting records.</p>
+<p><strong>Why Do We Need Constraints?</strong>:
+- Without constraints:
+  - Any type of data can be inserted (e.g., age = -10, phone = "abc").
+  - Data becomes unreliable or inconsistent.
+  - Relationships between tables may break (e.g., orphan rows).
+- Constraints enforce:
+  - Correctness.
+  - Reliability.
+  - Uniqueness.
+  - Consistency.</p>
+<h3 id="types-of-integrity-constraints">Types of Integrity Constraints<a class="headerlink" href="#types-of-integrity-constraints" title="Permanent link">&para;</a></h3>
+<h4 id="domain-constraints">Domain Constraints<a class="headerlink" href="#domain-constraints" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Define the valid set of values for an attribute (column).</li>
+<li>Applied via Data Type and Check Conditions.</li>
+<li><strong>Example</strong>:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">age</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">CHECK</span><span class="w"> </span><span class="p">(</span><span class="n">age</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="n">phone_number</span><span class="w"> </span><span class="nb">CHAR</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</code></pre></div>
+<ul>
+<li><strong>Prevents</strong>:</li>
+<li>Negative marks or age.</li>
+<li>Invalid phone number lengths.</li>
+<li>Wrong data types.</li>
+</ul>
+<h4 id="entity-integrity-constraint">Entity Integrity Constraint<a class="headerlink" href="#entity-integrity-constraint" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Ensures that each record is uniquely identifiable.</li>
+<li>Implemented using Primary Key.</li>
+<li><strong>Rule</strong>:</li>
+<li>Primary Key must be Unique and Not Null.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">student_id</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li>Each entity (like Student, Employee) should have at least one unique identifier.</li>
+</ul>
+<h4 id="referential-integrity-constraint">Referential Integrity Constraint<a class="headerlink" href="#referential-integrity-constraint" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Ensures relationship consistency between two tables.</li>
+<li>Enforced using Foreign Key.</li>
+<li><strong>Rule</strong>:</li>
+<li>If a row in Child Table refers to a Parent Table, that value must exist in the parent.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">course_id</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">Courses</span><span class="p">(</span><span class="n">course_id</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li><strong>Prevents</strong>:</li>
+<li>Orphan records.</li>
+<li>Inserting child rows without a valid parent.</li>
+</ul>
+<h4 id="unique-constraint">Unique Constraint<a class="headerlink" href="#unique-constraint" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Ensures that a column (or set of columns) has only unique values.</li>
+<li><strong>Example</strong>:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">email</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">UNIQUE</span>
+</code></pre></div>
+<ul>
+<li>Candidate keys are attributes with unique constraints.</li>
+<li>You can have multiple UNIQUE constraints, but only one PRIMARY KEY.</li>
+</ul>
+<h4 id="not-null-constraint">Not Null Constraint<a class="headerlink" href="#not-null-constraint" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Ensures that a column cannot have NULL value.</li>
+<li><strong>Example</strong>:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
+</code></pre></div>
+<ul>
+<li>Required when a field is mandatory (e.g., user’s name, email).</li>
+</ul>
+<p><strong>Summary Table</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Constraint Type</th>
+<th>Purpose</th>
+<th>Implementation</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Domain</td>
+<td>Valid data type or value range</td>
+<td>Data Type + CHECK</td>
+<td>age INT CHECK(age &gt; 0)</td>
+</tr>
+<tr>
+<td>Entity Integrity</td>
+<td>Uniquely identify rows</td>
+<td>PRIMARY KEY</td>
+<td>PRIMARY KEY(student_id)</td>
+</tr>
+<tr>
+<td>Referential Integrity</td>
+<td>Maintain parent-child table consistency</td>
+<td>FOREIGN KEY</td>
+<td>FOREIGN KEY(course_id) REFERENCES ...</td>
+</tr>
+<tr>
+<td>Unique</td>
+<td>Enforce uniqueness on column(s)</td>
+<td>UNIQUE</td>
+<td>email VARCHAR(100) UNIQUE</td>
+</tr>
+<tr>
+<td>Not Null</td>
+<td>Ensure value must be provided</td>
+<td>NOT NULL</td>
+<td>name VARCHAR(50) NOT NULL</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Mnemonic for Constraints</strong>:
+- <strong>DUFUN-R</strong>:
+  - Domain
+  - Unique
+  - Foreign Key (Referential)
+  - Update Integrity (via PK)
+  - Not Null
+  - Real-world Consistency</p>
+<p><strong>Common SQL Example</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">Student</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">student_id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">email</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">UNIQUE</span><span class="p">,</span>
+<span class="w">    </span><span class="n">age</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">CHECK</span><span class="w"> </span><span class="p">(</span><span class="n">age</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">),</span>
+<span class="w">    </span><span class="n">dept_id</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
+<span class="w">    </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">dept_id</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">Department</span><span class="p">(</span><span class="n">dept_id</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div>
+<p><strong>Interview Tip</strong>:
+- “Integrity constraints ensure your database remains clean, consistent, and relationally accurate. Without them, data becomes garbage!”
+- Be ready to explain each constraint with one example.</p>
+<h2 id="keys-in-dbms">Keys in DBMS<a class="headerlink" href="#keys-in-dbms" title="Permanent link">&para;</a></h2>
+<h3 id="what-is-a-key">What is a Key?<a class="headerlink" href="#what-is-a-key" title="Permanent link">&para;</a></h3>
+<ul>
+<li>A key is an attribute (or a set of attributes) used to uniquely identify tuples (rows) in a relation (table).</li>
+<li>This helps avoid duplication and confusion between identical-looking rows.</li>
+</ul>
+<p><strong>Real-life Analogy</strong>:
+- Think of keys like your Aadhaar, Roll No, or Email – they make sure you’re you, even if someone has your same name and age.</p>
+<p><strong>Example: Student Table</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>City</th>
+<th>Age</th>
+<th>Roll No</th>
+<th>Aadhaar No</th>
+<th>Email ID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reddy</td>
+<td>Delhi</td>
+<td>21</td>
+<td>01</td>
+<td>XX123...</td>
+<td>reddy01@email.com</td>
+</tr>
+<tr>
+<td>Reddy</td>
+<td>Delhi</td>
+<td>21</td>
+<td>03</td>
+<td>YY456...</td>
+<td>reddy03@email.com</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Both have the same name, city, and age – but Roll No, Aadhaar, Email are different!</li>
+<li>These unique fields help identify them uniquely.</li>
+</ul>
+<h3 id="candidate-key">Candidate Key<a class="headerlink" href="#candidate-key" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>:
+- A Candidate Key is a minimal super key – a field (or combination of fields) that can uniquely identify every row in the table.
+- Each candidate key is a strong contender to become the primary key.</p>
+<p><strong>Properties</strong>:
+- Must be unique across rows.
+- Must be minimal (no unnecessary extra attributes).
+- A table can have multiple candidate keys.</p>
+<p><strong>Examples (from Student Table)</strong>:
+- Possible Candidate Keys:
+  - Roll Number
+  - Aadhaar Number
+  - Voter ID
+  - License Number
+  - Email ID
+  - Phone Number
+- All the above are:
+  - Unique
+  - Non-repeating
+  - Sufficient to identify each student</p>
+<h3 id="primary-key">Primary Key<a class="headerlink" href="#primary-key" title="Permanent link">&para;</a></h3>
+<ul>
+<li>A Primary Key is one selected candidate key that we use to uniquely identify each row in practice.</li>
+<li><strong>Chosen from</strong> the candidate key set.</li>
+<li><strong>Only one</strong> Primary Key per table.</li>
+<li><strong>Cannot be NULL</strong>.</li>
+<li>Choose the most practical and consistent one, like Roll No or Aadhaar.</li>
+</ul>
+<h3 id="alternative-keys">Alternative Keys<a class="headerlink" href="#alternative-keys" title="Permanent link">&para;</a></h3>
+<ul>
+<li>The remaining candidate keys, after choosing the primary key, are called Alternative Keys.</li>
+<li>They are still unique and valid – just not selected as the main identifier.</li>
+</ul>
+<p><strong>Tips for Interviews &amp; Exams</strong>:
+- “Primary key is always a candidate key, but not every candidate key is a primary key.”
+- Always highlight minimality and uniqueness in candidate key definitions.
+- Use real-world fields like PAN, Aadhaar, Roll No to explain.</p>
+<h3 id="foreign-key">Foreign Key<a class="headerlink" href="#foreign-key" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>:
+- A Foreign Key is an attribute (or set of attributes) in a table that references the Primary Key of another table or the same table.
+- Creates a link between two tables.
+- Ensures referential integrity.
+- Used in relational databases to maintain data consistency.</p>
+<p><strong>Formal Definition</strong>:
+- A Foreign Key (FK) is a field in one table that refers to the Primary Key (PK) in another table.
+- It can:
+  - Be single or composite.
+  - Reference a simple or composite PK.</p>
+<p><strong>Example Tables</strong>:</p>
+<p><strong>Table: Student (Base / Referenced Table)</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Roll_No (PK)</th>
+<th>Name</th>
+<th>Address</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>John</td>
+<td>Delhi</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Priya</td>
+<td>Mumbai</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table: Course (Referencing Table)</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Course_ID</th>
+<th>Course_Name</th>
+<th>Roll_No (FK)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C101</td>
+<td>DBMS</td>
+<td>1</td>
+</tr>
+<tr>
+<td>C102</td>
+<td>OS</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Course.Roll_No is a foreign key referencing Student.Roll_No.</li>
+</ul>
+<p><strong>Why Use Foreign Keys?</strong>:
+- To relate data across tables.
+- Prevent invalid data entry (e.g., you can't assign a course to a roll number that doesn’t exist).
+- Maintains Referential Integrity.</p>
+<p><strong>Common Interview Question</strong>:
+- <strong>Which key is used to maintain Referential Integrity?</strong>
+  - <strong>Answer</strong>: Foreign Key.</p>
+<p><strong>Oracle SQL Syntax</strong>:</p>
+<p><strong>While Creating Table</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">Course</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">Course_ID</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span>
+<span class="w">  </span><span class="n">Course_Name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span>
+<span class="w">  </span><span class="n">Roll_No</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span>
+<span class="w">  </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">Roll_No</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">Student</span><span class="p">(</span><span class="n">Roll_No</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div>
+<p><strong>After Table is Created (ALTER)</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">Course</span>
+<span class="k">ADD</span><span class="w"> </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">FK_Roll</span>
+<span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">Roll_No</span><span class="p">)</span>
+<span class="k">REFERENCES</span><span class="w"> </span><span class="n">Student</span><span class="p">(</span><span class="n">Roll_No</span><span class="p">);</span>
+</code></pre></div>
+<p><strong>Important Points</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FK references PK of...</td>
+<td>Same or another table (usually another)</td>
+</tr>
+<tr>
+<td>Composite PK?</td>
+<td>Yes, FK can reference composite keys</td>
+</tr>
+<tr>
+<td>Name Match Required?</td>
+<td>❌ No — column names can be different</td>
+</tr>
+<tr>
+<td>Multiple FKs per table?</td>
+<td>✅ Yes, a table can have multiple foreign keys</td>
+</tr>
+<tr>
+<td>Multiple PKs per table?</td>
+<td>❌ No, only one Primary Key per table</td>
+</tr>
+<tr>
+<td>Data Types (FK &amp; PK)</td>
+<td>Must be same type (e.g., both INT)</td>
+</tr>
+<tr>
+<td>Nullability</td>
+<td>FK column can be null, unlike PK which must not be null</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Keywords to Remember</strong>:
+- <strong>Referenced Table</strong>: Table that holds the PK (e.g., Student).
+- <strong>Referencing Table</strong>: Table that holds the FK (e.g., Course).
+- <strong>Referential Integrity</strong>: Ensures FK values exist in PK table.</p>
+<p><strong>Mnemonic</strong>:
+- <strong>FK → PK</strong>: Foreign Key always <em>Points to Primary Key</em>.
+- <strong>R.F.R.</strong>: Referencing → Foreign Key → References → Referenced Table.</p>
+<h3 id="referential-integrity-operations">Referential Integrity Operations<a class="headerlink" href="#referential-integrity-operations" title="Permanent link">&para;</a></h3>
+<p><strong>Referenced Table: Student</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Will It Cause Problem?</th>
+<th>Why?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Insert</td>
+<td>❌ No</td>
+<td>You can add any student</td>
+</tr>
+<tr>
+<td>Delete</td>
+<td>⚠️ Maybe</td>
+<td>If that student is referenced in Course, ❗problem!</td>
+</tr>
+<tr>
+<td>Update</td>
+<td>⚠️ Maybe</td>
+<td>If you update the PK, it breaks the link in child</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Referencing Table: Course</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Will It Cause Problem?</th>
+<th>Why?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Insert</td>
+<td>⚠️ Maybe</td>
+<td>If RollNo doesn’t exist in Student → ❌</td>
+</tr>
+<tr>
+<td>Delete</td>
+<td>❌ No</td>
+<td>You can remove the course for a student</td>
+</tr>
+<tr>
+<td>Update</td>
+<td>⚠️ Maybe</td>
+<td>Changing RollNo to one not in Student → ❌</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Solutions to Avoid Integrity Problems</strong>:</p>
+<ul>
+<li><strong>ON DELETE CASCADE</strong>:</li>
+<li>If a student is deleted from Student table → their entry in Course will also be deleted.</li>
+<li><strong>SQL</strong>:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">RollNo</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">Student</span><span class="p">(</span><span class="n">RollNo</span><span class="p">)</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">CASCADE</span>
+</code></pre></div>
+<ul>
+<li><strong>ON DELETE SET NULL</strong>:</li>
+<li>If student is deleted → RollNo in Course is set to NULL.</li>
+<li>Only works if RollNo in Course is not a Primary Key.</li>
+<li><strong>SQL</strong>:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">RollNo</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">Student</span><span class="p">(</span><span class="n">RollNo</span><span class="p">)</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="k">NULL</span>
+</code></pre></div>
+<ul>
+<li><strong>ON DELETE NO ACTION (Default)</strong>:</li>
+<li>
+<p>If RollNo is being referenced → you can’t delete it from Student.</p>
+</li>
+<li>
+<p><strong>Similarly for UPDATE</strong>:</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ON UPDATE CASCADE</td>
+<td>Updates RollNo everywhere automatically</td>
+</tr>
+<tr>
+<td>ON UPDATE SET NULL</td>
+<td>Sets foreign key to NULL</td>
+</tr>
+<tr>
+<td>ON UPDATE NO ACTION</td>
+<td>Prevents update if referenced</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Real-Life Analogy</strong>:
+- Imagine a university:
+  - Student Table = Student Directory.
+  - Course Table = Enrollments.
+  - If you remove a student, you must remove or update all records showing them enrolled in courses.</p>
+<p><strong>Summary</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Referenced Table (Student)</th>
+<th>Referencing Table (Course)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Insert</td>
+<td>✅ Safe</td>
+<td>⚠️ May Violate FK Constraint</td>
+</tr>
+<tr>
+<td>Delete</td>
+<td>⚠️ May Violate RI</td>
+<td>✅ Safe</td>
+</tr>
+<tr>
+<td>Update</td>
+<td>⚠️ May Violate RI</td>
+<td>⚠️ May Violate FK Constraint</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key Terms Recap</strong>:
+- <strong>Foreign Key</strong>: Attribute pointing to a primary key in another table.
+- <strong>Referential Integrity</strong>: Ensures references between tables are valid.
+- <strong>ON DELETE/UPDATE CASCADE/SET NULL</strong>: Ways to automatically maintain data consistency.</p>
+<h3 id="super-key">Super Key<a class="headerlink" href="#super-key" title="Permanent link">&para;</a></h3>
+<p><strong>Definition &amp; Concept</strong>:
+- A Super Key is any set of attributes that contains a Candidate Key and can still uniquely identify tuples.
+- <strong>Super Key ⊇ Candidate Key</strong>.</p>
+<p><strong>Example</strong>:
+- If Roll No is a candidate key:
+  - Super Keys = { Roll No, (Roll No, Name), (Roll No, Email), (Roll No, Age, Name) ... }
+- Every super key must include at least one candidate key.
+- Set like (Name, Age) is NOT a super key if it doesn’t guarantee uniqueness.</p>
+<p><strong>Memory Tip</strong>:
+- Candidate = Clean &amp; Minimal.
+- Super = Super-set of candidate keys.</p>
+<h3 id="numerical-gate-style-mcq-concepts">Numerical &amp; GATE-Style MCQ Concepts<a class="headerlink" href="#numerical-gate-style-mcq-concepts" title="Permanent link">&para;</a></h3>
+<p><strong>Case 1: A1 is a Candidate Key</strong>:
+- All Super Keys = 2^(n-1).
+- <strong>Why?</strong>:
+  - Fix A1 (must include candidate key).
+  - Remaining (n-1) attributes → 2 choices each: include/exclude.
+  - Total = 2^(n-1).</p>
+<p><strong>Case 2: A1 and A2 are Candidate Keys</strong>:
+- All Super Keys = 2^(n-1) + 2^(n-1) - 2^(n-2).
+- <strong>Why?</strong>:
+  - A1’s super keys: 2^(n-1).
+  - A2’s super keys: 2^(n-1).
+  - Common sets (having both A1 and A2): 2^(n-2).
+  - Total = Add both and subtract common.</p>
+<p><strong>Case 3: Two Composite Candidate Keys</strong>:
+- Let’s say: Candidate keys: (A1, A2) and (A3, A4).
+- Total attributes = n.
+- Then:
+  - Super Keys from A1,A2 = 2^(n-2).
+  - Super Keys from A3,A4 = 2^(n-2).
+  - Common sets = 2^(n-4).
+  - Final = 2^(n-2) + 2^(n-2) - 2^(n-4).</p>
+<p><strong>Practice MCQ (GATE-style)</strong>:
+- <strong>Q</strong>: If relation R has 6 attributes and 2 candidate keys (A1, A2), how many super keys are possible?
+- <strong>Answer</strong>:
+  - 2^(6-1) + 2^(6-1) - 2^(6-2) = 32 + 32 - 16 = 48.</p>
+<h2 id="entity-relationship-er-model">Entity-Relationship (ER) Model<a class="headerlink" href="#entity-relationship-er-model" title="Permanent link">&para;</a></h2>
+<h3 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Used for conceptual/logical data design before implementation.</li>
+<li>Like an architectural plan before constructing a building.</li>
+<li>Helps understand data structure before coding.</li>
+</ul>
+<p><strong>Real-Life Analogy</strong>:
+- You draw a floor plan before building a house to avoid costly changes later.
+- In DBMS: You draw an ER diagram before writing SQL to avoid wrong design.</p>
+<h3 id="core-concepts">Core Concepts<a class="headerlink" href="#core-concepts" title="Permanent link">&para;</a></h3>
+<h4 id="entity">Entity<a class="headerlink" href="#entity" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Definition</strong>: Anything that exists physically or logically and can be identified.</li>
+<li><strong>Examples</strong>:</li>
+<li>Student, Course, Teacher, Department.</li>
+<li>Represented by a <strong>Rectangle</strong> in ER diagrams.</li>
+</ul>
+<h4 id="attribute">Attribute<a class="headerlink" href="#attribute" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Definition</strong>: Properties or characteristics of an entity.</li>
+<li><strong>Examples for Student</strong>:</li>
+<li>Roll No, Name, Age, Address.</li>
+<li>Represented by an <strong>Ellipse (Oval)</strong>.</li>
+<li><strong>Key attribute</strong> (e.g., Roll No) is underlined.</li>
+</ul>
+<h4 id="relationship">Relationship<a class="headerlink" href="#relationship" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Definition</strong>: Association between two or more entities.</li>
+<li><strong>Example</strong>:</li>
+<li>A Student studies a Course.</li>
+<li>Represented by a <strong>Diamond</strong>.</li>
+</ul>
+<h4 id="er-diagram-symbols">ER Diagram Symbols<a class="headerlink" href="#er-diagram-symbols" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Symbol</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Entity</td>
+<td>🔲 Rectangle</td>
+<td>Student, Course</td>
+</tr>
+<tr>
+<td>Attribute</td>
+<td>⭕ Ellipse</td>
+<td>Name, Roll No</td>
+</tr>
+<tr>
+<td>Relationship</td>
+<td>🔷 Diamond</td>
+<td>Studies, Teaches</td>
+</tr>
+<tr>
+<td>Key Attribute</td>
+<td>⭕ Underlined</td>
+<td>Roll No</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why Use ER Model?</strong>:
+- Makes it easy to communicate with non-technical stakeholders.
+- Ensures clarity before coding.
+- Prevents rework if requirements change.</p>
+<p><strong>Example ER Diagram</strong>:</p>
+<div class="highlight"><pre><span></span><code>[Insert ER Diagram Image Here]
+![](images/er_diagram.png)
+</code></pre></div>
+<p><strong>Upcoming in ER Model Series</strong>:
+- Types of Attributes: Simple, Composite, Derived, Multivalued.
+- Types of Relationships / Cardinality: 1:1, 1:N, N:1, M:N.</p>
+<h3 id="types-of-attributes">Types of Attributes<a class="headerlink" href="#types-of-attributes" title="Permanent link">&para;</a></h3>
+<h4 id="single-valued-vs-multi-valued-attributes">Single-valued vs. Multi-valued Attributes<a class="headerlink" href="#single-valued-vs-multi-valued-attributes" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+<th>ER Diagram</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Single-valued</td>
+<td>Only one value per entity instance</td>
+<td>Registration No, Age</td>
+<td>Normal (single) ellipse</td>
+</tr>
+<tr>
+<td>Multi-valued</td>
+<td>Multiple values per entity</td>
+<td>Phone Numbers, Addresses</td>
+<td>Double ellipse</td>
+</tr>
+</tbody>
+</table>
+<h4 id="simple-vs-composite-attributes">Simple vs. Composite Attributes<a class="headerlink" href="#simple-vs-composite-attributes" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+<th>ER Diagram</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Simple</td>
+<td>Atomic, cannot be divided</td>
+<td>Age, Roll No, Gender</td>
+<td>Single ellipse</td>
+</tr>
+<tr>
+<td>Composite</td>
+<td>Can be divided into subparts</td>
+<td>Name → First, Middle, Last; Address → City, State, ZIP</td>
+<td>Parent ellipse with subparts</td>
+</tr>
+</tbody>
+</table>
+<h4 id="stored-vs-derived-attributes">Stored vs. Derived Attributes<a class="headerlink" href="#stored-vs-derived-attributes" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+<th>ER Diagram</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Stored</td>
+<td>Directly saved in DB</td>
+<td>Date of Birth, Registration No</td>
+<td>Normal ellipse</td>
+</tr>
+<tr>
+<td>Derived</td>
+<td>Calculated from other data</td>
+<td>Age (derived from DOB)</td>
+<td>Dotted ellipse</td>
+</tr>
+</tbody>
+</table>
+<h4 id="key-vs-non-key-attributes">Key vs. Non-Key Attributes<a class="headerlink" href="#key-vs-non-key-attributes" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+<th>ER Diagram</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Key</td>
+<td>Uniquely identifies each entity</td>
+<td>Reg No, Roll No</td>
+<td>Underline the attribute</td>
+</tr>
+<tr>
+<td>Non-Key</td>
+<td>May not be unique</td>
+<td>Name, Father Name, Address</td>
+<td>Normal ellipse</td>
+</tr>
+</tbody>
+</table>
+<h4 id="required-vs-optional-attributes-sql-side-concept-not-part-of-er-notation">Required vs. Optional Attributes (SQL-side concept, not part of ER notation)<a class="headerlink" href="#required-vs-optional-attributes-sql-side-concept-not-part-of-er-notation" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Required</td>
+<td>Cannot be null</td>
+<td>Student Name, Reg No</td>
+<td>Marked as NOT NULL in schema</td>
+</tr>
+<tr>
+<td>Optional</td>
+<td>Can be null</td>
+<td>Phone Number, Email</td>
+<td>May be skipped in input forms</td>
+</tr>
+</tbody>
+</table>
+<h4 id="complex-attributes">Complex Attributes<a class="headerlink" href="#complex-attributes" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Combination of Composite + Multi-valued.</li>
+<li><strong>Example</strong>: Address with multiple values, each containing Street, City, State.</li>
+<li>Represented using nested composite + multivalued ellipses.</li>
+</ul>
+<p><strong>ER Diagram Notation Recap</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Attribute Type</th>
+<th>ER Symbol</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Single</td>
+<td>Simple ellipse</td>
+</tr>
+<tr>
+<td>Multi-valued</td>
+<td>Double ellipse</td>
+</tr>
+<tr>
+<td>Derived</td>
+<td>Dotted ellipse</td>
+</tr>
+<tr>
+<td>Key</td>
+<td>Underline</td>
+</tr>
+<tr>
+<td>Composite</td>
+<td>Parent with branches</td>
+</tr>
+</tbody>
+</table>
+<h3 id="types-of-relationships-er-to-relational-model">Types of Relationships (ER to Relational Model)<a class="headerlink" href="#types-of-relationships-er-to-relational-model" title="Permanent link">&para;</a></h3>
+<p><strong>Overview</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Relationship Type</th>
+<th>ER Representation</th>
+<th>Real-World Example</th>
+<th>Table Reduction Possible?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>One to One (1:1)</td>
+<td>————————1—↔—1———————</td>
+<td>One employee → one department</td>
+<td>✅ Yes</td>
+</tr>
+<tr>
+<td>One to Many (1:N)</td>
+<td>————————1—↔—∞———————</td>
+<td>One customer → many orders</td>
+<td>✅ Yes</td>
+</tr>
+<tr>
+<td>Many to Many (M:N)</td>
+<td>————————M—↔—N———————</td>
+<td>Many students → many courses</td>
+<td>❌ No</td>
+</tr>
+</tbody>
+</table>
+<p><strong>What is a Relationship?</strong>:
+- A relationship shows association between two entities in an ER model.
+- <strong>Examples</strong>:
+  - Employee ↔ Department.
+  - Customer ↔ Order.
+  - Student ↔ Course.</p>
+<h4 id="one-to-one-11">One-to-One (1:1)<a class="headerlink" href="#one-to-one-11" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Example</strong>:</li>
+<li>An employee works in one department.</li>
+<li>A department has one employee managing it.</li>
+<li><strong>Tables</strong>:</li>
+<li>Employee(EID, Name, Age) → EID is PK.</li>
+<li>Department(DID, DeptName, Location) → DID is PK.</li>
+<li>Works(EID, DID) → Relationship Table.</li>
+<li><strong>Keys</strong>:</li>
+<li>EID and DID are both FKs in Works.</li>
+<li>Either EID or DID can be PK in Works.</li>
+<li><strong>Special Point</strong>:</li>
+<li>If no duplication in EID or DID, then:<ul>
+<li>You can merge the relationship into either table.</li>
+</ul>
+</li>
+<li><strong>Reduction</strong>:</li>
+<li>Final Tables: Employee + Department OR</li>
+<li>Merge: Employee(EID, Name, Age, DID) → 2 tables total.</li>
+</ul>
+<h4 id="one-to-many-1n">One-to-Many (1:N)<a class="headerlink" href="#one-to-many-1n" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Example</strong>:</li>
+<li>A customer can place many orders.</li>
+<li>But each order is placed by only one customer.</li>
+<li><strong>Tables</strong>:</li>
+<li>Customer(ID, Name, City) → ID is PK.</li>
+<li>Order(OrderNo, Item, Cost) → OrderNo is PK.</li>
+<li>Gives(ID, OrderNo, Date) → Relationship Table.</li>
+<li><strong>Keys</strong>:</li>
+<li>ID and OrderNo are both FKs in Gives.</li>
+<li>But only OrderNo (on "many" side) is PK.</li>
+<li><strong>Special Point</strong>:</li>
+<li>In 1:N, the PK of "many" side becomes PK in relationship.</li>
+<li><strong>Reduction</strong>:</li>
+<li>Merge Gives + Order: Yes.</li>
+<li>Final Tables: Customer, Order(ID, OrderNo, Item, Cost, Date).</li>
+</ul>
+<h4 id="many-to-many-mn">Many-to-Many (M:N)<a class="headerlink" href="#many-to-many-mn" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Example</strong>:</li>
+<li>A student can enroll in many courses.</li>
+<li>A course can have many students.</li>
+<li><strong>Tables</strong>:</li>
+<li>Student(RollNo, Name, Age) → RollNo is PK.</li>
+<li>Course(CID, Name, Credits) → CID is PK.</li>
+<li>Studies(RollNo, CID) → Relationship Table.</li>
+<li><strong>Keys</strong>:</li>
+<li>RollNo and CID are both FKs.</li>
+<li>Together form a composite PK.</li>
+<li><strong>Special Point</strong>:</li>
+<li>Cannot merge because neither RollNo nor CID is unique alone.</li>
+<li><strong>Reduction</strong>:</li>
+<li>No reduction possible.</li>
+<li>Final Tables: Student, Course, Studies.</li>
+</ul>
+<p><strong>Golden Rules Summary</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Case</th>
+<th>Relationship Table PK</th>
+<th>Merge Tables?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1:1</td>
+<td>Either side (EID or DID)</td>
+<td>✅ Yes (pick any one side)</td>
+</tr>
+<tr>
+<td>1:N</td>
+<td>PK of "Many" side (OrderNo)</td>
+<td>✅ Yes (merge with many)</td>
+</tr>
+<tr>
+<td>M:N</td>
+<td>Composite (RollNo + CID)</td>
+<td>❌ No</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pro Tip for Exams</strong>:
+- “Where there is MANY, take that side’s PK as the relationship table's PK.”
+- “In reduction, always try merging on the MANY side.”</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+  <div class="md-footer__inner">
+    <div class="md-footer__highlight">
+      Built with <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">Material for MkDocs</a> — © Abhinav P Pradeep
+    </div>
+  </div>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.top", "navigation.tabs", "navigation.instant", "navigation.tracking", "navigation.expand", "content.code.copy", "content.action.edit", "toc.follow", "search.suggest", "search.highlight", "header.autohide", "content.tabs.link"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>
