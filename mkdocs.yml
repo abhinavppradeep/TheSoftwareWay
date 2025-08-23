@@ -1,7 +1,7 @@
 site_name: The Software Way
 site_description: "CS Fundamentals & Systems — curated notes and mini-blogs"
 site_author: "Abhinav P Pradeep"
-site_url: "https://example.com"
+site_url: https://abhinavppradeep.github.io/thesoftwareway/
 
 theme:
   name: material
@@ -29,7 +29,7 @@ theme:
     - header.autohide
     - content.tabs.link
 
-repo_url: https://github.com/your-org/tech-startup-kb
+repo_url: https://github.com/abhinavppradeep/TheSoftwareWay
 edit_uri: edit/main/docs/
 
 plugins:
