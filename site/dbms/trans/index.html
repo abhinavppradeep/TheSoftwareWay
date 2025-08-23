@@ -1,0 +1,1833 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="CS Fundamentals & Systems — curated notes and mini-blogs">
+      
+      
+        <meta name="author" content="Abhinav P Pradeep">
+      
+      
+        <link rel="canonical" href="https://example.com/dbms/trans/">
+      
+      
+        <link rel="prev" href="../join/">
+      
+      
+        <link rel="next" href="../../os/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+    
+    
+      
+        <title>Transactions and Schedules in DBMS - The Software Way</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/styles/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#transactions-and-schedules-in-dbms" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="The Software Way" class="md-header__button md-logo" aria-label="The Software Way" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            The Software Way
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Transactions and Schedules in DBMS
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/your-org/tech-startup-kb" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../oops/oops/" class="md-tabs__link">
+          
+  
+  
+  OOPS
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+  DBMS
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../os/" class="md-tabs__link">
+          
+  
+  
+  OS
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="The Software Way" class="md-nav__button md-logo" aria-label="The Software Way" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    The Software Way
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/your-org/tech-startup-kb" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    OOPS
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            OOPS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../oops/oops/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    DBMS
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            DBMS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Database Fundamentals
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../norm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Normalization in DBMS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../join/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Joins in DBMS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Transactions and Schedules in DBMS
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Transactions and Schedules in DBMS
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#transactions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Transactions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Transactions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-transaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Transaction?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#database-transaction-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database Transaction Definition
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#detailed-db-transaction-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Detailed DB Transaction Example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-of-key-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary of Key Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-concept" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Concept
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acid-properties-of-transactions" class="md-nav__link">
+    <span class="md-ellipsis">
+      ACID Properties of Transactions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ACID Properties of Transactions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-atomicity-all-or-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Atomicity – “All or None”
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-consistency-data-valid-before-and-after" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Consistency – “Data Valid Before and After”
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-isolation-no-interference-between-transactions" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Isolation – “No Interference Between Transactions”
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-durability-once-committed-forever-saved" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Durability – “Once Committed, Forever Saved”
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary Table
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mini-quiz" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mini Quiz
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transaction-states-in-dbms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Transaction States in DBMS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Transaction States in DBMS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-active-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Active State
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-partially-committed-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Partially Committed State
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-committed-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Committed State
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-failed-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Failed State
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-aborted-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Aborted State
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-terminated-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Terminated State
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Important Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dbms-schedules-serial-vs-parallel" class="md-nav__link">
+    <span class="md-ellipsis">
+      DBMS Schedules: Serial vs Parallel
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DBMS Schedules: Serial vs Parallel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-schedule" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Schedule?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#types-of-schedules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types of Schedules
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Types of Schedules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-serial-schedule" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Serial Schedule
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-parallel-schedule-interleaved-schedule" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Parallel Schedule (Interleaved Schedule)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#throughput-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Throughput &amp; Performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-table_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary Table
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-takeaway" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaway
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    OS
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            OS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../os/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Operating System Concepts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../os/ind1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CPU Scheduling and Process Synchronization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../os/ind2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deadlock and Banker's Algorithm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#transactions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Transactions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Transactions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-transaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Transaction?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#database-transaction-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database Transaction Definition
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#detailed-db-transaction-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Detailed DB Transaction Example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-of-key-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary of Key Operations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-concept" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Concept
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acid-properties-of-transactions" class="md-nav__link">
+    <span class="md-ellipsis">
+      ACID Properties of Transactions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ACID Properties of Transactions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-atomicity-all-or-none" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Atomicity – “All or None”
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-consistency-data-valid-before-and-after" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Consistency – “Data Valid Before and After”
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-isolation-no-interference-between-transactions" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Isolation – “No Interference Between Transactions”
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-durability-once-committed-forever-saved" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Durability – “Once Committed, Forever Saved”
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary Table
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mini-quiz" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mini Quiz
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transaction-states-in-dbms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Transaction States in DBMS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Transaction States in DBMS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-active-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Active State
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-partially-committed-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Partially Committed State
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-committed-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Committed State
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-failed-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Failed State
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-aborted-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Aborted State
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-terminated-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Terminated State
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Important Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dbms-schedules-serial-vs-parallel" class="md-nav__link">
+    <span class="md-ellipsis">
+      DBMS Schedules: Serial vs Parallel
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DBMS Schedules: Serial vs Parallel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-schedule" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Schedule?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#types-of-schedules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types of Schedules
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Types of Schedules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-serial-schedule" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Serial Schedule
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-parallel-schedule-interleaved-schedule" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Parallel Schedule (Interleaved Schedule)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#throughput-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Throughput &amp; Performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-table_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary Table
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-takeaway" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Takeaway
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/your-org/tech-startup-kb/edit/main/docs/dbms/trans.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="transactions-and-schedules-in-dbms">Transactions and Schedules in DBMS<a class="headerlink" href="#transactions-and-schedules-in-dbms" title="Permanent link">&para;</a></h1>
+<p><strong>Author:</strong> Abhinav P Pradeep </p>
+<h2 id="transactions">Transactions<a class="headerlink" href="#transactions" title="Permanent link">&para;</a></h2>
+<h3 id="what-is-a-transaction">What is a Transaction?<a class="headerlink" href="#what-is-a-transaction" title="Permanent link">&para;</a></h3>
+<p>A transaction is a set of operations performed together to complete a logical unit of work on a database.</p>
+<p><strong>Real-Life Analogy</strong>:
+- ATM Withdrawal
+- Online Fund Transfer
+- Both involve multiple steps but result in one complete task.</p>
+<p><strong>ATM Example – Transaction Steps</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Insert ATM Card</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Card Info is read from DB</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Choose language, account type</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Enter amount</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Enter PIN</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Cash dispensed</td>
+</tr>
+<tr>
+<td>7</td>
+<td>SMS confirmation sent</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Final Message: “Transaction Successful”</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note</strong>: All these steps together form one transaction.</p>
+<h3 id="database-transaction-definition">Database Transaction Definition<a class="headerlink" href="#database-transaction-definition" title="Permanent link">&para;</a></h3>
+<p>A transaction changes the database or reads data from it.</p>
+<p><strong>Operations in a DB Transaction</strong>:
+1. <strong>Read(A)</strong>: Access data from DB (hard disk → RAM).
+2. <strong>Write(A)</strong>: Modify data in RAM.
+3. <strong>Commit</strong>: Save changes permanently to hard disk.</p>
+<p><strong>Online Transaction Example</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>DB Operation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Login (username + password)</td>
+<td>Read</td>
+</tr>
+<tr>
+<td>Select Beneficiary</td>
+<td>Read</td>
+</tr>
+<tr>
+<td>Enter amount + OTP + transaction password</td>
+<td>Write</td>
+</tr>
+<tr>
+<td>Final Confirmation</td>
+<td>Commit</td>
+</tr>
+</tbody>
+</table>
+<h3 id="detailed-db-transaction-example">Detailed DB Transaction Example<a class="headerlink" href="#detailed-db-transaction-example" title="Permanent link">&para;</a></h3>
+<p><strong>Scenario</strong>: Transfer ₹500 from A (₹1000) to B (₹2000).</p>
+<p><strong>Step-by-Step Breakdown</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>DB Action</th>
+<th>RAM Value</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Read(A)</td>
+<td>A = 1000</td>
+<td>Fetched from DB to RAM</td>
+</tr>
+<tr>
+<td>2</td>
+<td>A = A - 500</td>
+<td>A = 500</td>
+<td>Arithmetic Op in RAM</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Write(A)</td>
+<td>A updated in RAM</td>
+<td>DB unchanged yet</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Read(B)</td>
+<td>B = 2000</td>
+<td>From DB to RAM</td>
+</tr>
+<tr>
+<td>5</td>
+<td>B = B + 500</td>
+<td>B = 2500</td>
+<td>Arithmetic Op in RAM</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Write(B)</td>
+<td>B updated in RAM</td>
+<td>DB unchanged yet</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Commit</td>
+<td>A=500, B=2500 in DB</td>
+<td>Permanent Save</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note</strong>: CPU never directly works on disk; it uses RAM for operations.</p>
+<h3 id="summary-of-key-operations">Summary of Key Operations<a class="headerlink" href="#summary-of-key-operations" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Read(X)</td>
+<td>Fetch data from DB to RAM</td>
+</tr>
+<tr>
+<td>Write(X)</td>
+<td>Change value in RAM</td>
+</tr>
+<tr>
+<td>Commit</td>
+<td>Save changes to DB permanently</td>
+</tr>
+<tr>
+<td>Rollback</td>
+<td>Undo uncommitted changes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="core-concept">Core Concept<a class="headerlink" href="#core-concept" title="Permanent link">&para;</a></h3>
+<p>A transaction consists of Read, Write, and Commit (or Rollback) operations, ensuring:
+- All-or-Nothing Execution.
+- Data remains consistent.
+- Reliability in systems like banking, e-commerce, etc.</p>
+<h2 id="acid-properties-of-transactions">ACID Properties of Transactions<a class="headerlink" href="#acid-properties-of-transactions" title="Permanent link">&para;</a></h2>
+<p><strong>ACID</strong>: Atomicity + Consistency + Isolation + Durability.</p>
+<p>These properties ensure safe, correct, and reliable transaction handling in DBMS.</p>
+<p><strong>Why ACID Properties?</strong>:
+- Backend developers enforce them to ensure correctness and reliability in systems like Paytm, BHIM, or ATMs.</p>
+<h3 id="1-atomicity-all-or-none">1. Atomicity – “All or None”<a class="headerlink" href="#1-atomicity-all-or-none" title="Permanent link">&para;</a></h3>
+<p><strong>Meaning</strong>:
+- A transaction must either complete fully or fail completely (no partial changes allowed).</p>
+<p><strong>Real-Life Analogy (ATM)</strong>:
+- You inserted card, selected amount, entered PIN, but internet drops after OTP.
+- DBMS rolls back the entire transaction.
+- No “90% done” — it starts from scratch next time.</p>
+<p><strong>Key Concept</strong>:
+- If a transaction has 100 operations and fails at 99, ALL 99 are undone.
+- A failed transaction never resumes; it always restarts.</p>
+<h3 id="2-consistency-data-valid-before-and-after">2. Consistency – “Data Valid Before and After”<a class="headerlink" href="#2-consistency-data-valid-before-and-after" title="Permanent link">&para;</a></h3>
+<p><strong>Meaning</strong>:
+- The total data (e.g., total money) must remain valid before and after the transaction.</p>
+<p><strong>Example</strong>:
+- Before: A = ₹2000, B = ₹3000 → Total = ₹5000.
+- Transaction: Transfer ₹1000 from A to B.
+- After: A = ₹1000, B = ₹4000 → Total = ₹5000 (Consistent).</p>
+<p><strong>Inconsistent Case</strong>:
+- Internet lost after ATM processing.
+- ₹5000 debited from account, but no cash received.
+- DB becomes inconsistent.
+- Consistency ensures database rules are never violated.</p>
+<h3 id="3-isolation-no-interference-between-transactions">3. Isolation – “No Interference Between Transactions”<a class="headerlink" href="#3-isolation-no-interference-between-transactions" title="Permanent link">&para;</a></h3>
+<p><strong>Meaning</strong>:
+- Each transaction should run as if it’s the only one in the system.</p>
+<p><strong>Real-World Scenario</strong>:
+- T1 reads A.
+- Meanwhile, T2 writes to A.
+- T1 now sees inconsistent/partial data.</p>
+<p><strong>Conceptual Goal</strong>:
+- Convert a parallel schedule (T1 → T2 → T1 → T2 → T1) into a serial one (T1 → T2 or T2 → T1).
+- If possible → Isolation is preserved.
+- If not → Data inconsistency may occur.</p>
+<p><strong>Note</strong>: Explored further in Conflict/View Serializability.</p>
+<h3 id="4-durability-once-committed-forever-saved">4. Durability – “Once Committed, Forever Saved”<a class="headerlink" href="#4-durability-once-committed-forever-saved" title="Permanent link">&para;</a></h3>
+<p><strong>Meaning</strong>:
+- Once a transaction commits, the changes must be permanent and survive system failures, power off, etc.</p>
+<p><strong>Analogy</strong>:
+- You save a movie in D: drive.
+- Next day, laptop boots up → movie is still there.</p>
+<p><strong>In DBMS</strong>:
+- If A = ₹1000 and B = ₹4000 after a transaction, restarting the server tomorrow must still show A = 1000, B = 4000.
+- Durability is achieved by saving data to non-volatile storage (like hard disk).</p>
+<h3 id="summary-table">Summary Table<a class="headerlink" href="#summary-table" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Key Idea</th>
+<th>Real-Life Analogy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Atomicity</td>
+<td>All or none</td>
+<td>ATM transaction fails → starts from scratch</td>
+</tr>
+<tr>
+<td>Consistency</td>
+<td>DB remains valid</td>
+<td>Money in account + cash withdrawn = original total</td>
+</tr>
+<tr>
+<td>Isolation</td>
+<td>No interference</td>
+<td>Each transaction acts like it’s alone</td>
+</tr>
+<tr>
+<td>Durability</td>
+<td>Permanent changes</td>
+<td>Saved file stays on disk even after restart</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mini-quiz">Mini Quiz<a class="headerlink" href="#mini-quiz" title="Permanent link">&para;</a></h3>
+<ol>
+<li>What happens if a transaction fails after 99 operations?</li>
+<li>If A=2000, B=3000 before, and after transaction A=1000, B=4000 — is consistency preserved?</li>
+<li>Can we rearrange a parallel transaction schedule into a serial one? Why?</li>
+<li>What ensures that transaction changes stay even after a crash?</li>
+</ol>
+<p><strong>Answers</strong>:
+1. Entire transaction rolls back — nothing is saved.
+2. Yes, because total remains 5000 → Consistency preserved.
+3. Yes, if it’s serializable, isolation is achieved.
+4. Durability — by saving to hard disk.</p>
+<h2 id="transaction-states-in-dbms">Transaction States in DBMS<a class="headerlink" href="#transaction-states-in-dbms" title="Permanent link">&para;</a></h2>
+<p>When a transaction is executed in a DBMS, it goes through the following states:</p>
+<h3 id="1-active-state">1. Active State<a class="headerlink" href="#1-active-state" title="Permanent link">&para;</a></h3>
+<ul>
+<li>The transaction has started and is performing read/write operations.</li>
+<li>Example: Reading data from the database and doing calculations like A = A - 50.</li>
+<li>Data is in RAM (volatile memory).</li>
+<li><strong>Transition</strong>: After performing all operations except commit → moves to Partially Committed.</li>
+</ul>
+<h3 id="2-partially-committed-state">2. Partially Committed State<a class="headerlink" href="#2-partially-committed-state" title="Permanent link">&para;</a></h3>
+<ul>
+<li>All operations except the final commit are successfully executed.</li>
+<li>Changes are still in RAM, not in the permanent database.</li>
+<li>One last step (COMMIT) remains to make changes permanent.</li>
+</ul>
+<h3 id="3-committed-state">3. Committed State<a class="headerlink" href="#3-committed-state" title="Permanent link">&para;</a></h3>
+<ul>
+<li>The commit operation has been executed.</li>
+<li>All changes made by the transaction are now saved permanently in the hard disk (non-volatile storage).</li>
+<li>The transaction is safe, even if the system crashes after this.</li>
+</ul>
+<h3 id="4-failed-state">4. Failed State<a class="headerlink" href="#4-failed-state" title="Permanent link">&para;</a></h3>
+<ul>
+<li>The transaction has encountered an error before commit.</li>
+<li>Causes: Power failure, network issues, system crash, user mistake (e.g., refreshing payment page).</li>
+<li>Example: You entered OTP, but clicked refresh → transaction failed.</li>
+</ul>
+<h3 id="5-aborted-state">5. Aborted State<a class="headerlink" href="#5-aborted-state" title="Permanent link">&para;</a></h3>
+<ul>
+<li>A failed transaction is aborted.</li>
+<li>Rollback happens: All changes are undone to maintain consistency.</li>
+<li>The transaction cannot resume; it must restart from the beginning.</li>
+<li>After abort: Transaction can either be terminated or restarted later.</li>
+</ul>
+<h3 id="6-terminated-state">6. Terminated State<a class="headerlink" href="#6-terminated-state" title="Permanent link">&para;</a></h3>
+<ul>
+<li>The transaction has successfully finished or been aborted.</li>
+<li>All resources (CPU, RAM, network, locks, etc.) are deallocated.</li>
+<li>It is now removed from the system.</li>
+</ul>
+<h3 id="important-notes">Important Notes<a class="headerlink" href="#important-notes" title="Permanent link">&para;</a></h3>
+<ul>
+<li>After commit, a transaction cannot fail.</li>
+<li>Rollback is only possible before commit.</li>
+<li>No partial execution is allowed (atomicity).</li>
+<li>In real systems like ATM, IRCTC, or UPI apps, these states ensure data correctness and consistency even in failure scenarios.</li>
+</ul>
+<h2 id="dbms-schedules-serial-vs-parallel">DBMS Schedules: Serial vs Parallel<a class="headerlink" href="#dbms-schedules-serial-vs-parallel" title="Permanent link">&para;</a></h2>
+<h3 id="what-is-a-schedule">What is a Schedule?<a class="headerlink" href="#what-is-a-schedule" title="Permanent link">&para;</a></h3>
+<p>A schedule is a chronological sequence that defines how multiple transactions are executed in a DBMS.
+- Example: T1, T2, T3 are transactions. A schedule tells the order in which their operations occur.</p>
+<h3 id="types-of-schedules">Types of Schedules<a class="headerlink" href="#types-of-schedules" title="Permanent link">&para;</a></h3>
+<h4 id="1-serial-schedule">1. Serial Schedule<a class="headerlink" href="#1-serial-schedule" title="Permanent link">&para;</a></h4>
+<ul>
+<li>One transaction at a time — no interleaving.</li>
+<li><strong>Execution Flow</strong>:</li>
+<li>T1 executes completely → then T2 → then T3.</li>
+<li>No switching between transactions during execution.</li>
+<li><strong>Advantages</strong>:</li>
+<li>Consistency guaranteed (no interference).</li>
+<li>Easy to understand and debug.</li>
+<li><strong>Disadvantages</strong>:</li>
+<li>High waiting time for other transactions.</li>
+<li>Low performance and low throughput.</li>
+<li><strong>Real-Life Analogy</strong>:</li>
+<li>ATM machine with a queue: One person uses it at a time, others wait.</li>
+</ul>
+<h4 id="2-parallel-schedule-interleaved-schedule">2. Parallel Schedule (Interleaved Schedule)<a class="headerlink" href="#2-parallel-schedule-interleaved-schedule" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Multiple transactions execute concurrently (interleaved steps).</li>
+<li><strong>Execution Flow</strong>:</li>
+<li>T1, T2, T3 may start at the same time.</li>
+<li>CPU switches between transactions (context switching).</li>
+<li><strong>Advantages</strong>:</li>
+<li>High performance.</li>
+<li>Better CPU utilization.</li>
+<li>High throughput: More transactions per unit time.</li>
+<li><strong>Disadvantages</strong>:</li>
+<li>May lead to inconsistency if not managed properly.</li>
+<li>Requires concurrency control (e.g., conflict serializability, recoverability).</li>
+<li><strong>Real-Life Analogy</strong>:</li>
+<li>Online banking/IRCTC website: Many users transacting at the same time.</li>
+<li>System handles thousands of users concurrently.</li>
+</ul>
+<h3 id="throughput-performance">Throughput &amp; Performance<a class="headerlink" href="#throughput-performance" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Throughput</strong>: Number of transactions completed per unit time.</li>
+<li>More parallelism → More throughput → Better performance.</li>
+</ul>
+<h3 id="summary-table_1">Summary Table<a class="headerlink" href="#summary-table_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Serial Schedule</th>
+<th>Parallel Schedule</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Execution</td>
+<td>One at a time</td>
+<td>Interleaved</td>
+</tr>
+<tr>
+<td>Waiting time</td>
+<td>High</td>
+<td>Low</td>
+</tr>
+<tr>
+<td>Performance</td>
+<td>Low</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Consistency</td>
+<td>High (guaranteed)</td>
+<td>May be inconsistent</td>
+</tr>
+<tr>
+<td>Real-world analogy</td>
+<td>ATM queue</td>
+<td>IRCTC / Online banking</td>
+</tr>
+</tbody>
+</table>
+<h3 id="key-takeaway">Key Takeaway<a class="headerlink" href="#key-takeaway" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Today’s DBMS systems rely on parallel schedules due to user demand for high performance and speed.</li>
+<li>To ensure correctness, concurrency control mechanisms (e.g., serializability, locking) are required.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+  <div class="md-footer__inner">
+    <div class="md-footer__highlight">
+      Built with <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">Material for MkDocs</a> — © Abhinav P Pradeep
+    </div>
+  </div>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top", "navigation.tabs", "navigation.instant", "navigation.tracking", "navigation.expand", "content.code.copy", "content.action.edit", "toc.follow", "search.suggest", "search.highlight", "header.autohide", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>

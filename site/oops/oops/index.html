@@ -1,0 +1,2564 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="CS Fundamentals & Systems — curated notes and mini-blogs">
+      
+      
+        <meta name="author" content="Abhinav P Pradeep">
+      
+      
+        <link rel="canonical" href="https://example.com/oops/oops/">
+      
+      
+        <link rel="prev" href="../..">
+      
+      
+        <link rel="next" href="../../dbms/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+    
+    
+      
+        <title>OOPS Overview - The Software Way</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/styles/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#object-oriented-programming-oop-concepts" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="The Software Way" class="md-header__button md-logo" aria-label="The Software Way" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            The Software Way
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              OOPS Overview
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/your-org/tech-startup-kb" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+  OOPS
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../dbms/" class="md-tabs__link">
+          
+  
+  
+  DBMS
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../os/" class="md-tabs__link">
+          
+  
+  
+  OS
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="The Software Way" class="md-nav__button md-logo" aria-label="The Software Way" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    The Software Way
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/your-org/tech-startup-kb" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    OOPS
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            OOPS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#classes-and-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Classes and Objects
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Classes and Objects">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Class?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-is-an-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is an Object?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#access-specifiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Access Specifiers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#main-features-of-oop" class="md-nav__link">
+    <span class="md-ellipsis">
+      Main Features of OOP
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Main Features of OOP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#encapsulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Encapsulation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#abstraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Abstraction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#polymorphism" class="md-nav__link">
+    <span class="md-ellipsis">
+      Polymorphism
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Polymorphism">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compile-time-polymorphism-function-overloading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compile Time Polymorphism (Function Overloading)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-time-polymorphism-inheritance-and-virtual-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run Time Polymorphism (Inheritance and Virtual Functions)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-overloading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Function Overloading
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constructors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constructors
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Constructors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-constructor" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Constructor?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constructor-overloading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constructor Overloading
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operator-overloading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operator Overloading
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Operator Overloading">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#binary-operator-overloading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Binary Operator Overloading
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#friend-operator-overloading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Friend Operator Overloading
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#virtual-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Virtual Functions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Virtual Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-virtual-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Virtual Function?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pure-virtual-functions-and-abstract-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pure Virtual Functions and Abstract Classes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#destructors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Destructors
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Destructors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understanding-destructors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding Destructors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#virtual-destructors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Virtual Destructors
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inheritance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inheritance
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Inheritance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview-of-inheritance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview of Inheritance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#types-of-inheritance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types of Inheritance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constructors-in-inheritance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constructors in Inheritance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#destructors-in-inheritance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Destructors in Inheritance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accessing-base-class-members" class="md-nav__link">
+    <span class="md-ellipsis">
+      Accessing Base Class Members
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#friend-functions-and-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Friend Functions and Classes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Friend Functions and Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#friend-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      Friend Function
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#friend-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      Friend Class
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constructor-chaining" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constructor Chaining
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-keyword" class="md-nav__link">
+    <span class="md-ellipsis">
+      Static Keyword
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Static Keyword">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#static-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Static Variables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-members-of-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      Static Members of Class
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constant-variables-and-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constant Variables and Functions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Constant Variables and Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constant-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constant Variable
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constant-member-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constant Member Function
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-this-pointer" class="md-nav__link">
+    <span class="md-ellipsis">
+      The 'this' Pointer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#virtual-inheritance-diamond-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Virtual Inheritance (Diamond Problem)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structure-vs-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      Structure vs. Class
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reference-vs-pointer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reference vs. Pointer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-vs-malloc" class="md-nav__link">
+    <span class="md-ellipsis">
+      new vs. malloc
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scope-resolution-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scope Resolution Operator
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interfaces
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    DBMS
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            DBMS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dbms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Database Fundamentals
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dbms/norm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Normalization in DBMS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dbms/join/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Joins in DBMS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dbms/trans/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Transactions and Schedules in DBMS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    OS
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            OS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../os/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Operating System Concepts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../os/ind1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CPU Scheduling and Process Synchronization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../os/ind2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deadlock and Banker's Algorithm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#classes-and-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Classes and Objects
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Classes and Objects">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Class?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-is-an-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is an Object?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#access-specifiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Access Specifiers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#main-features-of-oop" class="md-nav__link">
+    <span class="md-ellipsis">
+      Main Features of OOP
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Main Features of OOP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#encapsulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Encapsulation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#abstraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Abstraction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#polymorphism" class="md-nav__link">
+    <span class="md-ellipsis">
+      Polymorphism
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Polymorphism">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compile-time-polymorphism-function-overloading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compile Time Polymorphism (Function Overloading)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-time-polymorphism-inheritance-and-virtual-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run Time Polymorphism (Inheritance and Virtual Functions)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-overloading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Function Overloading
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constructors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constructors
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Constructors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-constructor" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Constructor?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constructor-overloading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constructor Overloading
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operator-overloading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operator Overloading
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Operator Overloading">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#binary-operator-overloading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Binary Operator Overloading
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#friend-operator-overloading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Friend Operator Overloading
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#virtual-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Virtual Functions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Virtual Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-virtual-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Virtual Function?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pure-virtual-functions-and-abstract-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pure Virtual Functions and Abstract Classes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#destructors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Destructors
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Destructors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understanding-destructors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding Destructors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#virtual-destructors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Virtual Destructors
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inheritance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inheritance
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Inheritance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview-of-inheritance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview of Inheritance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#types-of-inheritance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types of Inheritance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constructors-in-inheritance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constructors in Inheritance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#destructors-in-inheritance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Destructors in Inheritance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accessing-base-class-members" class="md-nav__link">
+    <span class="md-ellipsis">
+      Accessing Base Class Members
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#friend-functions-and-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Friend Functions and Classes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Friend Functions and Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#friend-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      Friend Function
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#friend-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      Friend Class
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constructor-chaining" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constructor Chaining
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-keyword" class="md-nav__link">
+    <span class="md-ellipsis">
+      Static Keyword
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Static Keyword">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#static-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Static Variables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-members-of-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      Static Members of Class
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constant-variables-and-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constant Variables and Functions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Constant Variables and Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constant-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constant Variable
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constant-member-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constant Member Function
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-this-pointer" class="md-nav__link">
+    <span class="md-ellipsis">
+      The 'this' Pointer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#virtual-inheritance-diamond-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Virtual Inheritance (Diamond Problem)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structure-vs-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      Structure vs. Class
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reference-vs-pointer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reference vs. Pointer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#new-vs-malloc" class="md-nav__link">
+    <span class="md-ellipsis">
+      new vs. malloc
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scope-resolution-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scope Resolution Operator
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interfaces
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+        <span class="md-tag">OOPS</span>
+      
+    
+      
+      
+      
+        <span class="md-tag">theory</span>
+      
+    
+  </nav>
+
+
+  
+    <a href="https://github.com/your-org/tech-startup-kb/edit/main/docs/oops/oops.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="object-oriented-programming-oop-concepts">Object-Oriented Programming (OOP) Concepts<a class="headerlink" href="#object-oriented-programming-oop-concepts" title="Permanent link">&para;</a></h1>
+<p><strong>Author:</strong> Abhinav P Pradeep </p>
+<h2 id="classes-and-objects">Classes and Objects<a class="headerlink" href="#classes-and-objects" title="Permanent link">&para;</a></h2>
+<h3 id="what-is-a-class">What is a Class?<a class="headerlink" href="#what-is-a-class" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Building Block of OOP</strong>: The foundational element in object-oriented programming.</li>
+<li><strong>User-defined Data Type</strong>: A class is a template that defines data members (attributes) and member functions (methods).</li>
+<li><strong>Blueprint and Logical Representation</strong>: A class provides the structure and behavior but doesn't hold data itself until instantiated.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Car</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">brand</span><span class="p">;</span>
+<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">model</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">year</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">displayInfo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Brand: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">brand</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;, Model: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">model</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;, Year: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">year</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<ul>
+<li><strong>Member Function Outside/Inside Class</strong>: You can define member functions inside or outside the class.</li>
+</ul>
+<p><strong>Outside Example:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">Car::displayInfo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Brand: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">brand</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;, Model: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">model</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;, Year: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">year</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li><strong>Data Member</strong>: Always defined inside the class.</li>
+</ul>
+<h3 id="what-is-an-object">What is an Object?<a class="headerlink" href="#what-is-an-object" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Instance of a Class</strong>: An object is a specific implementation of a class.</li>
+<li><strong>Usage of Data Members and Methods</strong>: To access the data members and methods of a class, you need to create an object.</li>
+<li><strong>Physical Representation</strong>: While a class is a conceptual framework (logical), an object is the actual entity created from the class (physical).</li>
+</ul>
+<p><strong>Example:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Car</span><span class="w"> </span><span class="n">myCar</span><span class="p">;</span>
+<span class="w">    </span><span class="n">myCar</span><span class="p">.</span><span class="n">brand</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Toyota&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">myCar</span><span class="p">.</span><span class="n">model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Corolla&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">myCar</span><span class="p">.</span><span class="n">year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2020</span><span class="p">;</span>
+<span class="w">    </span><span class="n">myCar</span><span class="p">.</span><span class="n">displayInfo</span><span class="p">();</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Class vs. Object</strong>: Think of the class as a recipe (logical), and the object as the actual dish made from the recipe (physical).</p>
+<h3 id="access-specifiers">Access Specifiers<a class="headerlink" href="#access-specifiers" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>public</strong>: Members are accessible from outside the class.</li>
+<li><strong>private</strong>: Members are accessible only within the class. They cannot be accessed directly from outside the class.</li>
+<li><strong>protected</strong>: Members are accessible within the class and by derived classes (inheritance).</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Car</span><span class="w"> </span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">brand</span><span class="p">;</span>
+<span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">model</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">year</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">setDetails</span><span class="p">(</span><span class="n">string</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">string</span><span class="w"> </span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">brand</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="w">        </span><span class="n">model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">m</span><span class="p">;</span>
+<span class="w">        </span><span class="n">year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">displayInfo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Brand: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">brand</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;, Model: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">model</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;, Year: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">year</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Car</span><span class="w"> </span><span class="n">myCar</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// myCar.brand = &quot;Toyota&quot;; // Error: &#39;brand&#39; is private</span>
+<span class="w">    </span><span class="c1">// myCar.model = &quot;Corolla&quot;; // Error: &#39;model&#39; is private</span>
+<span class="w">    </span><span class="c1">// myCar.year = 2020; // Error: &#39;year&#39; is private</span>
+<span class="w">    </span><span class="n">myCar</span><span class="p">.</span><span class="n">setDetails</span><span class="p">(</span><span class="s">&quot;Toyota&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Corolla&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">2020</span><span class="p">);</span><span class="w"> </span><span class="c1">// Accessible</span>
+<span class="w">    </span><span class="n">myCar</span><span class="p">.</span><span class="n">displayInfo</span><span class="p">();</span><span class="w"> </span><span class="c1">// Accessible</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="main-features-of-oop">Main Features of OOP<a class="headerlink" href="#main-features-of-oop" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Encapsulation</li>
+<li>Data Abstraction</li>
+<li>Polymorphism</li>
+<li>Inheritance</li>
+</ul>
+<h3 id="encapsulation">Encapsulation<a class="headerlink" href="#encapsulation" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Definition</strong>: Encapsulation is the binding of data and member functions into a single unit such that sensitive data is hidden from the users.</li>
+<li><strong>Data hiding</strong>: Restricts access to the members of an object, i.e., private and protected members in C++.</li>
+<li><strong>Bundling of data and methods together</strong>: Data members and member methods are wrapped into a single unit known as a class.</li>
+</ul>
+<p><img alt="" src="../images/media/image1.png" /></p>
+<h3 id="abstraction">Abstraction<a class="headerlink" href="#abstraction" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Definition</strong>: Abstraction is showing only the necessary information and hiding the other irrelevant information from the user, i.e., hiding the implementation details.</li>
+<li><strong>Real-life example</strong>: A man driving a car. The driver knows how to drive but doesn't need to know the internal workings of the engine.</li>
+</ul>
+<p><img alt="" src="../images/media/image2.png" /></p>
+<p><img alt="" src="../images/media/image3.png" /></p>
+<p><img alt="" src="../images/media/image4.png" /></p>
+<p><img alt="" src="../images/media/image5.png" /></p>
+<h3 id="polymorphism">Polymorphism<a class="headerlink" href="#polymorphism" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Definition</strong>: Polymorphism means having many forms. It is the ability of a message to be displayed in more than one form.</li>
+<li><strong>Example</strong>: A man can be a father, a husband, and an employee, exhibiting different behaviors in different instances.</li>
+</ul>
+<p><img alt="" src="../images/media/image6.png" /></p>
+<p><strong>Types of Polymorphism:</strong></p>
+<ul>
+<li><strong>Compile Time (Static Binding)</strong>: Binding of function to object is at compile time. Inheritance is not involved.</li>
+<li><strong>Run Time (Dynamic Binding)</strong>: Binding of function to object is at run time. Inheritance is involved.</li>
+</ul>
+<p><img alt="" src="../images/media/image8.png" /></p>
+<h4 id="compile-time-polymorphism-function-overloading">Compile Time Polymorphism (Function Overloading)<a class="headerlink" href="#compile-time-polymorphism-function-overloading" title="Permanent link">&para;</a></h4>
+<p><img alt="" src="../images/media/image9.png" /></p>
+<h4 id="run-time-polymorphism-inheritance-and-virtual-functions">Run Time Polymorphism (Inheritance and Virtual Functions)<a class="headerlink" href="#run-time-polymorphism-inheritance-and-virtual-functions" title="Permanent link">&para;</a></h4>
+<p><img alt="" src="../images/media/image10.png" /></p>
+<h3 id="function-overloading">Function Overloading<a class="headerlink" href="#function-overloading" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Definition</strong>: Function overloading is defining multiple functions with the same name in the same class but with different parameter lists (number of arguments, type of arguments, order of arguments).</li>
+</ul>
+<p><strong>How Function Overloading Works:</strong></p>
+<ul>
+<li><strong>Exact Match</strong>: If a function call exactly matches one of the overloaded functions (name and parameters), that function is called.</li>
+<li><strong>Promotion</strong>: If an exact match is not found:</li>
+<li>char, unsigned char, and short are promoted to int.</li>
+<li>float is promoted to double.</li>
+<li><strong>Standard Conversion</strong>: If no match is found, C++ tries to find a match through standard type conversion.</li>
+<li><strong>Error</strong>: If no suitable match is found, the compiler throws an error.</li>
+</ul>
+<h3 id="constructors">Constructors<a class="headerlink" href="#constructors" title="Permanent link">&para;</a></h3>
+<h4 id="what-is-a-constructor">What is a Constructor?<a class="headerlink" href="#what-is-a-constructor" title="Permanent link">&para;</a></h4>
+<p>A <strong>constructor</strong> is a special type of member function in a class that initializes objects of that class. It is automatically called when an object of the class is created. The primary purpose of a constructor is to initialize data members of the class to appropriate values.</p>
+<p><strong>Key Characteristics of Constructors:</strong></p>
+<ul>
+<li><strong>Same Name as the Class</strong>: A constructor has the same name as the class in which it resides.</li>
+<li><strong>No Return Type</strong>: Constructors do not have a return type, not even void.</li>
+<li><strong>Automatically Called</strong>: Constructors are called automatically when an object is created.</li>
+<li><strong>Can Be Overloaded</strong>: Multiple constructors can be defined in a class with different parameter lists (constructor overloading).</li>
+<li><strong>In public</strong></li>
+</ul>
+<p><strong>Types of Constructors:</strong></p>
+<ul>
+<li><strong>Default Constructor</strong>: A constructor that takes no arguments.</li>
+<li><strong>Parameterized Constructor</strong>: A constructor that takes one or more arguments.</li>
+<li><strong>Copy Constructor</strong>: A constructor that initializes an object using another object of the same class.</li>
+</ul>
+<p><img alt="" src="../images/media/image11.png" /></p>
+<p><img alt="" src="../images/media/image12.png" /></p>
+<p><img alt="" src="../images/media/image13.png" /></p>
+<h4 id="constructor-overloading">Constructor Overloading<a class="headerlink" href="#constructor-overloading" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Definition</strong>: Constructor overloading is a form of compile-time polymorphism where multiple constructors are defined in the same class with different parameter lists (number of arguments, type of arguments, order of arguments).</li>
+</ul>
+<p><img alt="" src="../images/media/image14.png" /></p>
+<p><strong>Example:</strong></p>
+<h3 id="operator-overloading">Operator Overloading<a class="headerlink" href="#operator-overloading" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Definition</strong>: Operator overloading allows giving a special meaning to an existing operator without changing its actual meaning. It's mainly used for user-defined data types (e.g., adding two class objects).</li>
+</ul>
+<p><strong>Notes:</strong></p>
+<ul>
+<li>Some operators cannot be overloaded: sizeof, ::, ., ?:.</li>
+<li>:: scope resolution</li>
+<li>. member selection</li>
+<li>.* member selection through pointer to function</li>
+<li>?: ternary operator</li>
+<li>Syntax: RETURN_TYPE operator OPERATOR_SYMBOL (ARGUMENT)</li>
+</ul>
+<p><strong>Points to Remember:</strong></p>
+<ul>
+<li><strong>Unary Operator</strong>: No need to pass an argument.</li>
+<li><strong>Binary Operator</strong>: Need to pass one argument.</li>
+<li><strong>Destructor</strong>: Cannot be overloaded.</li>
+<li><strong>Friend Function</strong>: Can be used to overload operators for non-member functions.</li>
+</ul>
+<p><img alt="" src="../images/media/image15.png" /></p>
+<p><img alt="" src="../images/media/image16.png" /></p>
+<h4 id="binary-operator-overloading">Binary Operator Overloading<a class="headerlink" href="#binary-operator-overloading" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Complex</span><span class="w"> </span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">real</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">imag</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="c1">// Constructor to initialize real and imaginary parts</span>
+<span class="w">    </span><span class="n">Complex</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">real</span><span class="p">(</span><span class="n">r</span><span class="p">),</span><span class="w"> </span><span class="n">imag</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">    </span><span class="c1">// Overloading the binary + operator</span>
+<span class="w">    </span><span class="n">Complex</span><span class="w"> </span><span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Complex</span><span class="w"> </span><span class="o">&amp;</span><span class="n">c</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Create a temporary Complex object to hold the result</span>
+<span class="w">        </span><span class="n">Complex</span><span class="w"> </span><span class="n">temp</span><span class="p">;</span>
+<span class="w">        </span><span class="n">temp</span><span class="p">.</span><span class="n">real</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">real</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">real</span><span class="p">;</span><span class="w"> </span><span class="c1">// Add the real parts</span>
+<span class="w">        </span><span class="n">temp</span><span class="p">.</span><span class="n">imag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">imag</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">imag</span><span class="p">;</span><span class="w"> </span><span class="c1">// Add the imaginary parts</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">temp</span><span class="p">;</span><span class="w"> </span><span class="c1">// Return the result</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Function to display the complex number</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">display</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;(&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">real</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; + &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">imag</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;i)&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Create two Complex objects</span>
+<span class="w">    </span><span class="n">Complex</span><span class="w"> </span><span class="n">c1</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">);</span>
+<span class="w">    </span><span class="n">Complex</span><span class="w"> </span><span class="n">c2</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">7.0</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Add the two Complex objects using the overloaded + operator</span>
+<span class="w">    </span><span class="n">Complex</span><span class="w"> </span><span class="n">c3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">c2</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Display the result</span>
+<span class="w">    </span><span class="n">c3</span><span class="p">.</span><span class="n">display</span><span class="p">();</span><span class="w"> </span><span class="c1">// Output: (4 + 9i)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="friend-operator-overloading">Friend Operator Overloading<a class="headerlink" href="#friend-operator-overloading" title="Permanent link">&para;</a></h4>
+<p>Friend functions are functions that are not members of a class but have access to its private and protected members. This is useful for operator overloading, especially when you want to overload an operator that interacts with two different classes or when the operator needs to access private data members directly.</p>
+<p><strong>Example: Overloading the + Operator with a Friend Function</strong></p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Complex</span><span class="w"> </span><span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">real</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">imag</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="c1">// Constructor to initialize real and imaginary parts</span>
+<span class="w">    </span><span class="n">Complex</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">real</span><span class="p">(</span><span class="n">r</span><span class="p">),</span><span class="w"> </span><span class="n">imag</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">    </span><span class="c1">// Friend function to overload the binary + operator</span>
+<span class="w">    </span><span class="k">friend</span><span class="w"> </span><span class="n">Complex</span><span class="w"> </span><span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Complex</span><span class="w"> </span><span class="o">&amp;</span><span class="n">c1</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Complex</span><span class="w"> </span><span class="o">&amp;</span><span class="n">c2</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Function to display the complex number</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">display</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;(&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">real</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; + &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">imag</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;i)&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">// Definition of the friend function to overload the + operator</span>
+<span class="n">Complex</span><span class="w"> </span><span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Complex</span><span class="w"> </span><span class="o">&amp;</span><span class="n">c1</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Complex</span><span class="w"> </span><span class="o">&amp;</span><span class="n">c2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Create a temporary Complex object to hold the result</span>
+<span class="w">    </span><span class="n">Complex</span><span class="w"> </span><span class="n">temp</span><span class="p">;</span>
+<span class="w">    </span><span class="n">temp</span><span class="p">.</span><span class="n">real</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c1</span><span class="p">.</span><span class="n">real</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">c2</span><span class="p">.</span><span class="n">real</span><span class="p">;</span><span class="w"> </span><span class="c1">// Add the real parts</span>
+<span class="w">    </span><span class="n">temp</span><span class="p">.</span><span class="n">imag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c1</span><span class="p">.</span><span class="n">imag</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">c2</span><span class="p">.</span><span class="n">imag</span><span class="p">;</span><span class="w"> </span><span class="c1">// Add the imaginary parts</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">temp</span><span class="p">;</span><span class="w"> </span><span class="c1">// Return the result</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Create two Complex objects</span>
+<span class="w">    </span><span class="n">Complex</span><span class="w"> </span><span class="nf">c1</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">);</span>
+<span class="w">    </span><span class="n">Complex</span><span class="w"> </span><span class="nf">c2</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">7.0</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// Add the two Complex objects using the overloaded + operator</span>
+<span class="w">    </span><span class="n">Complex</span><span class="w"> </span><span class="n">c3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">c2</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Display the result</span>
+<span class="w">    </span><span class="n">c3</span><span class="p">.</span><span class="n">display</span><span class="p">();</span><span class="w"> </span><span class="c1">// Output: (4 + 9i)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="virtual-functions">Virtual Functions<a class="headerlink" href="#virtual-functions" title="Permanent link">&para;</a></h3>
+<h4 id="what-is-a-virtual-function">What is a Virtual Function?<a class="headerlink" href="#what-is-a-virtual-function" title="Permanent link">&para;</a></h4>
+<p>A virtual function is a member function declared in the base class using the keyword virtual and can be overridden in a derived class. The purpose of a virtual function is to achieve runtime polymorphism.</p>
+<ul>
+<li><strong>Declaration and Overriding</strong>:</li>
+<li><strong>Base Class</strong>: Declared using the virtual keyword.</li>
+<li><strong>Derived Class</strong>: Can be overridden (redefined).</li>
+<li><strong>Execution</strong>:</li>
+<li>If the derived class does not override the virtual function, the base class version is executed.</li>
+<li><strong>Virtual Destructor</strong>: A class can have a virtual destructor but not a virtual constructor.</li>
+<li><strong>Usage</strong>:</li>
+<li>To achieve runtime polymorphism, a base class pointer/reference is used, which can hold the address of a derived class object.</li>
+<li>The virtual keyword ensures the function call is bound at runtime based on the actual object type.</li>
+<li><strong>Real-life Example</strong>:</li>
+<li>Consider a traffic signal scenario where vehicles are a base class with a virtual function move().</li>
+<li>Derived classes like Car, Bicycle, and Bus override the move() function.</li>
+<li>When various vehicles need to move, the overridden move() function is called based on the actual vehicle.</li>
+</ul>
+<p><img alt="" src="../images/media/image17.png" /></p>
+<h4 id="pure-virtual-functions-and-abstract-classes">Pure Virtual Functions and Abstract Classes<a class="headerlink" href="#pure-virtual-functions-and-abstract-classes" title="Permanent link">&para;</a></h4>
+<p><strong>Pure Virtual Function</strong></p>
+<p>A pure virtual function is a function that has no implementation in the base class and must be overridden in any derived class. It is declared by assigning 0 in its declaration.</p>
+<p><strong>Abstract Class</strong></p>
+<p>An abstract class is a class that cannot provide implementations for all its functions. It contains at least one pure virtual function. You cannot create objects of an abstract class.</p>
+<p><strong>Key Points:</strong></p>
+<ul>
+<li><strong>Definition</strong>:</li>
+<li><strong>Abstract Class</strong>: A class with at least one pure virtual function.</li>
+<li><strong>Pure Virtual Function</strong>: Declared by assigning 0 in the declaration, e.g., virtual void move() = 0;.</li>
+<li><strong>Purpose</strong>:</li>
+<li>Abstract classes provide a base for other classes to derive from, ensuring certain functions are implemented in derived classes.</li>
+<li><strong>Instantiation</strong>:</li>
+<li>You cannot create objects of abstract classes directly.</li>
+<li>Abstract classes can have pointers and references to abstract class types.</li>
+<li><strong>Constructors and Destructors</strong>:</li>
+<li>Abstract classes can have constructors and destructors.</li>
+<li>The destructor of an abstract class is usually declared virtual to ensure proper cleanup of derived class objects.</li>
+<li><strong>Real-life Example</strong>:</li>
+<li>Consider an Animal class that has a pure virtual function move(). Different animals (derived classes) like Dog, Bird, and Fish will implement the move() function in their own way.</li>
+</ul>
+<p><img alt="" src="../images/media/image18.png" /></p>
+<p><img alt="" src="../images/media/image19.png" /></p>
+<p><strong>Explanation:</strong></p>
+<ul>
+<li><strong>Animal Class</strong>:</li>
+<li>Declares a pure virtual function move(), making it an abstract class.</li>
+<li>The destructor is virtual to ensure proper cleanup.</li>
+<li><strong>Dog Class</strong>:</li>
+<li>Inherits from Animal and overrides the move() function.</li>
+<li><strong>Bird Class</strong>:</li>
+<li>Inherits from Animal and overrides the move() function.</li>
+<li><strong>Main Function</strong>:</li>
+<li>Demonstrates runtime polymorphism using a base class pointer (animal) to call the overridden move() function in derived classes (Dog and Bird).</li>
+</ul>
+<p><strong>Summary</strong></p>
+<ul>
+<li><strong>Abstract Class</strong>: Cannot be instantiated and contains at least one pure virtual function.</li>
+<li><strong>Pure Virtual Function</strong>: Must be overridden in any derived class.</li>
+<li><strong>Runtime Polymorphism</strong>: Achieved by using base class pointers or references to call overridden functions in derived classes.</li>
+<li><strong>Virtual Destructor</strong>: Ensures proper cleanup of derived class objects when deleted through a base class pointer.</li>
+</ul>
+<h3 id="destructors">Destructors<a class="headerlink" href="#destructors" title="Permanent link">&para;</a></h3>
+<h4 id="understanding-destructors">Understanding Destructors<a class="headerlink" href="#understanding-destructors" title="Permanent link">&para;</a></h4>
+<p>A destructor is a special member function of a class that is executed when an object of that class is destroyed. It is used to clean up resources that the object may have acquired during its lifetime. This can include deallocating memory, closing file handles, or releasing other resources.</p>
+<p><strong>Key Points About Destructors:</strong></p>
+<ul>
+<li><strong>Name</strong>:</li>
+<li>A destructor has the same name as the class, preceded by a tilde (~).</li>
+<li>Example: For a class named MyClass, the destructor is ~MyClass().</li>
+<li><strong>No Parameters</strong>:</li>
+<li>Destructors do not take any parameters.</li>
+<li>You cannot overload a destructor.</li>
+<li><strong>No Return Type</strong>:</li>
+<li>Destructors do not have a return type, not even void.</li>
+<li><strong>Automatic Call</strong>:</li>
+<li>The destructor is called automatically when an object goes out of scope or is explicitly deleted.</li>
+<li><strong>Single Destructor per Class</strong>:</li>
+<li>Each class can have only one destructor.</li>
+<li><strong>Inheritance</strong>:</li>
+<li>In the context of inheritance, destructors in the base and derived classes are called in reverse order of their construction.</li>
+</ul>
+<h4 id="virtual-destructors">Virtual Destructors<a class="headerlink" href="#virtual-destructors" title="Permanent link">&para;</a></h4>
+<p>A virtual destructor ensures that the destructor of the derived class is called when a base class pointer pointing to a derived class object is deleted. This is crucial for proper resource cleanup and avoiding memory leaks.</p>
+<p><strong>Why Virtual Destructors Are Important</strong></p>
+<p>When you delete a derived class object through a base class pointer, if the base class destructor is not virtual, only the base class destructor is called. This can lead to incomplete destruction of the derived class object and potential resource leaks.</p>
+<p><img alt="" src="../images/media/image20.png" /></p>
+<p><strong>Output:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">Base</span><span class="w"> </span><span class="k">Destructor</span><span class="w"> </span><span class="k">called</span>
+</code></pre></div>
+<p>In this case, the Derived class destructor is not called because the Base class destructor is not virtual. This can cause resource leaks if the Derived class allocates resources that need to be explicitly released in its destructor.</p>
+<p><strong>Example With Virtual Destructor</strong></p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Base</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">Base</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// Virtual destructor</span>
+<span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Base Destructor called&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Derived</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Base</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="o">~</span><span class="n">Derived</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Derived Destructor called&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Base</span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Derived</span><span class="p">();</span>
+<span class="w">    </span><span class="k">delete</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="c1">// Both Derived and Base Destructors are called</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Output:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">Derived</span><span class="w"> </span><span class="k">Destructor</span><span class="w"> </span><span class="k">called</span>
+<span class="n">Base</span><span class="w"> </span><span class="k">Destructor</span><span class="w"> </span><span class="k">called</span>
+</code></pre></div>
+<p>With the virtual destructor in place, both the Derived class destructor and the Base class destructor are called, ensuring proper cleanup of the derived class object.</p>
+<p><strong>How It Works:</strong></p>
+<ul>
+<li><strong>Base Class with Virtual Destructor</strong>:</li>
+<li>The Base class declares a virtual destructor: virtual ~Base().</li>
+<li>This tells the compiler to use runtime polymorphism for the destructor, ensuring the correct destructor is called for the actual object type.</li>
+<li><strong>Derived Class Destructor</strong>:</li>
+<li>The Derived class defines its own destructor: ~Derived().</li>
+<li>When the derived class object is deleted through a base class pointer, the derived class destructor is called first, followed by the base class destructor.</li>
+</ul>
+<p><strong>Key Points:</strong></p>
+<ul>
+<li><strong>Virtual Destructors</strong>:</li>
+<li>Ensure that the destructors of derived classes are called, allowing for complete and proper cleanup.</li>
+<li>Use the virtual keyword to indicate that the destructor should use runtime polymorphism.</li>
+<li><strong>Resource Management</strong>:</li>
+<li>Prevents resource leaks by ensuring derived class resources are released properly.</li>
+<li>Important for classes that manage dynamic memory or other resources that require explicit release.</li>
+<li><strong>Polymorphism</strong>:</li>
+<li>Virtual destructors are part of the mechanism that allows polymorphic behavior in C++.</li>
+<li>Necessary for classes intended to be used polymorphically through base class pointers or references.</li>
+</ul>
+<p><strong>Summary</strong></p>
+<ul>
+<li><strong>Without Virtual Destructor</strong>: Only the base class destructor is called when deleting a derived class object through a base class pointer, potentially leading to resource leaks.</li>
+<li><strong>With Virtual Destructor</strong>: Both the derived class and base class destructors are called, ensuring complete and proper cleanup of the object.</li>
+<li><strong>Usage</strong>: Always declare a virtual destructor in a base class if it is intended to be inherited by other classes and used polymorphically.</li>
+</ul>
+<p><strong>Note</strong>: If a base class pointer holds the address of a derived class and we delete the base class pointer, only the base class destructor is called unless the base class destructor is virtual.</p>
+<h3 id="inheritance">Inheritance<a class="headerlink" href="#inheritance" title="Permanent link">&para;</a></h3>
+<h4 id="overview-of-inheritance">Overview of Inheritance<a class="headerlink" href="#overview-of-inheritance" title="Permanent link">&para;</a></h4>
+<p>Inheritance is a key feature of Object-Oriented Programming (OOP) that allows a new class (derived class) to inherit properties and behaviors (data members and member functions) from an existing class (base class). It promotes code reusability and establishes a natural hierarchy between classes.</p>
+<p><strong>Key Concepts:</strong></p>
+<ul>
+<li><strong>Base Class (Parent Class)</strong>: The class whose properties and methods are inherited by another class.</li>
+<li><strong>Derived Class (Child Class)</strong>: The class that inherits from the base class.</li>
+</ul>
+<p><strong>Why Use Inheritance?</strong></p>
+<ul>
+<li><strong>Code Reusability</strong>: Inherits properties and methods from the base class, reducing code duplication.</li>
+<li><strong>Logical Hierarchy</strong>: Establishes a logical hierarchy between classes, making the code easier to understand and maintain.</li>
+<li><strong>Extensibility</strong>: Allows the creation of new functionalities based on existing code.</li>
+</ul>
+<h4 id="types-of-inheritance">Types of Inheritance<a class="headerlink" href="#types-of-inheritance" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Single Inheritance</strong>: A derived class inherits from a single base class.</li>
+<li><strong>Example</strong>: Vehicle -&gt; Car</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Vehicle</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Base class code</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Car</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Vehicle</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Derived class code</span>
+<span class="p">};</span>
+</code></pre></div>
+<ul>
+<li><strong>Multiple Inheritance</strong>: A derived class inherits from more than one base class.</li>
+<li><strong>Example</strong>: Father -&gt; Son; Mother -&gt; Son</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Father</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Base class code</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Mother</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Base class code</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Son</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Father</span><span class="p">,</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Mother</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Derived class code</span>
+<span class="p">};</span>
+</code></pre></div>
+<ul>
+<li><strong>Multilevel Inheritance</strong>: A derived class inherits from another derived class.</li>
+<li><strong>Example</strong>: Animal -&gt; Cat -&gt; RussianBlue</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Animal</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Base class code</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Cat</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Animal</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Derived class code</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">RussianBlue</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Cat</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Derived class code</span>
+<span class="p">};</span>
+</code></pre></div>
+<ul>
+<li><strong>Hierarchical Inheritance</strong>: Multiple derived classes inherit from a single base class.</li>
+<li><strong>Example</strong>: Animal -&gt; Cat; Animal -&gt; Dog</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Animal</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Base class code</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Cat</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Animal</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Derived class code</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Dog</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Animal</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Derived class code</span>
+<span class="p">};</span>
+</code></pre></div>
+<ul>
+<li><strong>Hybrid Inheritance</strong>: A combination of two or more types of inheritance.</li>
+<li><strong>Example</strong>: A complex inheritance pattern involving multiple and hierarchical inheritance.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Human</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Base class code</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Boy</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Human</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Derived class code</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Girl</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Human</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Derived class code</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Male</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Boy</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Derived class code</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Female</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Girl</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Derived class code</span>
+<span class="p">};</span>
+</code></pre></div>
+<h4 id="constructors-in-inheritance">Constructors in Inheritance<a class="headerlink" href="#constructors-in-inheritance" title="Permanent link">&para;</a></h4>
+<p>Constructors in derived classes can call constructors in base classes. This is especially important for parameterized constructors.</p>
+<ul>
+<li><strong>Default Constructor</strong>: Automatically called if no other constructor is specified.</li>
+<li><strong>Parameterized Constructor</strong>: Must explicitly specify the base class's parameterized constructor in the initialization list.</li>
+</ul>
+<p><img alt="" src="../images/media/image21.png" /></p>
+<h4 id="destructors-in-inheritance">Destructors in Inheritance<a class="headerlink" href="#destructors-in-inheritance" title="Permanent link">&para;</a></h4>
+<p>Destructors in derived classes are called in the reverse order of the constructors. The destructor of the derived class is called first, followed by the destructor of the base class.</p>
+<p><img alt="" src="../images/media/image22.png" /></p>
+<p><strong>Output:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">Derived</span><span class="w"> </span><span class="k">Destructor</span><span class="w"> </span><span class="k">called</span>
+<span class="n">Base</span><span class="w"> </span><span class="k">Destructor</span><span class="w"> </span><span class="k">called</span>
+</code></pre></div>
+<h4 id="accessing-base-class-members">Accessing Base Class Members<a class="headerlink" href="#accessing-base-class-members" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Inheritance</strong>: The derived class inherits public and protected members from the base class. Private members are not accessible directly but can be accessed through public or protected member functions.</li>
+<li><strong>Friend Class</strong>: A derived class can access private members of a base class if the base class declares the derived class as a friend.</li>
+</ul>
+<p><img alt="" src="../images/media/image23.png" /></p>
+<p><strong>Summary</strong></p>
+<ul>
+<li><strong>Inheritance</strong>: Enables creating new classes from existing classes, promoting code reuse and logical hierarchy.</li>
+<li><strong>Types</strong>: Includes single, multiple, multilevel, hierarchical, and hybrid inheritance.</li>
+<li><strong>Constructors</strong>: Parameterized constructors of base classes must be explicitly called in derived classes.</li>
+<li><strong>Destructors</strong>: Called in the reverse order of construction to ensure proper cleanup.</li>
+<li><strong>Access</strong>: Derived classes can access public and protected members of base classes, with private members accessible through friend classes or member functions.</li>
+</ul>
+<h3 id="friend-functions-and-classes">Friend Functions and Classes<a class="headerlink" href="#friend-functions-and-classes" title="Permanent link">&para;</a></h3>
+<h4 id="friend-function">Friend Function<a class="headerlink" href="#friend-function" title="Permanent link">&para;</a></h4>
+<p>A friend function is a function that is not a member of a class but can access the private and protected members of the class. It acts as a bridge between two classes by accessing their private data.</p>
+<p><strong>Key Points:</strong></p>
+<ul>
+<li><strong>Not a Member Function</strong>:</li>
+<li>It is not a member of any class.</li>
+<li>Declared inside the class but defined outside the class.</li>
+<li><strong>Access</strong>:</li>
+<li>Can access private and protected members of the class where it is declared as a friend.</li>
+<li><strong>Declaration and Definition</strong>:</li>
+<li>Declared inside the class using the friend keyword.</li>
+<li>Defined outside the class.</li>
+<li><strong>Call</strong>:</li>
+<li>Called like a normal function, not using the object and dot operator.</li>
+</ul>
+<p><img alt="" src="../images/media/image24.png" /></p>
+<h4 id="friend-class">Friend Class<a class="headerlink" href="#friend-class" title="Permanent link">&para;</a></h4>
+<p>A friend class is a class that is declared as a friend of another class, allowing it to access private and protected members of the class where it is declared as a friend.</p>
+<p><strong>Key Points:</strong></p>
+<ul>
+<li><strong>Access</strong>:</li>
+<li>Can access private and protected members of the class where it is declared as a friend.</li>
+<li><strong>Declaration</strong>:</li>
+<li>Declared inside the class using the friend keyword.</li>
+<li><strong>Scope</strong>:</li>
+<li>A friend class can be declared in public, protected, or private sections of the class.</li>
+</ul>
+<p><img alt="" src="../images/media/image25.png" /></p>
+<h3 id="constructor-chaining">Constructor Chaining<a class="headerlink" href="#constructor-chaining" title="Permanent link">&para;</a></h3>
+<p><strong>Definition:</strong></p>
+<p>Constructor chaining is a technique in object-oriented programming where one constructor calls another constructor within the same class. It helps reduce code duplication and make the program simpler.</p>
+<p><img alt="" src="../images/media/image26.png" /></p>
+<p><strong>Explanation:</strong></p>
+<ul>
+<li>The Box class has three constructors.</li>
+<li>The default constructor initializes the dimensions to zero.</li>
+<li>The parameterized constructor initializes the dimensions to the given values.</li>
+<li>The constructor with one parameter calls the parameterized constructor with the same value for all dimensions, demonstrating constructor chaining.</li>
+</ul>
+<h3 id="static-keyword">Static Keyword<a class="headerlink" href="#static-keyword" title="Permanent link">&para;</a></h3>
+<h4 id="static-variables">Static Variables<a class="headerlink" href="#static-variables" title="Permanent link">&para;</a></h4>
+<p><strong>Inside Function:</strong></p>
+<ul>
+<li><strong>Lifetime</strong>: The space for a static variable inside a function is allocated once, and it retains its value between function calls.</li>
+</ul>
+<p><img alt="" src="../images/media/image27.png" /></p>
+<p><strong>Inside Class:</strong></p>
+<ul>
+<li><strong>Shared by all objects</strong>: Only one copy of the static variable is created for all objects of the class.</li>
+<li><strong>Initialization</strong>: Automatically initialized to 0.</li>
+<li><strong>Declaration</strong>: Inside the class.</li>
+<li><strong>Definition</strong>: Outside the class.</li>
+</ul>
+<p><img alt="" src="../images/media/image28.png" /></p>
+<h4 id="static-members-of-class">Static Members of Class<a class="headerlink" href="#static-members-of-class" title="Permanent link">&para;</a></h4>
+<p><strong>Static Member Function:</strong></p>
+<ul>
+<li>Can only access static variables.</li>
+<li>Called using the class name or an object.</li>
+</ul>
+<p><img alt="" src="../images/media/image29.png" /></p>
+<p><strong>Static Data Members:</strong></p>
+<ul>
+<li><strong>Static data members</strong> are shared among all objects of a class. They are not tied to any particular object.</li>
+<li><strong>Non-static data members</strong> are unique to each object of the class.</li>
+</ul>
+<p><strong>Static Member Functions:</strong></p>
+<ul>
+<li><strong>Static member functions</strong> can only access static data members because they are not associated with any object of the class.</li>
+<li><strong>Non-static member functions</strong> can access both static and non-static data members because they operate on an object of the class and have access to the this pointer.</li>
+</ul>
+<p><strong>Example:</strong></p>
+<p><img alt="" src="../images/media/image30.png" /></p>
+<p><img alt="" src="../images/media/image31.png" /></p>
+<h3 id="constant-variables-and-functions">Constant Variables and Functions<a class="headerlink" href="#constant-variables-and-functions" title="Permanent link">&para;</a></h3>
+<h4 id="constant-variable">Constant Variable<a class="headerlink" href="#constant-variable" title="Permanent link">&para;</a></h4>
+<p><strong>Definition:</strong></p>
+<p>A constant variable is a variable whose value cannot be changed after it has been initialized. In C++, the const keyword is used to define constant variables.</p>
+<p><strong>Key Points:</strong></p>
+<ul>
+<li><strong>Fixed value</strong>: Once assigned, the value of a constant variable cannot be altered.</li>
+<li><strong>Initialization</strong>: Must be initialized at the time of declaration.</li>
+<li><strong>Usage in C++</strong>: Constant data members should be initialized using a constructor initializer list.</li>
+</ul>
+<p><img alt="" src="../images/media/image32.png" /></p>
+<h4 id="constant-member-function">Constant Member Function<a class="headerlink" href="#constant-member-function" title="Permanent link">&para;</a></h4>
+<p><strong>Definition:</strong></p>
+<p>A constant member function is a member function that does not modify the state of the object. It can be called on constant objects.</p>
+<p><strong>Key Points:</strong></p>
+<ul>
+<li><strong>Const objects</strong>: An object declared as const cannot be modified.</li>
+<li><strong>Const member function</strong>: A member function that guarantees not to alter the object's data members.</li>
+<li><strong>Syntax</strong>: Declared by adding const keyword after the function declaration.</li>
+</ul>
+<p><img alt="" src="../images/media/image33.png" /></p>
+<h3 id="the-this-pointer">The 'this' Pointer<a class="headerlink" href="#the-this-pointer" title="Permanent link">&para;</a></h3>
+<p><strong>Definition:</strong></p>
+<p>The this pointer in C++ is a special pointer that is implicitly passed to all non-static member functions of a class. It points to the object for which the member function is called.</p>
+<p><strong>Key Points:</strong></p>
+<ul>
+<li><strong>Current Object Address</strong>: this is used to retrieve the address of the current object, given in hexadecimal format.</li>
+<li><strong>Distinguishing Data Members</strong>: It helps to distinguish between class data members and local variables when both have the same name.</li>
+</ul>
+<p><img alt="" src="../images/media/image34.png" /></p>
+<p><strong>Explanation:</strong></p>
+<ul>
+<li>this-&gt;x refers to the data member x of the current object.</li>
+<li>Without this, x = x; would not distinguish between the parameter and the data member, leading to ambiguity.</li>
+</ul>
+<h3 id="virtual-inheritance-diamond-problem">Virtual Inheritance (Diamond Problem)<a class="headerlink" href="#virtual-inheritance-diamond-problem" title="Permanent link">&para;</a></h3>
+<p><strong>Definition:</strong></p>
+<p>The diamond problem occurs in multiple inheritance when two superclasses of a class have a common base class. This can lead to ambiguity and duplication of inherited members.</p>
+<p><strong>Key Points:</strong></p>
+<ul>
+<li><strong>Superclass</strong>: A class whose properties are inherited by a subclass.</li>
+<li><strong>Diamond Shape</strong>: The inheritance structure forms a diamond shape.</li>
+<li><strong>Multiple Copies</strong>: Without virtual inheritance, the subclass gets two copies of the common base class attributes.</li>
+</ul>
+<p><img alt="" src="../images/media/image35.png" /></p>
+<p><strong>Explanation:</strong></p>
+<ul>
+<li><strong>Virtual Inheritance</strong>: The virtual keyword ensures that the Person class's attributes are shared and not duplicated in the Intern class, avoiding ambiguity.</li>
+</ul>
+<h3 id="structure-vs-class">Structure vs. Class<a class="headerlink" href="#structure-vs-class" title="Permanent link">&para;</a></h3>
+<p><strong>Structures:</strong></p>
+<ul>
+<li><strong>Default Access Specifier</strong>: Public.</li>
+<li><strong>Inheritance</strong>: Limited support (typically not used for inheritance).</li>
+<li><strong>Data Encapsulation</strong>: Primarily used for data grouping.</li>
+<li><strong>Usage</strong>: Generally used for passive objects with public data members.</li>
+</ul>
+<p><strong>Classes:</strong></p>
+<ul>
+<li><strong>Default Access Specifier</strong>: Private.</li>
+<li><strong>Inheritance</strong>: Full support, used extensively.</li>
+<li><strong>Data Encapsulation</strong>: Supports data hiding and encapsulation.</li>
+<li><strong>Usage</strong>: Used for creating active objects with both data members and member functions.</li>
+</ul>
+<h3 id="reference-vs-pointer">Reference vs. Pointer<a class="headerlink" href="#reference-vs-pointer" title="Permanent link">&para;</a></h3>
+<p><strong>References:</strong></p>
+<ul>
+<li><strong>Syntax</strong>: Declared using &amp;.</li>
+<li><strong>Nullability</strong>: Cannot be null.</li>
+<li><strong>Reassignment</strong>: Cannot be reassigned to reference another object after initialization.</li>
+<li><strong>Usage</strong>: Safer and easier to use, preferred when possible.</li>
+</ul>
+<p><strong>Pointers:</strong></p>
+<ul>
+<li><strong>Syntax</strong>: Declared using *.</li>
+<li><strong>Nullability</strong>: Can be null.</li>
+<li><strong>Reassignment</strong>: Can be reassigned to point to different objects.</li>
+<li><strong>Usage</strong>: More powerful, allows for dynamic memory management.</li>
+</ul>
+<h3 id="new-vs-malloc">new vs. malloc<a class="headerlink" href="#new-vs-malloc" title="Permanent link">&para;</a></h3>
+<p><strong>new:</strong></p>
+<ul>
+<li><strong>Type Safety</strong>: Returns the correct type.</li>
+<li><strong>Initialization</strong>: Calls constructors.</li>
+<li><strong>Syntax</strong>: Operator.</li>
+<li><strong>Exception Handling</strong>: Throws an exception if memory allocation fails.</li>
+</ul>
+<p><strong>malloc:</strong></p>
+<ul>
+<li><strong>Type Safety</strong>: Returns void* (requires casting).</li>
+<li><strong>Initialization</strong>: Does not call constructors.</li>
+<li><strong>Syntax</strong>: Function.</li>
+<li><strong>Exception Handling</strong>: Returns NULL if memory allocation fails.</li>
+</ul>
+<h3 id="scope-resolution-operator">Scope Resolution Operator<a class="headerlink" href="#scope-resolution-operator" title="Permanent link">&para;</a></h3>
+<p><strong>Definition:</strong></p>
+<p>The scope resolution operator (::) is used to define the scope of a function or variable, specifically when the same name exists in different scopes.</p>
+<p><strong>Key Points:</strong></p>
+<ul>
+<li><strong>Global Scope</strong>: Access global variables when there's a local variable with the same name.</li>
+<li><strong>Class Scope</strong>: Define member functions outside the class definition.</li>
+<li><strong>Namespace Scope</strong>: Access elements of a namespace.</li>
+</ul>
+<p><img alt="" src="../images/media/image36.png" /></p>
+<h3 id="interfaces">Interfaces<a class="headerlink" href="#interfaces" title="Permanent link">&para;</a></h3>
+<p><strong>Definition:</strong></p>
+<p>An interface is a class with only pure virtual functions. It defines a contract that derived classes must fulfill.</p>
+<p><strong>Key Points:</strong></p>
+<ul>
+<li><strong>Pure Virtual Functions</strong>: Functions declared by assigning 0 in the declaration.</li>
+<li><strong>No Implementation</strong>: Derived classes must provide implementations for the pure virtual functions.</li>
+<li><strong>Abstract Classes</strong>: Interfaces are abstract classes.</li>
+</ul>
+<p><img alt="" src="../images/media/image37.png" /></p>
+<p><strong>Explanation:</strong></p>
+<ul>
+<li><strong>Pure Virtual Function</strong>: show() is declared as a pure virtual function in the Interface class.</li>
+<li><strong>Derived Class</strong>: Implementation class provides the implementation for the show() function.</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+  <div class="md-footer__inner">
+    <div class="md-footer__highlight">
+      Built with <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">Material for MkDocs</a> — © Abhinav P Pradeep
+    </div>
+  </div>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top", "navigation.tabs", "navigation.instant", "navigation.tracking", "navigation.expand", "content.code.copy", "content.action.edit", "toc.follow", "search.suggest", "search.highlight", "header.autohide", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>

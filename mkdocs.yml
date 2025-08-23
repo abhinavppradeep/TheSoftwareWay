@@ -1,0 +1,74 @@
+site_name: The Software Way
+site_description: "CS Fundamentals & Systems — curated notes and mini-blogs"
+site_author: "Abhinav P Pradeep"
+site_url: "https://example.com"
+
+theme:
+  name: material
+  custom_dir: overrides
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.top
+    - navigation.tabs
+    - navigation.instant
+    - navigation.tracking
+    - navigation.expand
+    - content.code.copy
+    - content.action.edit
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - header.autohide
+    - content.tabs.link
+
+repo_url: https://github.com/your-org/tech-startup-kb
+edit_uri: edit/main/docs/
+
+plugins:
+  - search
+  - tags
+  - meta
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - footnotes
+  - toc:
+      permalink: true
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.details
+  - pymdownx.snippets
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+      emoji_index: !!python/name:materialx.emoji.twemoji
+
+extra_css:
+  - assets/styles/extra.css
+
+nav:
+  - Home: index.md
+  - OOPS:
+      - Theory: oops/oops.md
+  - DBMS:
+      - dbms/index.md
+      - dbms/norm.md
+      - dbms/join.md
+      - dbms/trans.md
+
+  - OS:
+      - os/index.md
+      - os/ind1.md
+      - os/ind2.md
+      

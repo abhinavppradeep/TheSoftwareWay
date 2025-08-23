@@ -1,0 +1,3257 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="CS Fundamentals & Systems — curated notes and mini-blogs">
+      
+      
+        <meta name="author" content="Abhinav P Pradeep">
+      
+      
+        <link rel="canonical" href="https://example.com/os/">
+      
+      
+        <link rel="prev" href="../dbms/trans/">
+      
+      
+        <link rel="next" href="ind1/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+    
+    
+      
+        <title>Operating System Concepts - The Software Way</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/styles/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#operating-system-concepts" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="The Software Way" class="md-header__button md-logo" aria-label="The Software Way" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            The Software Way
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Operating System Concepts
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/your-org/tech-startup-kb" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../oops/oops/" class="md-tabs__link">
+          
+  
+  
+  OOPS
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../dbms/" class="md-tabs__link">
+          
+  
+  
+  DBMS
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+  OS
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="The Software Way" class="md-nav__button md-logo" aria-label="The Software Way" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    The Software Way
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/your-org/tech-startup-kb" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    OOPS
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            OOPS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../oops/oops/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Theory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    DBMS
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            DBMS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dbms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Database Fundamentals
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dbms/norm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Normalization in DBMS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dbms/join/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Joins in DBMS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dbms/trans/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Transactions and Schedules in DBMS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    OS
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            OS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Operating System Concepts
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Operating System Concepts
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-an-operating-system-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is an Operating System (OS)?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What is an Operating System (OS)?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-do-we-need-an-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Do We Need an OS?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#primary-goals-of-an-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      Primary Goals of an OS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-life-os-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Real-Life OS Examples
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#functionalities-of-operating-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functionalities of Operating System
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functionalities of Operating System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resource-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Resource Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#process-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Process Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storage-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Storage Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security-privacy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security &amp; Privacy
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os-in-action-application-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      OS in Action: Application Layer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary Table
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tips-for-exam-interviews" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tips for Exam &amp; Interviews
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#batch-operating-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Batch Operating System
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Batch Operating System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-batch-operating-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Batch Operating System?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#historical-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      Historical Context
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#working-of-batch-os-step-by-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      Working of Batch OS – Step by Step
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#major-disadvantages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Major Disadvantages
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-characteristics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Characteristics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-real-life-analogy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example: Real-life Analogy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evolution-from-operators-to-monitors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Evolution: From Operators to Monitors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-os-vs-modern-os-quick-snapshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Batch OS vs Modern OS (Quick Snapshot)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exam-ready-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exam-Ready Summary
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multiprogramming-vs-multitasking" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multiprogramming vs Multitasking
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Multiprogramming vs Multitasking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#confusion-clarified" class="md-nav__link">
+    <span class="md-ellipsis">
+      Confusion Clarified
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiprogramming-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multiprogramming OS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multitasking-time-sharing-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multitasking (Time-Sharing) OS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiprogramming-vs-multitasking-quick-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multiprogramming vs Multitasking – Quick Comparison
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-are-they-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      Where Are They Used?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-exam-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Exam Points
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#types-of-operating-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types of Operating Systems
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Types of Operating Systems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#real-time-distributed-clustered-embedded" class="md-nav__link">
+    <span class="md-ellipsis">
+      Real-Time, Distributed, Clustered, Embedded
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Real-Time, Distributed, Clustered, Embedded">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#real-time-operating-system-rtos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Real-Time Operating System (RTOS)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distributed-operating-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Distributed Operating System
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clustered-operating-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clustered Operating System
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#embedded-operating-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Embedded Operating System
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cheat-sheet-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cheat-Sheet Table
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-call" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Call
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="System Call">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-system-call" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a System Call?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-system-calls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why System Calls?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mode-transition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mode Transition
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Real Examples
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#categories-of-system-calls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Categories of System Calls
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-linux-system-calls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Linux System Calls
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system-call-flow-behind-the-scenes" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Call Flow (Behind the Scenes)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fork-system-call" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fork System Call
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fork System Call">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-fork" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is fork()?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-values-of-fork" class="md-nav__link">
+    <span class="md-ellipsis">
+      Return Values of fork()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiple-fork-calls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multiple fork() Calls
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fork-vs-thread-quick-mention" class="md-nav__link">
+    <span class="md-ellipsis">
+      fork vs Thread (Quick Mention)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#process-vs-thread" class="md-nav__link">
+    <span class="md-ellipsis">
+      Process vs Thread
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Process vs Thread">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#real-life-analogy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Real-life Analogy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-scenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Scenario
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-exam-points_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Exam Points
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#threads" class="md-nav__link">
+    <span class="md-ellipsis">
+      Threads
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#types-of-threads" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types of Threads
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Types of Threads">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#based-on-the-number-of-threads" class="md-nav__link">
+    <span class="md-ellipsis">
+      Based on the Number of Threads
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#based-on-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Based on Level
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Process
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schedulers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Schedulers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dispatchers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dispatchers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ind1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CPU Scheduling and Process Synchronization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="ind2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deadlock and Banker's Algorithm
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-an-operating-system-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is an Operating System (OS)?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What is an Operating System (OS)?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-do-we-need-an-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Do We Need an OS?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#primary-goals-of-an-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      Primary Goals of an OS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-life-os-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Real-Life OS Examples
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#functionalities-of-operating-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functionalities of Operating System
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functionalities of Operating System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resource-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Resource Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#process-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Process Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storage-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Storage Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security-privacy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security &amp; Privacy
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os-in-action-application-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      OS in Action: Application Layer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary Table
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tips-for-exam-interviews" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tips for Exam &amp; Interviews
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#batch-operating-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Batch Operating System
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Batch Operating System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-batch-operating-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Batch Operating System?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#historical-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      Historical Context
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#working-of-batch-os-step-by-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      Working of Batch OS – Step by Step
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#major-disadvantages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Major Disadvantages
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-characteristics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Characteristics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-real-life-analogy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example: Real-life Analogy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evolution-from-operators-to-monitors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Evolution: From Operators to Monitors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-os-vs-modern-os-quick-snapshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Batch OS vs Modern OS (Quick Snapshot)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exam-ready-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exam-Ready Summary
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multiprogramming-vs-multitasking" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multiprogramming vs Multitasking
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Multiprogramming vs Multitasking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#confusion-clarified" class="md-nav__link">
+    <span class="md-ellipsis">
+      Confusion Clarified
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiprogramming-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multiprogramming OS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multitasking-time-sharing-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multitasking (Time-Sharing) OS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiprogramming-vs-multitasking-quick-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multiprogramming vs Multitasking – Quick Comparison
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-are-they-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      Where Are They Used?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-exam-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Exam Points
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#types-of-operating-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types of Operating Systems
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Types of Operating Systems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#real-time-distributed-clustered-embedded" class="md-nav__link">
+    <span class="md-ellipsis">
+      Real-Time, Distributed, Clustered, Embedded
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Real-Time, Distributed, Clustered, Embedded">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#real-time-operating-system-rtos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Real-Time Operating System (RTOS)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distributed-operating-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Distributed Operating System
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clustered-operating-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clustered Operating System
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#embedded-operating-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Embedded Operating System
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cheat-sheet-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cheat-Sheet Table
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-call" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Call
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="System Call">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-system-call" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a System Call?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-system-calls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why System Calls?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mode-transition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mode Transition
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#real-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Real Examples
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#categories-of-system-calls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Categories of System Calls
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-linux-system-calls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Linux System Calls
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system-call-flow-behind-the-scenes" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Call Flow (Behind the Scenes)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fork-system-call" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fork System Call
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fork System Call">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-fork" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is fork()?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-values-of-fork" class="md-nav__link">
+    <span class="md-ellipsis">
+      Return Values of fork()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiple-fork-calls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multiple fork() Calls
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fork-vs-thread-quick-mention" class="md-nav__link">
+    <span class="md-ellipsis">
+      fork vs Thread (Quick Mention)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#process-vs-thread" class="md-nav__link">
+    <span class="md-ellipsis">
+      Process vs Thread
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Process vs Thread">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#real-life-analogy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Real-life Analogy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-scenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Scenario
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-exam-points_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Exam Points
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#threads" class="md-nav__link">
+    <span class="md-ellipsis">
+      Threads
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#types-of-threads" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types of Threads
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Types of Threads">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#based-on-the-number-of-threads" class="md-nav__link">
+    <span class="md-ellipsis">
+      Based on the Number of Threads
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#based-on-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Based on Level
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Process
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schedulers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Schedulers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dispatchers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dispatchers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/your-org/tech-startup-kb/edit/main/docs/os/index.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="operating-system-concepts">Operating System Concepts<a class="headerlink" href="#operating-system-concepts" title="Permanent link">&para;</a></h1>
+<p><strong>Author:</strong> Abhinav P Pradeep </p>
+<h2 id="what-is-an-operating-system-os">What is an Operating System (OS)?<a class="headerlink" href="#what-is-an-operating-system-os" title="Permanent link">&para;</a></h2>
+<p><strong>Definition</strong>:
+An Operating System is system software that acts as an interface between the user and the hardware.</p>
+<p><strong>Think of OS as</strong>:
+A translator helping humans (users) talk to machines (hardware).</p>
+<p><strong>Hardware Examples</strong>:
+In a computer:
+- CPU (Central Processing Unit) – The brain
+- Input Devices – Keyboard, Mouse, Scanner
+- Output Devices – Printer, Monitor
+- Main Memory – RAM
+- Secondary Storage – Hard Disk (HDD/SSD)</p>
+<p>You don’t interact with hardware directly. The OS handles this interaction on your behalf.</p>
+<h3 id="why-do-we-need-an-os">Why Do We Need an OS?<a class="headerlink" href="#why-do-we-need-an-os" title="Permanent link">&para;</a></h3>
+<p><strong>Without an OS</strong>:
+- You’d need to write separate programs to interact with each hardware device (printer, CPU, etc.).
+- No resource control: One user may lock a device forever.
+- Managing hardware manually is inefficient, insecure, and slow.</p>
+<p><strong>With an OS</strong>:
+- Simplifies tasks (e.g., printing with Ctrl+P)
+- Ensures resource sharing, security, and efficiency</p>
+<h3 id="primary-goals-of-an-os">Primary Goals of an OS<a class="headerlink" href="#primary-goals-of-an-os" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Goal</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Convenience</td>
+<td>Easy for users to access and manage hardware/software</td>
+</tr>
+<tr>
+<td>Efficiency (Throughput)</td>
+<td>Maximize number of tasks done per unit time</td>
+</tr>
+</tbody>
+</table>
+<h3 id="real-life-os-examples">Real-Life OS Examples<a class="headerlink" href="#real-life-os-examples" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>OS Name</th>
+<th>Known For</th>
+<th>Market Share (then)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows</td>
+<td>High convenience</td>
+<td>~95% earlier, ~82% now</td>
+</tr>
+<tr>
+<td>Linux</td>
+<td>High throughput</td>
+<td>Gaining popularity</td>
+</tr>
+<tr>
+<td>macOS</td>
+<td>Security &amp; UX</td>
+<td>Apple ecosystem</td>
+</tr>
+</tbody>
+</table>
+<h3 id="functionalities-of-operating-system">Functionalities of Operating System<a class="headerlink" href="#functionalities-of-operating-system" title="Permanent link">&para;</a></h3>
+<h4 id="resource-management">Resource Management<a class="headerlink" href="#resource-management" title="Permanent link">&para;</a></h4>
+<p>Manages all hardware resources (CPU, memory, I/O).
+- Especially important in multi-user environments (e.g., servers).
+- Example: Task Manager shows CPU &amp; RAM usage — managed by OS.</p>
+<h4 id="process-management">Process Management<a class="headerlink" href="#process-management" title="Permanent link">&para;</a></h4>
+<p>OS handles execution of multiple processes simultaneously.
+- Enables Multitasking / Multiprogramming.
+- Uses CPU Scheduling Algorithms (like FCFS, Round Robin, etc.).
+- Converts a program (.exe, .c) into a process for execution.</p>
+<h4 id="storage-management">Storage Management<a class="headerlink" href="#storage-management" title="Permanent link">&para;</a></h4>
+<p>Manages secondary storage (HDD/SSD).
+- Stores user files permanently.
+- Uses File Systems like:
+  - Windows: NTFS, FAT32
+  - Linux: EXT4, NFS, CIFS
+- Handles:
+  - File creation/deletion
+  - Disk space allocation</p>
+<h4 id="memory-management">Memory Management<a class="headerlink" href="#memory-management" title="Permanent link">&para;</a></h4>
+<p>Manages RAM (volatile memory).
+- RAM is limited.
+- OS decides:
+  - How much memory to give to a process
+  - When to take it back
+- Handles:
+  - Swapping
+  - Allocation &amp; Deallocation
+  - Segmentation &amp; Paging</p>
+<h4 id="security-privacy">Security &amp; Privacy<a class="headerlink" href="#security-privacy" title="Permanent link">&para;</a></h4>
+<p>OS ensures only authorized users and processes access resources.
+- Example: Login password — verified using Kerberos (in Windows).
+- Memory Protection:
+  - Each process is given its own segment in RAM
+  - If a process tries to access another’s memory → Blocked</p>
+<h3 id="os-in-action-application-layer">OS in Action: Application Layer<a class="headerlink" href="#os-in-action-application-layer" title="Permanent link">&para;</a></h3>
+<p><strong>How users interact with OS</strong>:
+- Via Applications: MS Word, Media Player, Browsers
+- Via Shell/Terminal:
+  - Windows: Command Prompt
+  - Linux: Terminal</p>
+<p>These apps give commands → OS executes them via System Calls.</p>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>System Call Invoked</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Open a file</td>
+<td>open()</td>
+</tr>
+<tr>
+<td>Print a document</td>
+<td>write()</td>
+</tr>
+<tr>
+<td>Read file content</td>
+<td>read()</td>
+</tr>
+</tbody>
+</table>
+<h3 id="summary-table">Summary Table<a class="headerlink" href="#summary-table" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Functionality</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Resource Management</td>
+<td>Allocates and deallocates CPU, memory, I/O, etc.</td>
+</tr>
+<tr>
+<td>Process Management</td>
+<td>Handles multiple running processes efficiently</td>
+</tr>
+<tr>
+<td>Storage Management</td>
+<td>Manages file storage on secondary devices</td>
+</tr>
+<tr>
+<td>Memory Management</td>
+<td>Allocates RAM, handles swapping, protects segments</td>
+</tr>
+<tr>
+<td>Security &amp; Protection</td>
+<td>Prevents unauthorized access &amp; ensures privacy</td>
+</tr>
+<tr>
+<td>User Interface</td>
+<td>GUI or CLI to interact with OS</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tips-for-exam-interviews">Tips for Exam &amp; Interviews<a class="headerlink" href="#tips-for-exam-interviews" title="Permanent link">&para;</a></h3>
+<ul>
+<li>OS acts as Manager, Mediator, and Protector</li>
+<li>Key terms: Multitasking, System Calls, Throughput, Swapping</li>
+<li>Examples like Ctrl+P, Command Prompt, Task Manager make answers relatable</li>
+</ul>
+<h2 id="batch-operating-system">Batch Operating System<a class="headerlink" href="#batch-operating-system" title="Permanent link">&para;</a></h2>
+<h3 id="what-is-a-batch-operating-system">What is a Batch Operating System?<a class="headerlink" href="#what-is-a-batch-operating-system" title="Permanent link">&para;</a></h3>
+<p>A Batch Operating System is one in which similar jobs are grouped together (in a batch) and executed sequentially without user interaction.</p>
+<p><strong>Key Idea</strong>:
+- Jobs are prepared offline → Grouped by an operator → Fed into the system as a batch</p>
+<h3 id="historical-context">Historical Context<a class="headerlink" href="#historical-context" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Era: 1960s</li>
+<li>Used by: Heavy computation organizations (e.g., NASA, ISRO)</li>
+<li>Input Mediums:</li>
+<li>Punch cards</li>
+<li>Paper tape / Magnetic tape</li>
+<li>User → Operator → Computer</li>
+<li>Users didn’t interact directly with the computer. They handed punch cards to operators.</li>
+</ul>
+<h3 id="working-of-batch-os-step-by-step">Working of Batch OS – Step by Step<a class="headerlink" href="#working-of-batch-os-step-by-step" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>User → Prepares job offline (punch card)
+      ↓
+Operator → Groups jobs into batches (B1, B2, ...)
+      ↓
+System → Feeds batch into CPU one by one
+      ↓
+CPU → Executes one job at a time sequentially
+</code></pre></div>
+<h3 id="major-disadvantages">Major Disadvantages<a class="headerlink" href="#major-disadvantages" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Why it Happened</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CPU Idle Time</td>
+<td>CPU waited during I/O — no parallel job handling</td>
+</tr>
+<tr>
+<td>Non-preemptive Execution</td>
+<td>Next job starts only after the current finishes</td>
+</tr>
+<tr>
+<td>User has no control or interaction</td>
+<td>Once submitted, user waits indefinitely</td>
+</tr>
+<tr>
+<td>Delayed Results</td>
+<td>Jobs may take days, weeks, or months to complete</td>
+</tr>
+<tr>
+<td>Heavy Dependence on Operators</td>
+<td>Job submission &amp; result collection had to go through them</td>
+</tr>
+</tbody>
+</table>
+<h3 id="key-characteristics">Key Characteristics<a class="headerlink" href="#key-characteristics" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Job Grouping</td>
+<td>Similar jobs grouped into batches</td>
+</tr>
+<tr>
+<td>Offline Job Submission</td>
+<td>No real-time input from users</td>
+</tr>
+<tr>
+<td>No Interactivity</td>
+<td>No command-line or GUI</td>
+</tr>
+<tr>
+<td>Sequential Execution</td>
+<td>Jobs executed one by one</td>
+</tr>
+<tr>
+<td>Operator Role</td>
+<td>Acts as a middleman between user &amp; CPU</td>
+</tr>
+</tbody>
+</table>
+<h3 id="example-real-life-analogy">Example: Real-life Analogy<a class="headerlink" href="#example-real-life-analogy" title="Permanent link">&para;</a></h3>
+<p>Like submitting multiple answer sheets to an examiner. Examiner checks one sheet completely before moving to next. You can't edit or talk once submitted.</p>
+<h3 id="evolution-from-operators-to-monitors">Evolution: From Operators to Monitors<a class="headerlink" href="#evolution-from-operators-to-monitors" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Initial systems used operators to load and manage jobs.</li>
+<li>Later, monitors were introduced to automate job execution.</li>
+<li>Allowed direct loading of jobs into the system.</li>
+<li>Notable early systems:</li>
+<li>IBM’s FORTRAN Monitor System (FMS)</li>
+<li>IBSYS on IBM 709X series</li>
+</ul>
+<h3 id="batch-os-vs-modern-os-quick-snapshot">Batch OS vs Modern OS (Quick Snapshot)<a class="headerlink" href="#batch-os-vs-modern-os-quick-snapshot" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Batch OS (1960s)</th>
+<th>Modern OS (Today)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>User Interaction</td>
+<td>No direct interaction</td>
+<td>CLI / GUI available</td>
+</tr>
+<tr>
+<td>Job Execution</td>
+<td>Sequential (non-preemptive)</td>
+<td>Concurrent / Multitasking</td>
+</tr>
+<tr>
+<td>CPU Utilization</td>
+<td>Low (Idle during I/O)</td>
+<td>High (Context switching, scheduling)</td>
+</tr>
+<tr>
+<td>Submission Mode</td>
+<td>Offline (punch cards)</td>
+<td>Real-time (Apps, shell, programs)</td>
+</tr>
+<tr>
+<td>Example Systems</td>
+<td>IBM FORTRAN Monitor, IBSYS</td>
+<td>Windows, Linux, macOS</td>
+</tr>
+</tbody>
+</table>
+<h3 id="exam-ready-summary">Exam-Ready Summary<a class="headerlink" href="#exam-ready-summary" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Point</th>
+<th>Detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Full Form</td>
+<td>Batch Operating System</td>
+</tr>
+<tr>
+<td>Job Submission Method</td>
+<td>Offline (Punch Cards, Tapes)</td>
+</tr>
+<tr>
+<td>Execution Style</td>
+<td>Sequential, Non-interactive</td>
+</tr>
+<tr>
+<td>Major Disadvantage</td>
+<td>CPU Idle Time during I/O</td>
+</tr>
+<tr>
+<td>Historical Systems</td>
+<td>FORTRAN Monitor System, IBM IBSYS</td>
+</tr>
+<tr>
+<td>Usage Time</td>
+<td>1960s</td>
+</tr>
+<tr>
+<td>Interaction</td>
+<td>Through Operators (no user interaction with CPU)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="multiprogramming-vs-multitasking">Multiprogramming vs Multitasking<a class="headerlink" href="#multiprogramming-vs-multitasking" title="Permanent link">&para;</a></h2>
+<h3 id="confusion-clarified">Confusion Clarified<a class="headerlink" href="#confusion-clarified" title="Permanent link">&para;</a></h3>
+<p>Many students confuse:</p>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Reality</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Multiprogramming</td>
+<td>Older concept (non-preemptive)</td>
+</tr>
+<tr>
+<td>Multitasking / Time-Sharing</td>
+<td>Modern OS behavior (preemptive)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="multiprogramming-os">Multiprogramming OS<a class="headerlink" href="#multiprogramming-os" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>: Multiple programs are kept in RAM, and the CPU executes one at a time (till I/O or end).</p>
+<ul>
+<li>Non-preemptive execution.</li>
+</ul>
+<p><strong>Analogy</strong>:
+- 10 students have 5 questions each.
+- CPU (Teacher) goes to Student 1 → Solves all 5 questions → Then to Student 2 → All 5 → Then Student 3 → All 5 … and so on.
+- If Student 1 asks for calculator (I/O), teacher pauses &amp; helps Student 2 next.</p>
+<p><strong>How It Works</strong>:
+- Multiple processes in RAM
+- Only 1 process gets CPU at a time
+- If process requests I/O, CPU switches to another</p>
+<p><strong>Goals</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Focus Area</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Maximize CPU Utilization</td>
+<td>Avoid CPU idle when I/O happens</td>
+</tr>
+<tr>
+<td>Simple Scheduling</td>
+<td>No forceful switching – only if needed</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Limitations</strong>:
+- Slow response time for later processes
+- No real-time interactivity
+- Users must wait long for response</p>
+<h3 id="multitasking-time-sharing-os">Multitasking (Time-Sharing) OS<a class="headerlink" href="#multitasking-time-sharing-os" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>: OS gives each process a time slice of CPU (time quantum), and preempts to next if time is up.</p>
+<ul>
+<li>Preemptive scheduling</li>
+</ul>
+<p><strong>Analogy</strong>:
+- Same 10 students.
+- CPU decides: I’ll solve only 2 questions per student at a time → Goes to Student 1 → Q1, Q2 → Then Student 2 → Q1, Q2 → ... → Student 10 → Q1, Q2 → Then comes back again for Q3, Q4…
+- Everyone gets attention early</p>
+<p><strong>How It Works</strong>:
+- CPU switches rapidly between processes
+- Uses scheduling algorithms (e.g., Round Robin)
+- Gives illusion of parallel execution</p>
+<p><strong>Goals</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Focus Area</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Responsiveness</td>
+<td>Reduce waiting time for users</td>
+</tr>
+<tr>
+<td>Fairness</td>
+<td>Every process gets chance to execute</td>
+</tr>
+<tr>
+<td>Low Latency</td>
+<td>Quick response to user interactions</td>
+</tr>
+</tbody>
+</table>
+<h3 id="multiprogramming-vs-multitasking-quick-comparison">Multiprogramming vs Multitasking – Quick Comparison<a class="headerlink" href="#multiprogramming-vs-multitasking-quick-comparison" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Multiprogramming</th>
+<th>Multitasking / Time-Sharing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Execution Type</td>
+<td>Non-preemptive</td>
+<td>Preemptive</td>
+</tr>
+<tr>
+<td>CPU Allocation</td>
+<td>Until completion or I/O request</td>
+<td>For fixed time quantum</td>
+</tr>
+<tr>
+<td>Main Goal</td>
+<td>Maximize CPU usage</td>
+<td>Minimize response time</td>
+</tr>
+<tr>
+<td>Responsiveness</td>
+<td>Low</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Example Analogy</td>
+<td>1 student full work → then next</td>
+<td>All students get partial attention</td>
+</tr>
+<tr>
+<td>Real-World Use Today</td>
+<td>Rare (historical)</td>
+<td>Common (used in laptops/phones)</td>
+</tr>
+<tr>
+<td>Scheduling Algorithms</td>
+<td>Simple / Static</td>
+<td>Round Robin, Priority Scheduling</td>
+</tr>
+<tr>
+<td>CPU Idle</td>
+<td>Reduced but still possible</td>
+<td>Almost none</td>
+</tr>
+</tbody>
+</table>
+<h3 id="where-are-they-used">Where Are They Used?<a class="headerlink" href="#where-are-they-used" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>OS Type</th>
+<th>Real Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Multiprogramming</td>
+<td>Historical mainframes (e.g. IBM 7094)</td>
+</tr>
+<tr>
+<td>Multitasking</td>
+<td>Windows, macOS, Linux, Android, iOS</td>
+</tr>
+</tbody>
+</table>
+<h3 id="key-exam-points">Key Exam Points<a class="headerlink" href="#key-exam-points" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Remember</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fork creates new process</td>
+<td>Uses system call, returns child with PID = 0</td>
+</tr>
+<tr>
+<td>Threads share memory</td>
+<td>Fast, efficient, but blocking is dangerous</td>
+</tr>
+<tr>
+<td>Context switch speed</td>
+<td>Thread &gt; Process</td>
+</tr>
+<tr>
+<td>Independence</td>
+<td>Process = independent, Thread = interdependent</td>
+</tr>
+<tr>
+<td>Blocking</td>
+<td>Blocking one process does NOT block others</td>
+</tr>
+<tr>
+<td></td>
+<td>Blocking one thread blocks the entire process</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Final Verdict</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Use Process When...</th>
+<th>Use Thread When...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>You need isolation or security</td>
+<td>You need speed and shared memory</td>
+</tr>
+<tr>
+<td>You expect crash resilience</td>
+<td>You expect high parallelism and low overhead</td>
+</tr>
+</tbody>
+</table>
+<h2 id="types-of-operating-systems">Types of Operating Systems<a class="headerlink" href="#types-of-operating-systems" title="Permanent link">&para;</a></h2>
+<h3 id="real-time-distributed-clustered-embedded">Real-Time, Distributed, Clustered, Embedded<a class="headerlink" href="#real-time-distributed-clustered-embedded" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>OS Type</th>
+<th>Core Idea</th>
+<th>Typical Place</th>
+<th>Must-Remember Keywords</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Real-Time (RTOS)</td>
+<td>Meet deadlines every time</td>
+<td>Missile control, Pacemakers, Live stock trading</td>
+<td>Deadline, Deterministic, Hard vs Soft</td>
+</tr>
+<tr>
+<td>Distributed</td>
+<td>Many geographically-spread computers cooperate via a network</td>
+<td>Google search, Netflix CDN, Blockchain</td>
+<td>Loose coupling, Location transparency, Fault tolerance</td>
+</tr>
+<tr>
+<td>Clustered</td>
+<td>Several machines on one local network act as a single powerful server</td>
+<td>Supercomputers, High-performance DB clusters</td>
+<td>Tightly coupled, Load balancing, High availability</td>
+</tr>
+<tr>
+<td>Embedded</td>
+<td>OS baked into a device with one dedicated job</td>
+<td>Washing machine, Router, Car ECU</td>
+<td>Resource-constrained, Firmware, Fixed function</td>
+</tr>
+</tbody>
+</table>
+<h4 id="real-time-operating-system-rtos">Real-Time Operating System (RTOS)<a class="headerlink" href="#real-time-operating-system-rtos" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Hard RTOS</th>
+<th>Soft RTOS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Deadline</td>
+<td>Must never slip</td>
+<td>Occasional slip acceptable</td>
+</tr>
+<tr>
+<td>Example</td>
+<td>Air-bag controller, Missile guidance</td>
+<td>Online gaming, Live video stream</td>
+</tr>
+<tr>
+<td>Scheduling</td>
+<td>Rate-Monotonic, EDF</td>
+<td>Hybrid priority + time slicing</td>
+</tr>
+<tr>
+<td>Failure Impact</td>
+<td>Catastrophic</td>
+<td>Degraded QoS</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key Line</strong>: “Correct result at the correct time, not just the correct result.”</p>
+<h4 id="distributed-operating-system">Distributed Operating System<a class="headerlink" href="#distributed-operating-system" title="Permanent link">&para;</a></h4>
+<ul>
+<li>“One system, many sites.”</li>
+<li>Computers are loosely coupled but behave (to the user) like one virtual machine.</li>
+<li><strong>Why Use It?</strong>:</li>
+<li>Scalability: Add servers as demand grows.</li>
+<li>Fault tolerance: If node A dies, node B steps in.</li>
+<li>Data locality: Serve users from the nearest region (CDN).</li>
+<li><strong>Hallmarks</strong>:</li>
+<li>Network OS layer handles message passing &amp; transparency.</li>
+<li>Uses concepts like distributed file systems (DFS) &amp; consensus (Raft, Paxos).</li>
+</ul>
+<h4 id="clustered-operating-system">Clustered Operating System<a class="headerlink" href="#clustered-operating-system" title="Permanent link">&para;</a></h4>
+<ul>
+<li>“Many PCs, one rack, one purpose.”</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Distributed</th>
+<th>Clustered</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Distance</td>
+<td>Often world-wide</td>
+<td>Same room / rack</td>
+</tr>
+<tr>
+<td>Coupling</td>
+<td>Loose</td>
+<td>Tighter (shared storage / heartbeat)</td>
+</tr>
+<tr>
+<td>Goal</td>
+<td>Availability + geo-scaling</td>
+<td>Raw performance, fail-over</td>
+</tr>
+<tr>
+<td>Example</td>
+<td>Google global infra</td>
+<td>64-node HPC cluster, Hadoop rack</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Building Blocks</strong>:
+- Node OS + Cluster middleware (e.g., Kubernetes, Hadoop YARN, Windows Failover Cluster).
+- Heartbeat monitors node health; load balancer spreads work.</p>
+<h4 id="embedded-operating-system">Embedded Operating System<a class="headerlink" href="#embedded-operating-system" title="Permanent link">&para;</a></h4>
+<ul>
+<li>“Software inside stuff.”</li>
+<li>Signature traits:</li>
+<li>ROM / Flash storage, tiny RAM (KB–MB).</li>
+<li>No user install/uninstall; firmware updated only by vendor.</li>
+<li>Real-time flavoured if timing is critical (e.g., ABS brakes).</li>
+<li>Micro-kernels &amp; RTOS variants:</li>
+<li>FreeRTOS, VxWorks, Zephyr, Embedded Linux (BusyBox)</li>
+</ul>
+<h3 id="cheat-sheet-table">Cheat-Sheet Table<a class="headerlink" href="#cheat-sheet-table" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Feature ➡</th>
+<th>Real-Time</th>
+<th>Distributed</th>
+<th>Clustered</th>
+<th>Embedded</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Primary Goal</td>
+<td>Timeliness</td>
+<td>Geo-scalable services</td>
+<td>High throughput &amp; HA</td>
+<td>Dedicated device control</td>
+</tr>
+<tr>
+<td>Coupling</td>
+<td>–</td>
+<td>Loose</td>
+<td>Tight</td>
+<td>–</td>
+</tr>
+<tr>
+<td>Failure Handling</td>
+<td>Hard → system halt</td>
+<td>Shift work to peers</td>
+<td>Fail-over node</td>
+<td>Often watchdog reset</td>
+</tr>
+<tr>
+<td>User Interaction</td>
+<td>Often none</td>
+<td>Via network</td>
+<td>Via network / API</td>
+<td>None or minimal UI</td>
+</tr>
+<tr>
+<td>Key Metric</td>
+<td>Deadline meet %</td>
+<td>Availability</td>
+<td>Speed + uptime</td>
+<td>Power + cost</td>
+</tr>
+</tbody>
+</table>
+<h2 id="system-call">System Call<a class="headerlink" href="#system-call" title="Permanent link">&para;</a></h2>
+<h3 id="what-is-a-system-call">What is a System Call?<a class="headerlink" href="#what-is-a-system-call" title="Permanent link">&para;</a></h3>
+<p>A System Call is a programmatic interface that allows a user-level program to request services from the Operating System’s kernel, typically for resource access or privileged operations.</p>
+<h3 id="why-system-calls">Why System Calls?<a class="headerlink" href="#why-system-calls" title="Permanent link">&para;</a></h3>
+<ul>
+<li>User programs run in User Mode (no direct hardware access).</li>
+<li>OS Kernel runs in Kernel Mode and controls hardware, memory, files, I/O.</li>
+<li>To perform tasks like file operations, memory access, process control, or hardware use, user mode must switch to kernel mode using a System Call.</li>
+</ul>
+<p><strong>Example</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">);</span>
+</code></pre></div>
+<ul>
+<li>printf() is a library function, not a system call.</li>
+<li>Internally, it uses a write() system call to print on monitor (device).</li>
+</ul>
+<h3 id="mode-transition">Mode Transition<a class="headerlink" href="#mode-transition" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Mode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Execute user code (e.g., 2+2)</td>
+<td>User Mode</td>
+</tr>
+<tr>
+<td>Access file, I/O, hardware</td>
+<td>Kernel Mode via System Call</td>
+</tr>
+</tbody>
+</table>
+<p>System Call acts as a bridge between user-level program and kernel.</p>
+<h3 id="real-examples">Real Examples<a class="headerlink" href="#real-examples" title="Permanent link">&para;</a></h3>
+<ul>
+<li>C / Linux: You can directly use open(), read(), write() system calls.</li>
+<li>Windows: 600–700 system calls available (e.g., via WinAPI).</li>
+</ul>
+<h3 id="categories-of-system-calls">Categories of System Calls<a class="headerlink" href="#categories-of-system-calls" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Description</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>File Manipulation</td>
+<td>Create, read, write, delete, open or close files.</td>
+<td>open(), read(), write(), close(), unlink()</td>
+</tr>
+<tr>
+<td>Device Manipulation</td>
+<td>Interact with I/O devices.</td>
+<td>ioctl(), read(), write(), lseek()</td>
+</tr>
+<tr>
+<td>Process Control</td>
+<td>Create/terminate processes, manage execution.</td>
+<td>fork(), exec(), exit(), wait(), kill()</td>
+</tr>
+<tr>
+<td>Information Maintenance</td>
+<td>Get system or process information.</td>
+<td>getpid(), getppid(), uname(), time()</td>
+</tr>
+<tr>
+<td>Communication</td>
+<td>Inter-Process Communication (IPC).</td>
+<td>pipe(), shmget(), msgsnd(), connect()</td>
+</tr>
+<tr>
+<td>Protection &amp; Security</td>
+<td>Set permissions, access control.</td>
+<td>chmod(), umask(), setuid()</td>
+</tr>
+</tbody>
+</table>
+<h3 id="common-linux-system-calls">Common Linux System Calls<a class="headerlink" href="#common-linux-system-calls" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>System Call</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Print to screen</td>
+<td>write()</td>
+</tr>
+<tr>
+<td>Read keyboard input</td>
+<td>read()</td>
+</tr>
+<tr>
+<td>Open file</td>
+<td>open()</td>
+</tr>
+<tr>
+<td>Create new process</td>
+<td>fork()</td>
+</tr>
+<tr>
+<td>Replace process image</td>
+<td>exec()</td>
+</tr>
+<tr>
+<td>Wait for child</td>
+<td>wait()</td>
+</tr>
+<tr>
+<td>Get process ID</td>
+<td>getpid()</td>
+</tr>
+<tr>
+<td>Change permissions</td>
+<td>chmod()</td>
+</tr>
+<tr>
+<td>Set alarms/timers</td>
+<td>alarm(), sleep()</td>
+</tr>
+</tbody>
+</table>
+<h3 id="system-call-flow-behind-the-scenes">System Call Flow (Behind the Scenes)<a class="headerlink" href="#system-call-flow-behind-the-scenes" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>User Code (e.g., printf) 
+   ↓
+Library Function (e.g., stdio.h)
+   ↓
+System Call (e.g., write)
+   ↓
+Kernel Mode — Performs device-level operation
+</code></pre></div>
+<p><strong>Real-Life Analogy</strong>:
+- System Call is like ringing a bell at the manager’s office (kernel) to approve special requests (e.g., print, read file). You (user) can't do it directly.</p>
+<h2 id="fork-system-call">Fork System Call<a class="headerlink" href="#fork-system-call" title="Permanent link">&para;</a></h2>
+<h3 id="what-is-fork">What is fork()?<a class="headerlink" href="#what-is-fork" title="Permanent link">&para;</a></h3>
+<p>fork() is a system call used in UNIX/Linux OS to create a new process.
+- The new process is called the child process.
+- The process that calls fork() is the parent process.</p>
+<p><strong>Child is a clone of the parent</strong>:
+- It has its own Process ID (PID).
+- It gets a copy of the parent’s code, stack, heap, and data segment.
+- But both parent and child run independently and concurrently.</p>
+<p><strong>Syntax (C)</strong>:
+<div class="highlight"><pre><span></span><code><span class="kt">pid_t</span><span class="w"> </span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fork</span><span class="p">();</span>
+</code></pre></div></p>
+<h3 id="return-values-of-fork">Return Values of fork()<a class="headerlink" href="#return-values-of-fork" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Return Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Returned in the child process</td>
+</tr>
+<tr>
+<td>&gt; 0</td>
+<td>Positive value (PID of child) returned in the parent process</td>
+</tr>
+<tr>
+<td>-1</td>
+<td>Error in creating child (rare, ignore for theory-based questions)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key Concept</strong>:
+- After a single fork(), two processes start running: one parent and one child.</p>
+<p><strong>Example</strong>:
+<div class="highlight"><pre><span></span><code><span class="n">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">fork</span><span class="p">();</span>
+<span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Hello</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p><strong>Output</strong>:
+<div class="highlight"><pre><span></span><code>Hello
+Hello
+</code></pre></div></p>
+<p>Because both parent and child execute printf().</p>
+<h3 id="multiple-fork-calls">Multiple fork() Calls<a class="headerlink" href="#multiple-fork-calls" title="Permanent link">&para;</a></h3>
+<p><strong>Number of total processes created</strong>:
+- If there are n fork() calls:
+  - Total number of processes = 2^n
+  - Number of child processes = 2^n - 1</p>
+<p><strong>Example: 2 forks</strong>:
+<div class="highlight"><pre><span></span><code><span class="n">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">fork</span><span class="p">();</span><span class="w"> </span><span class="c1">// 1st fork</span>
+<span class="w">  </span><span class="n">fork</span><span class="p">();</span><span class="w"> </span><span class="c1">// 2nd fork</span>
+<span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Hello</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<ul>
+<li>Total processes = 2^2 = 4</li>
+<li>Total child processes = 2^2 - 1 = 3</li>
+<li>Output: Hello printed 4 times</li>
+</ul>
+<p><strong>Process Tree</strong>:</p>
+<div class="highlight"><pre><span></span><code>Parent
+├── Child1
+│   └── Child3
+└── Child2
+</code></pre></div>
+<p><strong>Example: 3 forks</strong>:
+<div class="highlight"><pre><span></span><code><span class="n">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">fork</span><span class="p">();</span>
+<span class="w">  </span><span class="n">fork</span><span class="p">();</span>
+<span class="w">  </span><span class="n">fork</span><span class="p">();</span>
+<span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Hello</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<ul>
+<li>Total processes = 2^3 = 8</li>
+<li>Child processes = 2^3 - 1 = 7</li>
+<li>Output: Hello printed 8 times</li>
+</ul>
+<p><strong>Formula</strong>:
+- Total "Hello"s = 2^n
+- Total Child Processes = 2^n - 1</p>
+<p><strong>Notes</strong>:
+- fork() copies the process context, but both child and parent continue from the same point after the fork() call.
+- Execution order is not deterministic (depends on scheduler).
+- In questions, always assume ideal case — fork always succeeds (ignore -1).</p>
+<h3 id="fork-vs-thread-quick-mention">fork vs Thread (Quick Mention)<a class="headerlink" href="#fork-vs-thread-quick-mention" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>fork()</th>
+<th>Thread</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Process ID</td>
+<td>New</td>
+<td>Shared</td>
+</tr>
+<tr>
+<td>Memory</td>
+<td>Separate</td>
+<td>Shared</td>
+</tr>
+<tr>
+<td>Overhead</td>
+<td>High</td>
+<td>Low</td>
+</tr>
+<tr>
+<td>Use</td>
+<td>Full new process</td>
+<td>Lightweight parallel task</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example Use Case</strong>:
+- Running different applications — e.g. browser, text editor (Process)
+- Performing parallel tasks in same application — e.g. multiple tabs in a browser (Thread)</p>
+<h2 id="process-vs-thread">Process vs Thread<a class="headerlink" href="#process-vs-thread" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Process</th>
+<th>Thread</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Definition</td>
+<td>Independent program in execution, heavyweight</td>
+<td>Lightweight unit of a process, part of a process</td>
+</tr>
+<tr>
+<td>Creation</td>
+<td>Via system call like fork() (Kernel-mode involvement)</td>
+<td>Created by application/program (User-mode, fast)</td>
+</tr>
+<tr>
+<td>Overhead</td>
+<td>High — complete duplicate of code, data, stack, registers</td>
+<td>Low — threads share code and data, but each has own stack and registers</td>
+</tr>
+<tr>
+<td>System Call</td>
+<td>Yes (e.g. fork(), requires kernel access)</td>
+<td>Not needed for user-level threads</td>
+</tr>
+<tr>
+<td>Managed By</td>
+<td>Operating System</td>
+<td>Application/User-level thread library (unless kernel-level threads)</td>
+</tr>
+<tr>
+<td>Memory</td>
+<td>Each process has separate memory space</td>
+<td>Threads of a process share memory space</td>
+</tr>
+<tr>
+<td>Context Switching</td>
+<td>Slower — requires saving full PCB, flushing caches</td>
+<td>Faster — fewer values to save/restore (registers, stack pointer)</td>
+</tr>
+<tr>
+<td>Communication (IPC)</td>
+<td>Needs Inter Process Communication (e.g. pipes, sockets)</td>
+<td>Easier communication via shared memory</td>
+</tr>
+<tr>
+<td>Independence</td>
+<td>Processes are independent — blocking one doesn't block others</td>
+<td>Threads are interdependent — blocking one blocks all in that process</td>
+</tr>
+<tr>
+<td>Blocking</td>
+<td>Blocking one process does NOT block others</td>
+<td>Blocking one thread blocks the entire process</td>
+</tr>
+<tr>
+<td>Example Use Case</td>
+<td>Running different applications — e.g. browser, text editor</td>
+<td>Performing parallel tasks in same application — e.g. multiple tabs in a browser</td>
+</tr>
+<tr>
+<td>Identification</td>
+<td>Each process has its own PID (Process ID)</td>
+<td>All threads share same PID, but have Thread IDs (TID)</td>
+</tr>
+<tr>
+<td>Resource Sharing</td>
+<td>No (separate memory, stack, etc.)</td>
+<td>Yes (code, data, files shared)</td>
+</tr>
+<tr>
+<td>Typical Usage</td>
+<td>Used when tasks are independent and need resource isolation</td>
+<td>Used when tasks are similar or related, e.g. multi-client server threads</td>
+</tr>
+</tbody>
+</table>
+<h3 id="real-life-analogy">Real-life Analogy<a class="headerlink" href="#real-life-analogy" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Process = Human clone → Complete separate body, brain, identity</li>
+<li>Thread = Extra arm of same person → Same brain, same body, just extra workers</li>
+</ul>
+<h3 id="example-scenario">Example Scenario<a class="headerlink" href="#example-scenario" title="Permanent link">&para;</a></h3>
+<p><strong>Print Server</strong>:
+- Using processes → Each request spawns a full child process = slow and memory intensive.
+- Using threads → One server process spawns lightweight threads for each print request = efficient, fast.</p>
+<h3 id="key-exam-points_1">Key Exam Points<a class="headerlink" href="#key-exam-points_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Remember</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fork creates new process</td>
+<td>Uses system call, returns child with PID = 0</td>
+</tr>
+<tr>
+<td>Threads share memory</td>
+<td>Fast, efficient, but blocking is dangerous</td>
+</tr>
+<tr>
+<td>Context switch speed</td>
+<td>Thread &gt; Process</td>
+</tr>
+<tr>
+<td>Independence</td>
+<td>Process = independent, Thread = interdependent</td>
+</tr>
+<tr>
+<td>Blocking</td>
+<td>Blocking one process does NOT block others</td>
+</tr>
+<tr>
+<td></td>
+<td>Blocking one thread blocks the entire process</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Final Verdict</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Use Process When...</th>
+<th>Use Thread When...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>You need isolation or security</td>
+<td>You need speed and shared memory</td>
+</tr>
+<tr>
+<td>You expect crash resilience</td>
+<td>You expect high parallelism and low overhead</td>
+</tr>
+</tbody>
+</table>
+<h3 id="threads">Threads<a class="headerlink" href="#threads" title="Permanent link">&para;</a></h3>
+<p>A thread is a lightweight process and forms the basic unit of CPU utilization. A process can perform more than one task at the same time by including multiple threads.
+- A thread has its own program counter, register set, and stack
+- A thread shares resources with other threads of the same process the code section, the data section, files and signals.</p>
+<p>A new thread, or a child process of a given process, can be introduced by using the fork() system call.
+A process with n fork() system calls generates 2^n - 1 child processes.</p>
+<p>There are two types of threads:
+- User threads
+- Kernel threads</p>
+<p><strong>Example</strong>: Java thread, POSIX threads. <strong>Example</strong>: Window Solaris.</p>
+<h3 id="types-of-threads">Types of Threads<a class="headerlink" href="#types-of-threads" title="Permanent link">&para;</a></h3>
+<h4 id="based-on-the-number-of-threads">Based on the Number of Threads<a class="headerlink" href="#based-on-the-number-of-threads" title="Permanent link">&para;</a></h4>
+<p>There are two types of threads:
+(i) Single thread process
+(ii) Multi thread process</p>
+<h4 id="based-on-level">Based on Level<a class="headerlink" href="#based-on-level" title="Permanent link">&para;</a></h4>
+<p>There are two types of threads:
+(i) User-level threads
+(ii) Kernel-level threads</p>
+<h3 id="process">Process<a class="headerlink" href="#process" title="Permanent link">&para;</a></h3>
+<p>A process is a program under execution. The value of program counter (PC) indicates the address of the next instruction of the process being executed. Each process is represented by a Process Control Block (PCB).</p>
+<p><strong>Process States Diagram</strong>:</p>
+<p>[Diagram: New → Ready → Running → Waiting → Terminated, with transitions]</p>
+<h3 id="schedulers">Schedulers<a class="headerlink" href="#schedulers" title="Permanent link">&para;</a></h3>
+<p>The operating system deploys three kinds of schedulers:
+- <strong>Long-term scheduler</strong>: It is responsible for the creation and bringing of new processes into the main memory (New → Ready state transition).
+- <strong>Medium-term scheduler</strong>: The medium-term scheduler selects a process from the ready state to be executed (Ready → Run state transition).
+- <strong>Short-term scheduler</strong>: The short-term scheduler selects a process from the ready state to be executed (Ready → Run state transition).</p>
+<h3 id="dispatchers">Dispatchers<a class="headerlink" href="#dispatchers" title="Permanent link">&para;</a></h3>
+<p>The dispatcher is responsible for loading the job (selected by the short-term scheduler) onto the CPU. It performs context switching. Context switching refers to saving the context of the process which was being executed by the CPU and loading the context of the new process that is being scheduled to be executed by the CPU.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+  <div class="md-footer__inner">
+    <div class="md-footer__highlight">
+      Built with <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">Material for MkDocs</a> — © Abhinav P Pradeep
+    </div>
+  </div>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.top", "navigation.tabs", "navigation.instant", "navigation.tracking", "navigation.expand", "content.code.copy", "content.action.edit", "toc.follow", "search.suggest", "search.highlight", "header.autohide", "content.tabs.link"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,18 @@
+
+/* Subtle brand vibe + better readability */
+:root {
+  --md-primary-fg-color: #4F46E5;
+  --md-accent-fg-color: #14B8A6;
+}
+.md-header__topic:first-child {
+  font-weight: 700;
+}
+/* Make tags pill-like */
+.md-tag {
+  border-radius: 9999px;
+  padding: 0.15rem 0.5rem;
+}
+/* Wider content for notes */
+.md-content {
+  max-width: 70rem;
+}
