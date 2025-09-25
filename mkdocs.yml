@@ -57,6 +57,12 @@ markdown_extensions:
 extra_css:
   - assets/styles/extra.css
 
+extra:
+  analytics:
+    provider: google
+    property: G-WZ2RNVZN0G
+
+
 nav:
   - Home: index.md
   - OOPS:
