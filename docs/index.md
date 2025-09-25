@@ -6,6 +6,7 @@ title: The Software Way
 
 Welcome to **The Software Way**,  way for mastering software engineering concepts, coding practice, and technical resources.  
 
+maintenance scheduled on 12:00AM to 8AM 26 sept
 ---
 
 ## 📚 Quick Access  
