@@ -1,8 +1,24 @@
 {% extends "base.html" %}
+
+{# --- Google Analytics injection --- #}
+{% block extrahead %}
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WZ2RNVZN0G"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WZ2RNVZN0G');
+</script>
+{% endblock %}
+
+{# --- Custom footer override --- #}
 {% block footer %}
   <div class="md-footer__inner">
     <div class="md-footer__highlight">
-      Built with <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">Material for MkDocs</a> — © {{ config.site_author }}
+      Built with <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+        Material for MkDocs
+      </a> — © {{ config.site_author }}
     </div>
   </div>
 {% endblock %}
